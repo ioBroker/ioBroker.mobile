@@ -1,0 +1,534 @@
+body {
+    background-color: #0092d9;
+}
+
+/* Floats einschliessen! */
+li.yahui-widget {
+    overflow: hidden;
+}
+
+.yahui-datapoints {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.yahui-lowbat {
+    width: 16px;
+    padding-left: 3px;
+    vertical-align: bottom;
+}
+
+.yahui-since {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.yahui-direction, .yahui-lowbat {
+    display: inline-block;
+    vertical-align: 18px;
+    margin-left: 12px;
+}
+
+/* Eingabefeld neben Slider ausblenden */
+input.ui-slider-input {
+    display : none !important;
+}
+
+/* Slider wegen ausgeblendetem Eingabefeld nach links rutschen */
+.ui-slider-track {
+    margin-left: 16px;
+}
+
+.yahui-page-left {
+    display: none;
+}
+
+/* a, b und c mit voller breite und untereinander */
+.yahui-page .ui-li-has-thumb {
+    padding-left:10px !important;
+    padding-right:35px !important;
+}
+
+.yahui-page .ui-li-has-thumb img.ui-li-thumb {
+    display:none;
+}
+
+.yahui-a {
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    min-height: 36px;
+
+}
+
+.yahui-b {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
+.yahui-c {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
+.yahui-bc {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
+.rightcolumn {
+    margin-left: 0px;
+}
+
+.yahui-page-left {
+    display: none;
+}
+
+.leftcolumn_collapsed {
+    display: none;
+    /*
+    transform:          rotate(90deg);
+    -ms-transform:      rotate(90deg);
+    -webkit-transform:  rotate(90deg);
+     */
+}
+
+.service-message {
+    position:relative;
+    float: right;
+    color: #fff;
+    border-radius: 19px;
+    width: 19px;
+    height: 18px;
+    padding-top:1px;
+    font-size: 0.9em;
+    font-weight: normal;
+    background-color: red;
+    text-shadow: none !important;
+}
+
+.yahui-page-left .service-message {
+    float: left;
+    border-radius: 16px;
+    width: 18px;
+    height: 18px;
+    margin-left: -24px;
+    z-index: 9999;
+    margin-top: 4px;
+}
+
+.service-message-count {
+    padding-left: 5px;
+}
+
+.service-message {
+    margin-right: 40px;
+}
+
+.ui-li-thumb {
+    display: none;
+}
+
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+    padding-left: 10px !important;
+}
+
+/* erster breakpoint bei 400px*/
+@media all and (min-width: 400px){
+
+    .ui-li-thumb {
+        display: block;
+    }
+
+    .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+        padding-left: 80px !important;
+    }
+}
+
+/* zweiter breakpoint bei 768px (iPad hochformat). 3 spaltiges layout.  */
+@media all and (min-width: 768px){
+
+    .service-message {
+        position: absolute;
+        margin-left: 211px;
+    }
+
+    .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+        padding-left: 0px !important;
+    }
+
+    .yahui-page-left {
+        display: block;
+    }
+
+    .yahui-page-left .ui-li-has-thumb {
+        padding-left:80px !important;
+        padding-right:15px !important;
+    }
+
+    .yahui-page-left .ui-li-thumb {
+        margin-left:-80px !important;
+        display: block;
+    }
+
+    .yahui-page .ui-li-has-thumb {
+        padding-left:80px !important;
+        padding-right:15px !important;
+    }
+
+    .yahui-page .ui-li-has-thumb img.ui-li-thumb {
+        display:inline;
+    }
+
+    .yahui-page .ui-li-has-thumb {
+        padding-left:80px !important;
+        padding-right:25px !important;
+    }
+
+    /* a und b nebeneinander, c mit voller breite drunter */
+    .yahui-a {
+        width: 40%;
+    }
+
+    .yahui-b {
+        width: 60%;
+    }
+
+    .yahui-c {
+        width: 100%;
+    }
+
+    .yahui-bc {
+        width: 60%;
+    }
+
+    .responsive-grid .ui-content {
+        padding: 9px;
+    }
+
+    .responsive-grid .ui-listview .ui-li.ui-btn {
+        float: left;
+        width: 30.9333%; /* 33.3333% incl. 2 x 1.2% margin */
+        height: 232px;
+        margin: 9px 1.2%;
+        border-width: 0; /* The 1px border would break the layout so we set it on .ui-btn-inner instead. */
+    }
+
+    /* If you don't want a border at all, just set "border: none;" here to negate the semi white top border */
+    .responsive-grid .ui-listview .ui-li.ui-btn-inner {
+        border: inherit;
+        border-width: 1px;
+        margin: -1px;
+    }
+
+    .responsive-grid .ui-listview .ui-btn-inner,
+    .responsive-grid .ui-listview .ui-btn-text,
+    .responsive-grid .ui-listview .ui-link-inherit,
+    .responsive-grid .ui-listview .ui-li-thumb {
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: hidden;
+    }
+
+    .responsive-grid .ui-listview .ui-link-inherit {
+        padding: 0 !important;
+        position: relative;
+    }
+
+    /* Inherit the border-radius from the UL that has class .ui-corner-all in case of an inset listview. */
+    .responsive-grid .ui-listview .ui-li,
+    .responsive-grid .ui-listview .ui-btn-text,
+    .responsive-grid .ui-listview .ui-link-inherit,
+    .responsive-grid .ui-listview .ui-li-thumb {
+        -webkit-border-radius: inherit;
+        border-radius: inherit;
+    }
+
+    .responsive-grid .ui-listview .ui-li-thumb {
+        height: auto; /* To keep aspect ratio. */
+        max-width: 100%;
+        max-height: none;
+        margin: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    /* Hide the icon */
+    .responsive-grid .ui-listview .ui-icon {
+        display: none;
+    }
+
+    /* Make text wrap. */
+    .responsive-grid .ui-listview .ui-li-heading,
+    .responsive-grid .ui-listview .ui-li-desc {
+        white-space: normal;
+        overflow: visible;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    /* Text position */
+    .responsive-grid .ui-listview .ui-li-heading {
+        margin: 0;
+        padding: 20px;
+        bottom: 50%;
+    }
+
+    .responsive-grid .ui-listview .ui-li-desc {
+        margin: 0;
+        padding: 0 20px;
+        min-height: 50%;
+        bottom: 0;
+        line-height: 1.5;
+    }
+
+    /* Semi transparent background and different position if there is a thumb */
+    .responsive-grid .ui-listview .ui-li-has-thumb .ui-li-heading,
+    .responsive-grid .ui-listview .ui-li-has-thumb .ui-li-desc {
+        background: #eee;
+        background: rgba(255,255,255,.7);
+        -webkit-background-clip: padding;
+        background-clip: padding-box;
+    }
+
+    .responsive-grid .ui-listview .ui-li-has-thumb .ui-li-heading {
+        padding: 10px;
+        bottom: 20%;
+    }
+
+    .responsive-grid .ui-listview .ui-li-has-thumb .ui-li-desc {
+        padding: 0 10px;
+        min-height: 20%;
+        -webkit-border-bottom-left-radius: inherit;
+        border-bottom-left-radius: inherit;
+        -webkit-border-bottom-right-radius: inherit;
+        border-bottom-right-radius: inherit;
+    }
+
+    /* ui-li-aside has class .ui-li-desc as well so we have to override some things. */
+    .responsive-grid .ui-listview .ui-li-desc.ui-li-aside {
+        padding: 2px 10px;
+        width: auto;
+        min-height: 0;
+        top: 0;
+        left: auto;
+        bottom: auto;
+        text-shadow: none;
+        font-size: 14px;
+    }
+
+    /* If you want to add shadow, don't kill the focus style. */
+    .responsive-grid .ui-listview .ui-btn:not(.ui-focus) {
+        -moz-box-shadow: 0px 0px 9px #111;
+        -webkit-box-shadow: 0px 0px 9px #111;
+        box-shadow: 0px 0px 9px #111;
+    }
+
+    /* Images mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
+    .responsive-grid .ui-listview .ui-btn:hover {
+        -moz-box-shadow: 0px 0px 12px #387bbe;
+        -webkit-box-shadow: 0px 0px 12px #387bbe;
+        box-shadow: 0px 0px 12px #387bbe;
+    }
+
+    /* Animate focus and hover style, and resizing. */
+    .responsive-grid .ui-listview .ui-btn {
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+
+    .rightcolumn {
+        margin-left: 295px;
+    }
+
+    .leftcolumn {
+        width: 280px;
+        padding-right: 10px;
+        float: left;
+        display: block;
+    }
+
+    .leftcolumn_collapsed {
+        float: left;
+        margin-left: -15px;
+        display: none;
+    }
+
+    .ul_list_left_collapsed {
+        position: absolute;
+        margin-top: 139px !important;
+        margin-left: -130px !important;
+        width: 280px;
+    }
+
+    .list_left_collapsed {
+        height: 300px;
+        width: 300px;
+        position: absolute;
+        margin-left: -140px;
+        margin-top: 150px;
+    }
+
+    .nopadding {
+        padding-left: 0px !important;
+    }
+}
+
+/* Dritter breakpoint. 4 spaltiges layout. iPad querformat */
+@media all and (min-width: 1020px){
+
+    .yahui-page .ui-li-has-thumb {
+        padding-left:100px !important;
+        padding-right:15px !important;
+    }
+
+    /* a, b und c nebeneinander */
+    .yahui-a {
+        width: 30%;
+        min-height:54px;
+    }
+
+    .yahui-b {
+        width: 20%;
+        margin-top:3px;
+        min-height:54px;
+
+    }
+
+    .yahui-c {
+        width: 45%;
+        margin-top:5px;
+        min-height:54px;
+
+    }
+
+    .yahui-d {
+        width: 5%;
+        display: inline;
+        float: right;
+        margin-top:5px;
+        text-align: center;
+    }
+
+    .yahui-bc {
+        width: 65%;
+        min-height:54px;
+    }
+
+    .responsive-grid .ui-content {
+        padding: 10px;
+    }
+    /* Set a max-width for the last breakpoint to prevent too much stretching on large screens.
+    By setting the max-width equal to the breakpoint width minus padding we keep square tiles. */
+    .responsive-grid .ui-listview {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    /* Because of the 1000px max-width the width will always be 230px (and margin left/right 10px) */
+    .responsive-grid .ui-listview .ui-li.ui-btn {
+        width: 23%;
+        height: 230px;
+        margin: 10px 1%;
+    }
+
+    .div_vertical {
+        font-size: 16px;
+        padding-top:15px;
+    }
+}
+
+.responsive-grid .ui-listview .ui-btn.upload-start {
+    -moz-box-shadow: 0px 0px 5px 5px orange !important;
+    -webkit-box-shadow: 0px 0px 5px 5px orange !important;
+    box-shadow: 0px 0px 5px 5px orange !important;
+}
+
+.upload-start {
+    background-color: orange;
+    background-image: none;
+}
+
+.drag-start {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
+}
+
+.input_inline {
+    font-size: 18px;
+}
+
+#edit_channel_name {
+    width: 100%;
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.edit_invisible {
+    opacity: 0.35;
+    display: block;
+}
+
+.invisible {
+    display: none !important;
+}
+
+div.yahui-slider-hue div.ui-slider div.ui-slider-track {
+    background: url(../images/default/hue.png) !important;
+    background-size: 100% 100% !important;
+}
+
+
+div.yahui-slider-ct div.ui-slider div.ui-slider-track {
+    background: url(../images/default/ct.png) !important;
+    background-size: 100% 100% !important;
+}
+
+ul.yahui-page-left h2 {
+    margin-left: 5px;
+}
+
+div.led16 {
+    width: 15px;
+    height: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.led16-0 {
+    background: none;
+}
+
+.led16-1 {
+    background-color: red;
+}
+
+.led16-2 {
+    background-color: green;
+}
+
+.led16-3 {
+    background-color: yellow;
+}
+
+.yahui-program-confirm .ui-btn-inner {
+    /* background-color: green; */
+}
+
+.yahui-program-fail .ui-btn-inner {
+    /* background-color: red; */
+}

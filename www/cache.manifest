@@ -1,0 +1,11 @@
+CACHE MANIFEST
+
+# ioBroker mobile 0.0.1
+# dev 28
+
+NETWORK:
+*
+
+CACHE:
+
+FALLBACK:
