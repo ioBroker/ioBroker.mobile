@@ -2,6 +2,13 @@
 
 jQuery Mobile based user interface
 
+Depends on adapter websocket
+
+## Changlog
+
+#### 0.0.2
+
+* (hobbyquaker) dimmer
 
 ## License
 

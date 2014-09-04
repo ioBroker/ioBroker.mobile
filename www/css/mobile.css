@@ -3,31 +3,10 @@ body {
 }
 
 /* Floats einschliessen! */
-li.yahui-widget {
+li.mobile-widget {
     overflow: hidden;
 }
 
-.yahui-datapoints {
-    font-weight: normal;
-    font-size: 12px;
-}
-
-.yahui-lowbat {
-    width: 16px;
-    padding-left: 3px;
-    vertical-align: bottom;
-}
-
-.yahui-since {
-    font-size: 12px;
-    font-weight: normal;
-}
-
-.yahui-direction, .yahui-lowbat {
-    display: inline-block;
-    vertical-align: 18px;
-    margin-left: 12px;
-}
 
 /* Eingabefeld neben Slider ausblenden */
 input.ui-slider-input {
@@ -53,7 +32,7 @@ input.ui-slider-input {
     display:none;
 }
 
-.yahui-a {
+.mobile-widget-a {
     display: inline-block;
     vertical-align: middle;
     float: left;
@@ -63,19 +42,19 @@ input.ui-slider-input {
 
 }
 
-.yahui-b {
+.mobile-widget-b {
     display: inline-block;
     float: left;
     width: 100%;
 }
 
-.yahui-c {
+.mobile-widget-c {
     display: inline-block;
     float: left;
     width: 100%;
 }
 
-.yahui-bc {
+.mobile-widget-bc {
     display: inline-block;
     float: left;
     width: 100%;
