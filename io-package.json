@@ -5,9 +5,17 @@
         "title":                    "Mobile UI",
         "desc":                     "jQuery Mobile based ioBroker user interface",
         "platform":                 "javascript/Node.js",
-        "mode":                     "none",
+        "mode":                     "web",
         "loglevel":                 "info",
-        "dependencies":             "websocket"
+        "dependencies":             ["websocket"],
+        "icon":                     "jquery-mobile.png",
+        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.mobile/master/admin/jquery-mobile.png",
+        "keywords":                 ["user", "interface", "webapp", "jquerymobile", "ui"],
+        "readme":                   "https://github.com/ioBroker/ioBroker.admin/blob/master/README.md",
+        "authors": [
+            "hobbyquaker <hq@ccu.io>"
+        ],
+        "license":                  "MIT"
     },
     "native": {
         "root": [
