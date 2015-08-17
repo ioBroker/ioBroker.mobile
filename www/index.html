@@ -1,5 +1,6 @@
 <!doctype html>
-<html manifest="cache.manifest" lang="de" xmlns="http://www.w3.org/1999/html">
+<!--html manifest="cache.manifest" lang="de" xmlns="http://www.w3.org/1999/html"-->
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -23,7 +24,7 @@
         <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape)" href="images/mobile-splash-ipad-landscape.png">
 
         <!-- Hier den Pfad/Dateinamen anpassen für individuelle jqueryMobile Themes -->
-        <link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
+        <link rel="stylesheet" href="lib/css/jquery.mobile-1.4.3.min.css" />
 
         <link rel="shortcut icon" sizes="196x196" href="images/mobile-icon-196.png">
         <link rel="shortcut icon" href="images/mobile-icon-32.ico" type="image/x-icon">
@@ -34,8 +35,8 @@
         <!-- <link rel="stylesheet" href="css/user.css" /> -->
         <!--<link rel="stylesheet" href="css/add2home-2.0.8.css" />-->
 
-        <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/loStorage.min.js"></script>
+        <script src="../lib/js/jquery-1.11.1.min.js"></script>
+        <script src="lib/js/loStorage.min.js"></script>
         <script src="../socket.io/socket.io.js"></script>
         <script type="text/javascript">
             $(document).on("mobileinit", function () {
@@ -43,7 +44,9 @@
 
             });
         </script>
-        <script src="js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="lib/js/jquery.mobile-1.4.3.min.js"></script>
+        <script src="../lib/js/translate.js"></script>
+        <script src="js/conn.js"></script>
         <script src="js/mobile.js"></script>
         <!--<script src="js/add2home-2.0.8.js"></script>-->
     </head>
@@ -52,9 +55,9 @@
 
 
         <div data-role="popup" data-overlay-theme="a" id="server-disconnect">
-            <p>Keine Verbindung zum Server<p>
+            <p class="translate">No connection to server<p>
         </div>
 
-        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline" style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit-Modus</div>
+        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate" style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit-Mode</div>
     </body>
 </html>
