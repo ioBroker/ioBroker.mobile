@@ -24,7 +24,7 @@
         <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape)" href="images/mobile-splash-ipad-landscape.png">
 
         <!-- Hier den Pfad/Dateinamen anpassen für individuelle jqueryMobile Themes -->
-        <link rel="stylesheet" href="lib/css/jquery.mobile-1.4.3.min.css" />
+        <link rel="stylesheet" href="lib/css/jquery.mobile-1.4.5.min.css" />
 
         <link rel="shortcut icon" sizes="196x196" href="images/mobile-icon-196.png">
         <link rel="shortcut icon" href="images/mobile-icon-32.ico" type="image/x-icon">
@@ -35,29 +35,55 @@
         <!-- <link rel="stylesheet" href="css/user.css" /> -->
         <!--<link rel="stylesheet" href="css/add2home-2.0.8.css" />-->
 
-        <script src="../lib/js/jquery-1.11.1.min.js"></script>
-        <script src="lib/js/loStorage.min.js"></script>
-        <script src="../socket.io/socket.io.js"></script>
+        <!--script type="text/javascript" src="../lib/js/jquery-1.11.1.min.js"></script-->
+        <script type="text/javascript" src="lib/js/jquery-1.11.3.js"></script>
+        <script type="text/javascript" src="lib/js/loStorage.min.js"></script>
+        <script type="text/javascript" src="../socket.io/socket.io.js"></script>
         <script type="text/javascript">
             $(document).on("mobileinit", function () {
                 $.mobile.autoInitializePage = false;
 
             });
         </script>
-        <script src="lib/js/jquery.mobile-1.4.3.min.js"></script>
-        <script src="../lib/js/translate.js"></script>
-        <script src="js/conn.js"></script>
-        <script src="js/mobile.js"></script>
-        <!--<script src="js/add2home-2.0.8.js"></script>-->
+        <script type="text/javascript" src="lib/js/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="../lib/js/translate.js"></script>
+        <script type="text/javascript" src="_socket/info.js"></script>
+        <script type="text/javascript" src="js/conn.js"></script>
+        <script type="text/javascript" src="js/mobile.js"></script>
+        <!--<script type="text/javascript" src="js/add2home-2.0.8.js"></script>-->
     </head>
 
     <body style="height: 100%;">
 
 
-        <div data-role="popup" data-overlay-theme="a" id="server-disconnect">
+        <div data-role="popup" data-overlay-theme="a" id="server-disconnect" style="display: none">
             <p class="translate">No connection to server<p>
         </div>
 
-        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate" style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit-Mode</div>
+        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate"
+             style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">
+            Edit mode</div>
+
+        <div id="info" data-role="page" data-history="false" data-theme="b">
+            <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">
+                <a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" data-iconpos="notext" class="mobile-info ui-btn-left"></a>
+                <h1 class="translate">Info<span class="mobile-version"></span></h1>
+            </div>
+            <div data-role="content" data-theme="b">
+                <h3>ioBroker.mobile <span class="mobile-version"></span></h3>
+                Copyright &copy; 2015 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a><br/>
+                <span class="translate">License:</span><b>MIT</b>
+                <p>
+                    <a class="mobile-editswitch mobile-refresh translate" data-ajax="false" data-role="button" data-icon="refresh" href="?refresh" target="_self">Refresh</a>
+                    <a class="mobile-editswitch mobile-noedit  translate" data-ajax="false" data-role="button" data-icon="gear" href="?edit" target="_self">Edit-Mode</a>
+                    <a class="mobile-editswitch mobile-edit    translate" data-ajax="false" data-role="button" data-icon="gear" href="./" target="_self">Finish Edit-Mode</a>
+                    <span class="translate">edit description</span>
+                </p>
+                <p>
+                    <a data-ajax="false" data-role="button" data-icon="info" class="translate" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Documentation</a>
+                </p>
+                <!--p style="font-size: 10px" class="translate">MIT text</p-->
+            </div>
+        </div>
     </body>
 </html>

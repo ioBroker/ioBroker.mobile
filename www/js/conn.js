@@ -61,7 +61,7 @@ var servConn = {
     getIsLoginRequired: function () {
         return this._isSecure;
     },
-    getUser: function () {
+    getUser:          function () {
         return this._user;
     },
     _checkConnection: function (func, _arguments) {
@@ -559,20 +559,170 @@ var servConn = {
             });
         });
     },
+    getChildren:      function (id, useCache, callback) {
+        if (!this._checkConnection('getChildren', arguments)) return;
+
+        if (typeof id == 'function') {
+            callback = id;
+            id = null;
+            useCache = false;
+        }
+        if (typeof id == 'boolean') {
+            callback = useCache;
+            useCache = id;
+            id = null;
+        }
+        if (typeof useCache == 'function') {
+            callback = useCache;
+            useCache = false;
+        }
+
+        if (!id) return callback('getChildren: no id given');
+
+        var that = this;
+        var data = [];
+
+        if (this._useStorage && useCache && typeof storage !== 'undefined') {
+            var objects = storage.get('objects');
+            if (objects && objects[id] && objects[id].common && objects[id].common.children) {
+                return callback(null, objects[id].common.children);
+            }
+        }
+
+        // Read all devices
+        that._socket.emit('getObjectView', 'system', 'device', {startkey: id + '.', endkey: id + '.\u9999'}, function (err, res) {
+            if (err) {
+                callback(err);
+                return;
+            }
+            var result = {};
+            for (var i = 0; i < res.rows.length; i++) {
+                data[res.rows[i].id] = res.rows[i].value;
+            }
+
+            that._socket.emit('getObjectView', 'system', 'channel', {startkey: id + '.', endkey: id + '.\u9999'}, function (err, res) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                var result = {};
+                for (var i = 0; i < res.rows.length; i++) {
+                    data[res.rows[i].id] = res.rows[i].value;
+                }
+
+                // Read all adapters for images
+                that._socket.emit('getObjectView', 'system', 'state', {startkey: id + '.', endkey: id + '.\u9999'}, function (err, res) {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    var result = {};
+                    for (var i = 0; i < res.rows.length; i++) {
+                        data[res.rows[i].id] = res.rows[i].value;
+                    }
+                    var list = [];
+
+                    var count = id.split('.');
+
+                    // find direct children
+                    for (var _id in data) {
+                        var parts = _id.split('.');
+                        if (count + 1 == parts.length) {
+                            list.push(_id);
+                        }
+                    }
+                    list.sort();
+
+                    if (this._useStorage && typeof storage !== 'undefined') {
+                        var objects = storage.get('objects') || {};
+
+                        for (var _id in data) {
+                            objects[_id] = data[_id];
+                        }
+                        if (objects[id] && objects[id].common) {
+                            objects[id].common.children = list;
+                        }
+                        // Store for every element theirs children
+                        var items = [];
+                        for (var _id in data) {
+                            items.push(_id);
+                        }
+                        items.sort();
+
+                        for (var i = 0; i < items.length; i++) {
+                            if (objects[items[i]].common) {
+                                var parts = items[i].split('.');
+                                var j = i + 1;
+                                var children = [];
+                                while (items[j].substring(0, items[i].length + 1) == items[i] + '.') {
+                                    children.push(items[i]);
+                                }
+
+                                objects[items[i]].common.children = children;
+                            }
+                        }
+
+                        storage.set('objects', objects);
+                    }
+
+                    if (callback) callback(err, list);
+                }.bind(this));
+            }.bind(this));
+        }.bind(this));
+    },
+    getObject:        function (id, useCache, callback) {
+        if (typeof id == 'function') {
+            callback = id;
+            id = null;
+            useCache = false;
+        }
+        if (typeof id == 'boolean') {
+            callback = useCache;
+            useCache = id;
+            id = null;
+        }
+        if (typeof useCache == 'function') {
+            callback = useCache;
+            useCache = false;
+        }
+        if (!id) {
+            return callback('no id given');
+        }
+
+        if (this._useStorage && useCache && typeof storage !== 'undefined') {
+            var objects = storage.get('objects');
+            if (objects && objects[id]) {
+                return callback(null, objects[id]);
+            }
+        }
+
+        this._socket.emit('getObject', id, function (err, obj) {
+            if (err) {
+                callback(err);
+                return;
+            }
+            if (this._useStorage && typeof storage !== 'undefined') {
+                var objects = storage.get('objects') || {};
+                objects[id] = obj;
+                storage.set('objects', objects);
+            }
+            return callback(null, obj);
+        }.bind(this));
+    },
     getEnums:         function (enumName, useCache, callback) {
         if (typeof enumName == 'function') {
             callback = enumName;
             enumName = null;
             useCache = false;
         }
-        if (typeof useCache == 'function') {
-            callback = useCache;
-            useCache = false;
-        }
         if (typeof enumName == 'boolean') {
             callback = useCache;
             useCache = enumName;
             enumName = null;
+        }
+        if (typeof useCache == 'function') {
+            callback = useCache;
+            useCache = false;
         }
 
         if (this._useStorage && useCache && typeof storage !== 'undefined') {
@@ -599,9 +749,11 @@ var servConn = {
                     var obj = res.rows[i].value;
                     enums[obj._id] = obj;
                 }
-                storage.set('enums', enums);
+                if (this._useStorage && typeof storage !== 'undefined') {
+                    storage.set('enums', enums);
+                }
                 callback(null, enums);
-            });
+            }.bind(this));
         }
     },
     addObject:        function (objId, obj, callback) {
@@ -702,16 +854,34 @@ var servConn = {
             console.log("No credentials!");
         }
     },
-    getConfig:        function (callback) {
-        if (!this._checkConnection('getLanguage', arguments)) return;
+    getConfig:        function (useCache, callback) {
+        if (!this._checkConnection('getConfig', arguments)) return;
+
+        if (typeof useCache === 'function') {
+            callback = useCache;
+            useCache = false;
+        }
+        if (this._useStorage && useCache && typeof storage !== 'undefined') {
+            var objects = storage.get('objects');
+            if (objects && objects['system.config']) {
+                return callback(null, objects['system.config'].common);
+            }
+        }
 
         this._socket.emit('getObject', 'system.config', function (err, obj) {
             if (callback && obj && obj.common) {
+
+                if (this._useStorage && typeof storage !== 'undefined') {
+                    var objects = storage.get('objects') || {};
+                    objects['system.config'] = obj;
+                    storage.set('objects', objects);
+                }
+
                 callback(null, obj.common);
             } else {
                 callback('Cannot read language');
             }
-        });
+        }.bind(this));
     },
     sendCommand:      function (instance, command, data) {
         this.setState(this.namespace + '.control.instance', {val: instance || 'notdefined', ack: true});
@@ -755,5 +925,11 @@ var servConn = {
         this._socket.emit('chmodFile', this.namespace, projectDir + '*', {mode: mode}, function (err, data) {
             if (callback) callback(err, data);
         });
+    },
+    clearCache:       function () {
+        if (typeof storage !== 'undefined') {
+            storage.empty();
+        }
+
     }
 };

@@ -18,17 +18,17 @@ input.ui-slider-input {
     margin-left: 16px;
 }
 
-.yahui-page-left {
+.mobile-page-left {
     display: none;
 }
 
 /* a, b und c mit voller breite und untereinander */
-.yahui-page .ui-li-has-thumb {
+.mobile-page .ui-li-has-thumb {
     padding-left:10px !important;
     padding-right:35px !important;
 }
 
-.yahui-page .ui-li-has-thumb img.ui-li-thumb {
+.mobile-page .ui-li-has-thumb img.ui-li-thumb {
     display:none;
 }
 
@@ -64,7 +64,7 @@ input.ui-slider-input {
     margin-left: 0px;
 }
 
-.yahui-page-left {
+.mobile-page-left {
     display: none;
 }
 
@@ -91,7 +91,7 @@ input.ui-slider-input {
     text-shadow: none !important;
 }
 
-.yahui-page-left .service-message {
+.mobile-page-left .service-message {
     float: left;
     border-radius: 16px;
     width: 18px;
@@ -141,48 +141,48 @@ input.ui-slider-input {
         padding-left: 0px !important;
     }
 
-    .yahui-page-left {
+    .mobile-page-left {
         display: block;
     }
 
-    .yahui-page-left .ui-li-has-thumb {
+    .mobile-page-left .ui-li-has-thumb {
         padding-left:80px !important;
         padding-right:15px !important;
     }
 
-    .yahui-page-left .ui-li-thumb {
+    .mobile-page-left .ui-li-thumb {
         margin-left:-80px !important;
         display: block;
     }
 
-    .yahui-page .ui-li-has-thumb {
+    .mobile-page .ui-li-has-thumb {
         padding-left:80px !important;
         padding-right:15px !important;
     }
 
-    .yahui-page .ui-li-has-thumb img.ui-li-thumb {
+    .mobile-page .ui-li-has-thumb img.ui-li-thumb {
         display:inline;
     }
 
-    .yahui-page .ui-li-has-thumb {
+    .mobile-page .ui-li-has-thumb {
         padding-left:80px !important;
         padding-right:25px !important;
     }
 
     /* a und b nebeneinander, c mit voller breite drunter */
-    .yahui-a {
+    .mobile-a {
         width: 40%;
     }
 
-    .yahui-b {
+    .mobile-b {
         width: 60%;
     }
 
-    .yahui-c {
+    .mobile-c {
         width: 100%;
     }
 
-    .yahui-bc {
+    .mobile-bc {
         width: 60%;
     }
 
@@ -366,32 +366,35 @@ input.ui-slider-input {
 /* Dritter breakpoint. 4 spaltiges layout. iPad querformat */
 @media all and (min-width: 1020px){
 
-    .yahui-page .ui-li-has-thumb {
+    .mobile-page .ui-li-has-thumb {
         padding-left:100px !important;
         padding-right:15px !important;
     }
 
     /* a, b und c nebeneinander */
-    .yahui-a {
+    .mobile-0 {
         width: 30%;
         min-height:54px;
     }
 
-    .yahui-b {
+    .mobile-a {
+        width: 30%;
+        min-height:54px;
+    }
+
+    .mobile-b {
         width: 20%;
         margin-top:3px;
         min-height:54px;
-
     }
 
-    .yahui-c {
+    .mobile-c {
         width: 45%;
         margin-top:5px;
         min-height:54px;
-
     }
 
-    .yahui-d {
+    .mobile-d {
         width: 5%;
         display: inline;
         float: right;
@@ -399,7 +402,7 @@ input.ui-slider-input {
         text-align: center;
     }
 
-    .yahui-bc {
+    .mobile-bc {
         width: 65%;
         min-height:54px;
     }
@@ -466,18 +469,18 @@ input.ui-slider-input {
     display: none !important;
 }
 
-div.yahui-slider-hue div.ui-slider div.ui-slider-track {
+div.mobile-slider-hue div.ui-slider div.ui-slider-track {
     background: url(../images/default/hue.png) !important;
     background-size: 100% 100% !important;
 }
 
 
-div.yahui-slider-ct div.ui-slider div.ui-slider-track {
+div.mobile-slider-ct div.ui-slider div.ui-slider-track {
     background: url(../images/default/ct.png) !important;
     background-size: 100% 100% !important;
 }
 
-ul.yahui-page-left h2 {
+ul.mobile-page-left h2 {
     margin-left: 5px;
 }
 
@@ -504,10 +507,10 @@ div.led16 {
     background-color: yellow;
 }
 
-.yahui-program-confirm .ui-btn-inner {
+.mobile-program-confirm .ui-btn-inner {
     /* background-color: green; */
 }
 
-.yahui-program-fail .ui-btn-inner {
+.mobile-program-fail .ui-btn-inner {
     /* background-color: red; */
 }
