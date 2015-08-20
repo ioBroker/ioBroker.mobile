@@ -21,7 +21,7 @@
 /* global can */
 /* global storage */
 /* global servConn */
-/* global systemDictionary */
+/* global systemDictionary:true */
 /* global $ */
 /* global translateAll */
 /* global jQuery */
@@ -34,7 +34,7 @@ systemDictionary = {
     'edit description': {
         'en': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
         'de': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
-        'ru': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
+        'ru': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.'
     }
 };
 
@@ -50,6 +50,7 @@ var mobile = {
     isFirstTime:  true,
     conn:         servConn,
     editMode:     false,
+    queueStates:  [],
 
     renderWidget: function (obj, elem) {
         switch (obj.type) {
@@ -68,60 +69,67 @@ var mobile = {
         }
     },
 
-    renderChannel: function (obj, $elem) {
-        var that = this;
+    renderElement: function (obj) {
         var html = '';
-        html += '<div class="mobile-widget-a">' + obj.common.name + '</div>';
-    
-        // get children
-        var children = [];
 
-        for (var i = 0; i < obj.children.length; i++) {
-            children.push(obj.children[i]);
-        }
+        html += '<div class="mobile-widget-a">' + obj.common.name || obj._id + '</div>';
 
-        function render() {
-            switch (obj.common.role) {
-                case 'light.dimmer':
-                    for (var i = 0; i < obj.children.length; i++) {
-                        var id = obj.children[i];
+        switch (obj.common.role) {
+            case 'dimmer':
+                for (var i = 0; i < obj.children.length; i++) {
+                    var id = obj.children[i];
 
-                        if (that.objects[id].common.role === 'level.dimmer') {
-                            html += '<div class="mobile-widget-b"><select id="switch_' + obj._id + '" data-mobile-id="' + id + '" name="switch_' + obj._id + '" data-role="slider">' +
-                                '<option value="' + that.objects[id].common.min + '">Aus</option>' +
-                                '<option value="' + that.objects[id].common.max + '"' + (that.states[id].val > that.objects[id].common.min ? ' selected' : '') + '>An</option>' +
-                                '</select></div>';
-                            html += '<div class="mobile-widget-c">' +
-                                '<input id="slider_' + obj._id + '" type="range" data-mobile-id="' + id +
-                                '" name="slider_' + obj._id + '" min="' + objects[id].common.min + '" max="' + that.objects[id].common.max + '" value="' + that.states[id].val + '"/></div>';
+                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
+                        html += '<div class="mobile-widget-b"><select id="switch_' + obj._id + '" data-mobile-id="' + id + '" name="switch_' + obj._id + '" data-role="slider">' +
+                            '<option value="' + this.objects[id].common.min + '">Aus</option>' +
+                            '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>An</option>' +
+                            '</select></div>';
+                        html += '<div class="mobile-widget-c">' +
+                            '<input id="slider_' + obj._id + '" type="range" data-mobile-id="' + id +
+                            '" name="slider_' + obj._id + '" min="' + thisobjects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
 
-                        }
                     }
-                    break;
+                }
+                break;
 
-            }
-            $elem.append('<li class="mobile-widget">' + html + '</li>');
+            case 'blind':
+                for (var i = 0; i < obj.children.length; i++) {
+                    var id = obj.children[i];
 
-            if ($elem.hasClass('ui-listview')) {
-                $elem.listview('refresh');
-                $elem.find('[data-role="slider"], input[type="range"]').slider();
-            }
+                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
+                        var val;
+                        if (!this.states[id]) {
+                            // read states
+                            this.queueStates.push(id);
+                            val = 0;
+                        } else {
+                            val = this.states[id].val;
+                        }
+
+                        html += '<div class="mobile-widget-b">\n' +
+                            '    <select id="switch_' + obj._id + '" data-mobile-id="' + id + '" name="switch_' + obj._id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
+                            '        <option value="' + this.objects[id].common.min + '">Aus</option>\n' +
+                            '        <option value="' + this.objects[id].common.max + '"' + (val > this.objects[id].common.min ? ' selected' : '') + '>An</option>\n' +
+                            '    </select>\n' +
+                            '</div>\n';
+
+
+                        html += '<div class="mobile-widget-c">\n' +
+                            '   <input id="slider_' + obj._id + '" type="range" data-highlight="true" data-mobile-id="' + id +
+                            '" name="slider_' + obj._id + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
+                    }
+                }
+                break;
         }
+        return html;
+    },
 
-        function queue() {
-            if (children && children.length > 0) {
-                this.conn.getObject(children.pop(), !this.refresh, function (err, obj) {
-                    if (err) console.error(err);
-                    if (obj) that.objects[obj._id] = obj;
-                    queue().call(this);
-                }.bind(this));
-            } else {
-                console.log('got all children!');
-                render();
-            }
+    renderChannel: function (obj, $elem) {
+        $elem.append('<li class="mobile-widget">' + this.renderElement(obj) + '</li>');
+
+        if ($elem.hasClass('ui-listview')) {
+            $elem.listview('refresh');
         }
-
-        queue.call(this);
     },
 
     renderType: function (id, state) {
@@ -184,9 +192,7 @@ var mobile = {
     },
     
     renderDevice: function (obj, elem) {
-        var html = '';
-        html += '<div class="mobile-widget-a">' + obj.common.name + '</div>';
-        elem.append('<li>' + html + '</li>').listview('refresh');
+        elem.append('<li>' + this.renderElement(obj) + '</li>').listview('refresh');
     },
     
     renderRootPages: function () {
@@ -285,13 +291,14 @@ var mobile = {
         }
         if (id == 'info') {
             return this.renderInfoPage();
+        } else {
+            $('#info').hide();
         }
         if ($('div[id="' + id + '"]').html()) {
             console.log(id + ' already rendered');
             return;
         }
 
-    
         var name;
         var parentId;
         var parentName = id.split('.');
@@ -339,6 +346,25 @@ var mobile = {
                 }
 
             }.bind(this));
+        }
+
+        // read states
+        var that = this;
+        if (this.queueStates.length) {
+            this.conn.getStates(this.queueStates, function (err, states) {
+                for (var id in states) {
+                    that.states[id] = states[id];
+                    $('[data-mobile-id="' + id + '"]').each(function () {
+                        var _id = $(this).data('mobile-id');
+                        $(this).val(that.states[_id].val);
+                        if ($(this).data('type') == 'range') {
+                            $(this).slider('refresh');
+                        }
+                    });
+                }
+
+                that.queueStates = [];
+            });
         }
     },
 
@@ -520,15 +546,27 @@ var mobile = {
                         }
                     });
 
-                    that.conn.getEnums(!that.refresh, function (err, enums) {
-                        this.enums = enums;
-                        for (var e in this.enums) {
-                            var parts = e.split('.');
-                            if (parts.length == 2) {
-                                this.root.push(e);
-                            }
+                    that.conn.getObjects(!that.refresh, function (err, objects) {
+                        that.objects = objects;
+                        // show last sync time
+                        var syncTime = this.conn.getSyncTime();
+                        if (typeof(Storage) === 'undefined')  {
+                            $('.mobile-refresh').hide();
+                            $('.last-synchronised').html(_('not supported'));
+                        } else {
+                            $('.last-synchronised').html(!syncTime ? _('never') : syncTime.toLocaleDateString() + ' ' + syncTime.toLocaleTimeString());
                         }
-                        this.renderRootPages();
+
+                        this.conn.getEnums(!this.refresh, function (err, enums) {
+                            this.enums = enums;
+                            for (var e in this.enums) {
+                                var parts = e.split('.');
+                                if (parts.length == 2) this.root.push(e);
+                            }
+
+                            this.renderRootPages();
+
+                        }.bind(this));
                     }.bind(that));
                 } else {
                     $("#server-disconnect").dialog("open");

@@ -51,7 +51,10 @@ var servConn = {
     _isSecure:          false,
     _defaultMode:       0x644,
     _useStorage:        false,
+    _objects:           null,        // used if _useStorage == true
+    _enums:             null,        // used if _useStorage == true
     namespace:          'vis.0',
+
     getType:          function () {
         return this._type;
     },
@@ -496,8 +499,42 @@ var servConn = {
             });
         }
     },
+    _fillChildren:    function (objects) {
+        var items = [];
+
+        for (var id in objects) {
+            items.push(id);
+        }
+        items.sort();
+
+        for (var i = 0; i < items.length; i++) {
+            if (objects[items[i]].common) {
+                var j = i + 1;
+                var children = [];
+                var len      = items[i].length + 1;
+                var name     = items[i] + '.';
+                while (j < items.length && items[j].substring(0, len) == name) children.push(items[j++]);
+
+                objects[items[i]].children = children;
+            }
+        }
+    },
     // callback(err, data)
-    getObjects:       function (callback) {
+    getObjects:       function (useCache, callback) {
+        if (typeof useCache === 'function') {
+            callback = useCache;
+            useCache = false;
+        }
+        // If cache used
+        if (this._useStorage && useCache) {
+            if (typeof storage !== 'undefined') {
+                var objects = this._objects || storage.get('objects');
+                if (objects) return callback(null, objects);
+            } else if (this._objects) {
+                return callback(null, this._objects);
+            }
+        }
+
         if (!this._checkConnection('getObjects', arguments)) return;
         var that = this;
         this._socket.emit('getObjects', function (err, data) {
@@ -509,8 +546,10 @@ var servConn = {
                     return;
                 }
                 var result = {};
+                var enums  = {};
                 for (var i = 0; i < res.rows.length; i++) {
                     data[res.rows[i].id] = res.rows[i].value;
+                    enums[res.rows[i].id] = res.rows[i].value;
                 }
 
                 // Read all adapters for images
@@ -552,6 +591,18 @@ var servConn = {
                                 data[res.rows[i].id] = res.rows[i].value;
                             }
 
+                            if (that._useStorage) {
+                                that._fillChildren(data);
+                                that._objects = data;
+                                that._enums   = enums;
+
+                                if (typeof storage !== 'undefined') {
+                                    storage.set('objects',  data);
+                                    storage.set('enums',    enums);
+                                    storage.set('timeSync', (new Date()).getTime());
+                                }
+                            }
+
                             if (callback) callback(err, data);
                         });
                     });
@@ -582,10 +633,14 @@ var servConn = {
         var that = this;
         var data = [];
 
-        if (this._useStorage && useCache && typeof storage !== 'undefined') {
-            var objects = storage.get('objects');
-            if (objects && objects[id] && objects[id].common && objects[id].common.children) {
-                return callback(null, objects[id].common.children);
+        if (this._useStorage && useCache) {
+            if (typeof storage !== 'undefined') {
+                var objects = storage.get('objects');
+                if (objects && objects[id] && objects[id].children) {
+                    return callback(null, objects[id].children);
+                }
+            } else if (this._objects && this._objects[id] && this._objects[id].children) {
+                return callback(null, this._objects[id].children);
             }
         }
 
@@ -640,7 +695,7 @@ var servConn = {
                             objects[_id] = data[_id];
                         }
                         if (objects[id] && objects[id].common) {
-                            objects[id].common.children = list;
+                            objects[id].children = list;
                         }
                         // Store for every element theirs children
                         var items = [];
@@ -651,14 +706,13 @@ var servConn = {
 
                         for (var i = 0; i < items.length; i++) {
                             if (objects[items[i]].common) {
-                                var parts = items[i].split('.');
                                 var j = i + 1;
                                 var children = [];
-                                while (items[j].substring(0, items[i].length + 1) == items[i] + '.') {
-                                    children.push(items[i]);
-                                }
+                                var len  = items[i].length + 1;
+                                var name = items[i] + '.';
+                                while (j < items.length && items[j].substring(0, len) == name) children.push(items[j++]);
 
-                                objects[items[i]].common.children = children;
+                                objects[items[i]].children = children;
                             }
                         }
 
@@ -685,14 +739,15 @@ var servConn = {
             callback = useCache;
             useCache = false;
         }
-        if (!id) {
-            return callback('no id given');
-        }
+        if (!id) return callback('no id given');
 
+        // If cache used
         if (this._useStorage && useCache && typeof storage !== 'undefined') {
-            var objects = storage.get('objects');
-            if (objects && objects[id]) {
-                return callback(null, objects[id]);
+            if (typeof storage !== 'undefined') {
+                var objects = this._objects || storage.get('objects');
+                if (objects && objects[id]) return callback(null, objects[id]);
+            } else if (this._enums) {
+                return callback(null, this._enums);
             }
         }
 
@@ -725,10 +780,13 @@ var servConn = {
             useCache = false;
         }
 
-        if (this._useStorage && useCache && typeof storage !== 'undefined') {
-            var enums = storage.get('enums');
-            if (enums) {
-                return callback(null, enums);
+        // If cache used
+        if (this._useStorage && useCache) {
+            if (typeof storage !== 'undefined') {
+                var enums = this._enums || storage.get('enums');
+                if (enums) return callback(null, enums);
+            } else if (this._enums) {
+                return callback(null, this._enums);
             }
         }
 
@@ -755,6 +813,14 @@ var servConn = {
                 callback(null, enums);
             }.bind(this));
         }
+    },
+    // return time when the objects were synchronized
+    getSyncTime:     function () {
+        if (this._useStorage && typeof storage !== 'undefined') {
+            var timeSync = storage.get('timeSync');
+            if (timeSync) return new Date(timeSync);
+        }
+        return null;
     },
     addObject:        function (objId, obj, callback) {
         if (!this._isConnected) {
@@ -861,9 +927,13 @@ var servConn = {
             callback = useCache;
             useCache = false;
         }
-        if (this._useStorage && useCache && typeof storage !== 'undefined') {
-            var objects = storage.get('objects');
-            if (objects && objects['system.config']) {
+        if (this._useStorage && useCache) {
+            if (typeof storage !== 'undefined') {
+                var objects = storage.get('objects');
+                if (objects && objects['system.config']) {
+                    return callback(null, objects['system.config'].common);
+                }
+            } else if (this._objects && this._objects['system.config']) {
                 return callback(null, objects['system.config'].common);
             }
         }
