@@ -52,6 +52,23 @@ var mobile = {
     editMode:     false,
     queueStates:  [],
 
+    updateState: function (id) {
+        var that = this;
+        $('[data-mobile-id="' + id + '"]').each(function () {
+            var _id = $(this).data('mobile-id');
+            var val = $(this).val();
+            if (val != that.states[_id].val.toString()) {
+                $(this).val(that.states[_id].val.toString());
+
+                if ($(this).data('type') == 'range') {
+                    $(this).slider('refresh');
+                } else  if ($(this).data('role') == 'slider') {
+                    $(this).slider('refresh');
+                }
+            }
+        });
+    },
+
     renderWidget: function (obj, elem) {
         switch (obj.type) {
             case 'device':
@@ -74,19 +91,21 @@ var mobile = {
 
         html += '<div class="mobile-widget-a">' + obj.common.name || obj._id + '</div>';
 
+        var tid = obj._id.replace(/\./g, '_');
+
         switch (obj.common.role) {
             case 'dimmer':
                 for (var i = 0; i < obj.children.length; i++) {
                     var id = obj.children[i];
 
                     if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
-                        html += '<div class="mobile-widget-b"><select id="switch_' + obj._id + '" data-mobile-id="' + id + '" name="switch_' + obj._id + '" data-role="slider">' +
-                            '<option value="' + this.objects[id].common.min + '">Aus</option>' +
-                            '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>An</option>' +
+                        html += '<div class="mobile-widget-b"><select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider">' +
+                            '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
+                            '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>' + _('on') + '</option>' +
                             '</select></div>';
                         html += '<div class="mobile-widget-c">' +
-                            '<input id="slider_' + obj._id + '" type="range" data-mobile-id="' + id +
-                            '" name="slider_' + obj._id + '" min="' + thisobjects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
+                            '<input class="mobile-control" id="slider_' + tid + '" type="range" data-mobile-id="' + id +
+                            '" name="slider_' + tid + '" min="' + thisobjects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
 
                     }
                 }
@@ -107,19 +126,47 @@ var mobile = {
                         }
 
                         html += '<div class="mobile-widget-b">\n' +
-                            '    <select id="switch_' + obj._id + '" data-mobile-id="' + id + '" name="switch_' + obj._id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
-                            '        <option value="' + this.objects[id].common.min + '">Aus</option>\n' +
-                            '        <option value="' + this.objects[id].common.max + '"' + (val > this.objects[id].common.min ? ' selected' : '') + '>An</option>\n' +
+                            '    <select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
+                            '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
+                            '        <option value="' + this.objects[id].common.max + '"' + (val > this.objects[id].common.min ? ' selected' : '') + '>' + _('opened') + '</option>\n' +
                             '    </select>\n' +
                             '</div>\n';
 
 
                         html += '<div class="mobile-widget-c">\n' +
-                            '   <input id="slider_' + obj._id + '" type="range" data-highlight="true" data-mobile-id="' + id +
-                            '" name="slider_' + obj._id + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
+                            '   <input class="mobile-control" id="slider_' + tid + '" type="range" data-highlight="true" data-mobile-id="' + id +
+                            '" name="slider_' + tid + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
                     }
                 }
                 break;
+
+            case 'switch':
+                for (var i = 0; i < obj.children.length; i++) {
+                    var id = obj.children[i];
+
+                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
+                        var val;
+                        if (!this.states[id]) {
+                            // read states
+                            this.queueStates.push(id);
+                            val = 0;
+                        } else {
+                            val = this.states[id].val;
+                        }
+                        if (val === 'false') val = false;
+                        if (val === '0') val = false;
+
+
+                        html += '<div class="mobile-widget-b">\n' +
+                            '    <select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider" >\n' +
+                            '        <option value="false">' + _('off') + '</option>\n' +
+                            '        <option value="true"' + (val ? ' selected' : '') + '>' + _('on') + '</option>\n' +
+                            '    </select>\n' +
+                            '</div>\n';
+                    }
+                }
+                break;
+
         }
         return html;
     },
@@ -354,18 +401,33 @@ var mobile = {
             this.conn.getStates(this.queueStates, function (err, states) {
                 for (var id in states) {
                     that.states[id] = states[id];
-                    $('[data-mobile-id="' + id + '"]').each(function () {
-                        var _id = $(this).data('mobile-id');
-                        $(this).val(that.states[_id].val);
-                        if ($(this).data('type') == 'range') {
-                            $(this).slider('refresh');
-                        }
-                    });
+                    that.updateState(id);
                 }
 
                 that.queueStates = [];
             });
         }
+
+        // on change
+        $('.mobile-control').unbind('click').click(function (e) {
+            var id  = $(this).data('mobile-id');
+            var val = $(this).val();
+            if (id && that.states[id].val.toString() != val) {
+                that.conn.setState(id, val);
+            }
+        });
+        setTimeout(function () {
+            $('.mobile-control').on('slidestop stop', function () {
+                var id  = $(this).data('mobile-id');
+                if (id) {
+                    that.states[id].val  = $(this).val();
+                    that.states[id].ack  = false;
+                    that.states[id].time = (new Date()).getTime();
+                    that.conn.setState(id, that.states[id].val);
+                }
+            });
+        }, 100);
+
     },
 
     compareVersion: function (instVersion, availVersion) {
@@ -576,8 +638,9 @@ var mobile = {
                 window.location.reload();
             },
             onUpdate: function (id, state) {
-                setTimeout(function (id, state) {
+                setTimeout(function () {
                     that.states[id] = state;
+                    that.updateState(id);
                 }, 0);
             },
             onObjectChange: function (id, obj) {
