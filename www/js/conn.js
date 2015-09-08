@@ -513,7 +513,9 @@ var servConn = {
                 var children = [];
                 var len      = items[i].length + 1;
                 var name     = items[i] + '.';
-                while (j < items.length && items[j].substring(0, len) == name) children.push(items[j++]);
+                while (j < items.length && items[j].substring(0, len) == name) {
+                    children.push(items[j++]);
+                }
 
                 objects[items[i]].children = children;
             }
@@ -691,28 +693,30 @@ var servConn = {
                     if (this._useStorage && typeof storage !== 'undefined') {
                         var objects = storage.get('objects') || {};
 
-                        for (var _id in data) {
-                            objects[_id] = data[_id];
+                        for (var id_ in data) {
+                            objects[id_] = data[id_];
                         }
                         if (objects[id] && objects[id].common) {
                             objects[id].children = list;
                         }
                         // Store for every element theirs children
                         var items = [];
-                        for (var _id in data) {
-                            items.push(_id);
+                        for (var __id in data) {
+                            items.push(__id);
                         }
                         items.sort();
 
-                        for (var i = 0; i < items.length; i++) {
-                            if (objects[items[i]].common) {
-                                var j = i + 1;
+                        for (var k = 0; k < items.length; k++) {
+                            if (objects[items[k]].common) {
+                                var j = k + 1;
                                 var children = [];
-                                var len  = items[i].length + 1;
-                                var name = items[i] + '.';
-                                while (j < items.length && items[j].substring(0, len) == name) children.push(items[j++]);
+                                var len  = items[k].length + 1;
+                                var name = items[k] + '.';
+                                while (j < items.length && items[j].substring(0, len) == name) {
+                                    children.push(items[j++]);
+                                }
 
-                                objects[items[i]].children = children;
+                                objects[items[k]].children = children;
                             }
                         }
 
@@ -934,7 +938,7 @@ var servConn = {
                     return callback(null, objects['system.config'].common);
                 }
             } else if (this._objects && this._objects['system.config']) {
-                return callback(null, objects['system.config'].common);
+                return callback(null, this._objects['system.config'].common);
             }
         }
 

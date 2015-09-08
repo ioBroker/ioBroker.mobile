@@ -32,6 +32,15 @@ input.ui-slider-input {
     display:none;
 }
 
+.mobile-widget-icon {
+    display: inline-block;
+    vertical-align: bottom;
+    float: left;
+    padding-right: 5px;
+    width:  32px;
+    height: 32px;
+}
+
 .mobile-widget-a {
     display: inline-block;
     vertical-align: middle;
@@ -39,7 +48,6 @@ input.ui-slider-input {
     width: 100%;
     font-size: 18px;
     min-height: 36px;
-
 }
 
 .mobile-widget-b {

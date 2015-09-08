@@ -25,12 +25,20 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [
                         {
-                            match: /version: *"[\.0-9]*"/,
+                            match: /version:\s*"[\.0-9]*"/,
                             replacement: 'version: "' + version + '"'
                         },
                         {
-                            match: /"version": *"[\.0-9]*",/g,
+                            match: /"version":\s*"[\.0-9]*",/g,
                             replacement: '"version": "' + version + '",'
+                        },
+                        {
+                            match: /\# ioBroker mobile [\.0-9]*/,
+                            replacement: '# ioBroker mobile ' + version
+                        },
+                        {
+                            match: /\# dev \d*/,
+                            replacement: '# dev 0'
                         }
                     ]
                 },
@@ -48,10 +56,31 @@ module.exports = function (grunt) {
                         expand:  true,
                         flatten: true,
                         src:     [
-                                srcDir + 'widgets/' + pkg.name.substring('iobroker.vis-'.length) + '.html'
+                                srcDir + 'www/index.html',
+                                srcDir + 'www/cache.manifest'
                         ],
-                        dest:    srcDir + 'widgets'
-                    },
+                        dest:    srcDir + 'www'
+                    }
+                ]
+            },
+            prepublish: {
+                options: {
+                    patterns: [
+                        {
+                            match: /\<\!--html manifest="cache.manifest" lang="de" xmlns="http:\/\/www.w3.org\/1999\/html"--\>/,
+                            replacement: '<html manifest="cache.manifest" lang="de" xmlns="http://www.w3.org/1999/html">'
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
+                                srcDir + 'www/index.html'
+                        ],
+                        dest:    srcDir + 'www'
+                    }
                 ]
             }
         },
@@ -214,7 +243,7 @@ module.exports = function (grunt) {
         'exec',
         'http',
         'clean',
-        'replace',
+        'replace:core',
         'updateReadme',
         'compress',
         'copy',

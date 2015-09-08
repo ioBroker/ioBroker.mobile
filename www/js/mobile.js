@@ -32,7 +32,7 @@
 systemDictionary = {
     'Views': {'en': 'Views', 'de': 'Views', 'ru': 'Страницы'},
     'edit description': {
-        'en': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
+        'en': 'In edit mode you can add, delete or modify the extensions. Additionally the elements can be sorted or styled.',
         'de': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
         'ru': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.'
     }
@@ -62,71 +62,100 @@ var mobile = {
 
                 if ($(this).data('type') == 'range') {
                     $(this).slider('refresh');
-                } else  if ($(this).data('role') == 'slider') {
+                } else if ($(this).data('role') == 'slider') {
                     $(this).slider('refresh');
                 }
             }
         });
     },
 
-    renderWidget: function (obj, elem) {
+    renderWidget: function (obj, elem, group) {
         switch (obj.type) {
             case 'device':
-                this.renderDevice(obj, elem);
+                this.renderDevice(obj, elem, group);
                 break;
 
             case 'channel':
-                this.renderChannel(obj, elem);
+                this.renderChannel(obj, elem, group);
                 break;
 
             case 'state':
-                this.renderState(obj, elem);
+                this.renderState(obj, elem, group);
                 break;
             default:
         }
     },
 
-    renderElement: function (obj) {
+    renderElement: function (obj, group, direct) {
         var html = '';
+        var i;
+        var id;
+        var val;
+        var name = obj.common.name || obj._id;
 
-        html += '<div class="mobile-widget-a">' + obj.common.name || obj._id + '</div>';
-
+        // remove room or function name from device name
+        if (group) {
+            var reg1 = new RegExp ('[-.\/]+' + group + '[-.\/]+', 'gi');
+            var reg2 = new RegExp ('[-.\/]+' + group, 'gi');
+            var reg3 = new RegExp (group + '[-.\/]+', 'gi');
+            var reg4 = new RegExp (group, 'gi');
+            name = name.replace(reg1, '.');
+            name = name.replace(reg2, '');
+            name = name.replace(reg3, '');
+            name = name.replace(reg4, '');
+        }
         var tid = obj._id.replace(/\./g, '_');
+
+        if (obj.common.icon) {
+            var adapter = obj._id.split('.').shift();
+            html += '<div class="mobile-widget-a"><img class="mobile-widget-icon" src="/adapter/' + adapter + '/' + obj.common.icon + '" style="height: 32px"/><div style="padding-top: 5px">' + name + '</div>';
+        } else {
+            html += '<div class="mobile-widget-a">' + name;
+        }
 
         switch (obj.common.role) {
             case 'dimmer':
-                for (var i = 0; i < obj.children.length; i++) {
-                    var id = obj.children[i];
+                html += '</div>';
+                for (i = 0; i < obj.children.length; i++) {
+                    id = obj.children[i];
 
                     if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
-                        html += '<div class="mobile-widget-b"><select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider">' +
+                        if (!this.states[id]) {
+                            // read states
+                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+                            val = 0;
+                        } else {
+                            val = this.states[id].val;
+                        }
+
+                        html += '<div class="mobile-widget-b"><select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">' +
                             '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
                             '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>' + _('on') + '</option>' +
                             '</select></div>';
                         html += '<div class="mobile-widget-c">' +
                             '<input class="mobile-control" id="slider_' + tid + '" type="range" data-mobile-id="' + id +
-                            '" name="slider_' + tid + '" min="' + thisobjects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
+                            '" name="slider_' + tid + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
 
                     }
                 }
                 break;
 
             case 'blind':
-                for (var i = 0; i < obj.children.length; i++) {
-                    var id = obj.children[i];
+                html += '</div>';
+                for (i = 0; i < obj.children.length; i++) {
+                    id = obj.children[i];
 
                     if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
-                        var val;
                         if (!this.states[id]) {
                             // read states
-                            this.queueStates.push(id);
+                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
                             val = 0;
                         } else {
                             val = this.states[id].val;
                         }
 
                         html += '<div class="mobile-widget-b">\n' +
-                            '    <select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
+                            '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
                             '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
                             '        <option value="' + this.objects[id].common.max + '"' + (val > this.objects[id].common.min ? ' selected' : '') + '>' + _('opened') + '</option>\n' +
                             '    </select>\n' +
@@ -134,21 +163,21 @@ var mobile = {
 
 
                         html += '<div class="mobile-widget-c">\n' +
-                            '   <input class="mobile-control" id="slider_' + tid + '" type="range" data-highlight="true" data-mobile-id="' + id +
-                            '" name="slider_' + tid + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
+                            '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
+                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
                     }
                 }
                 break;
 
             case 'switch':
-                for (var i = 0; i < obj.children.length; i++) {
-                    var id = obj.children[i];
+                html += '</div>';
+                for (i = 0; i < obj.children.length; i++) {
+                    id = obj.children[i];
 
                     if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
-                        var val;
                         if (!this.states[id]) {
                             // read states
-                            this.queueStates.push(id);
+                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
                             val = 0;
                         } else {
                             val = this.states[id].val;
@@ -158,7 +187,7 @@ var mobile = {
 
 
                         html += '<div class="mobile-widget-b">\n' +
-                            '    <select class="mobile-control" id="switch_' + tid + '" data-mobile-id="' + id + '" name="switch_' + tid + '" data-role="slider" >\n' +
+                            '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" >\n' +
                             '        <option value="false">' + _('off') + '</option>\n' +
                             '        <option value="true"' + (val ? ' selected' : '') + '>' + _('on') + '</option>\n' +
                             '    </select>\n' +
@@ -167,19 +196,55 @@ var mobile = {
                 }
                 break;
 
+            default:
+                if (obj.children && obj.children.length) {
+                    html += '</div>';
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
+
+                        if (this.objects[id] && this.objects[id].type === 'state') {
+                            html += this.renderElement(this.objects[id], obj.common.name || obj._id);
+                        }
+                    }
+                } else {
+                    if (!this.states[obj._id]) {
+                        // read states
+                        if (this.queueStates.indexOf(obj._id) == -1) this.queueStates.push(obj._id);
+                        val = '';
+                    } else {
+                        val = this.states[obj._id].val;
+                    }
+
+                    switch (obj.common.role) {
+                        case 'indicator.error':
+                            html += '<div class="mobile-widget-c"><div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="led" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                            break;
+
+                        case 'text':
+                            html += '<div class="mobile-widget-c"><strong>' + _(obj.common.type) + '</strong>: <span data-mobile-id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                            break;
+
+                        default:
+                            html += '<div class="mobile-widget-c"><strong>' + _(obj.common.type) + '</strong>: <span data-mobile-id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                            break;
+                    }
+                    html += '</div>';
+                }
+                break;
+
         }
         return html;
     },
 
-    renderChannel: function (obj, $elem) {
-        $elem.append('<li class="mobile-widget">' + this.renderElement(obj) + '</li>');
+    renderChannel: function (obj, $elem, group) {
+        $elem.append('<li class="mobile-widget">' + this.renderElement(obj, group) + '</li>');
 
         if ($elem.hasClass('ui-listview')) {
             $elem.listview('refresh');
         }
     },
 
-    renderType: function (id, state) {
+    renderType: function (id, state, group) {
         var text = '';
         var obj = this.objects[id];
 
@@ -212,34 +277,52 @@ var mobile = {
         return text;
     },
 
-    renderState: function (obj, elem) {
-        var html = '';
+    renderState: function (obj, $elem, group) {
+        /*var html = '';
+        var id = obj._id;
         html += '<div class="mobile-widget-a">';
         html += '<h2>' + (obj.common.name || obj._id) + '</h2>';
 
+        var val;
+        if (!this.states[id]) {
+            // read states
+            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+            val = '';
+        } else {
+            val = this.states[id].val;
+        }
+
         switch (obj.common.role) {
             case 'text':
-                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '"></span>';
+                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span>';
                 break;
 
             default:
-                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '"></span>';
+                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span>';
                 break;
         }
         html += '</div>';
 
         elem.append('<li>' + html + '</li>').listview('refresh');
+
+
+        this.queueStates.push(id);
         this.conn.getStates([obj._id], function (err, states) {
             for (var id in states) {
                 var $span = $('.mobile-value[id="' + obj._id + '"]');
 
                 $span.html(this.renderType(id, states[id]));
             }
-        }.bind(this));
+        }.bind(this));*/
+        $elem.append('<li class="mobile-widget">' + this.renderElement(obj, group, true) + '</li>');
+
+        if ($elem.hasClass('ui-listview')) {
+            $elem.listview('refresh');
+        }
     },
     
-    renderDevice: function (obj, elem) {
-        elem.append('<li>' + this.renderElement(obj) + '</li>').listview('refresh');
+    renderDevice: function (obj, elem, group) {
+        elem.append('<li>' + this.renderElement(obj, group) + '</li>').listview('refresh');
     },
     
     renderRootPages: function () {
@@ -353,9 +436,9 @@ var mobile = {
         parentName = parentName.join('.');
     
         if (this.enums[parentName]) {
-            parentId = parentName;
+            parentId   = parentName;
             parentName = this.enums[parentId].common.name;
-            name = this.enums[id].common.name;
+            name       = this.enums[id].common.name;
         } else {
             parentId = '';
             name = '';
@@ -389,7 +472,7 @@ var mobile = {
 
                 if (obj) {
                     this.objects[obj._id] = obj;
-                    this.renderWidget(obj, $ul);
+                    this.renderWidget(obj, $ul, this.enums[id].common.name);
                 }
 
             }.bind(this));
@@ -482,7 +565,7 @@ var mobile = {
         // show edit indicator
         if (this.editMode) $('#edit_indicator').show();
 
-        $(document).bind("pagebeforechange", function(e, data) {
+        $(document).bind("pagebeforechange", function (e, data) {
             if (typeof data.toPage === 'string') {
                 var u = $.mobile.path.parseUrl(data.toPage);
                 var id = decodeURIComponent(u.hash).slice(1);
@@ -659,13 +742,13 @@ var mobile = {
 };
 
 if ('applicationCache' in window) {
-    window.addEventListener('load', function(e) {
-        window.applicationCache.addEventListener('updateready', function(e) {
+    window.addEventListener('load', function (e) {
+        window.applicationCache.addEventListener('updateready', function (e) {
             if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
                 try {
                     window.applicationCache.swapCache();
-                } catch (e) {
-                    console.error(e);
+                } catch (ex) {
+                    console.error(ex);
                 }
                 window.location.reload();
             }
