@@ -57,13 +57,22 @@ var mobile = {
         $('[data-mobile-id="' + id + '"]').each(function () {
             var _id = $(this).data('mobile-id');
             var val = $(this).val();
+
+            if (that.states[_id].val === undefined) {
+                console.warn('No data for "' + _id + '".');
+                return;
+            }
+
             if (val != that.states[_id].val.toString()) {
                 $(this).val(that.states[_id].val.toString());
 
+                var role = $(this).data('role');
                 if ($(this).data('type') == 'range') {
                     $(this).slider('refresh');
-                } else if ($(this).data('role') == 'slider') {
+                } else if (role == 'slider') {
                     $(this).slider('refresh');
+                } else if (role == 'value') {
+                    $(this).html(that.states[_id].val + ($(this).data('unit') || ''));
                 }
             }
         });
@@ -103,6 +112,12 @@ var mobile = {
             name = name.replace(reg2, '');
             name = name.replace(reg3, '');
             name = name.replace(reg4, '');
+            name = name.replace(/_/g, ' ');
+            var words = name.split(' ');
+            for (var w = 0; w < words.length; w++) {
+                words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
+            }
+            name = words.join(' ');
         }
         var tid = obj._id.replace(/\./g, '_');
 
@@ -133,8 +148,8 @@ var mobile = {
                             '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>' + _('on') + '</option>' +
                             '</select></div>';
                         html += '<div class="mobile-widget-c">' +
-                            '<input class="mobile-control" id="slider_' + tid + '" type="range" data-mobile-id="' + id +
-                            '" name="slider_' + tid + '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
+                            '<input class="mobile-control" type="range" data-mobile-id="' + id +
+                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
 
                     }
                 }
@@ -207,28 +222,48 @@ var mobile = {
                         }
                     }
                 } else {
+                    if (direct) html += '</div><div class="mobile-widget-c">';
+
                     if (!this.states[obj._id]) {
                         // read states
                         if (this.queueStates.indexOf(obj._id) == -1) this.queueStates.push(obj._id);
                         val = '';
                     } else {
-                        val = this.states[obj._id].val;
+                        if (obj.common.states && obj.common.states[0] == '{') {
+                            try {
+                                var states = JSON.parse(obj.common.states);
+                                val = states[this.states[obj._id].val] !== undefined ? states[this.states[obj._id].val] : this.states[obj._id].val;
+                            } catch (ex) {
+                                val = this.states[obj._id].val;
+                            }
+                        } else {
+                            val = this.states[obj._id].val;
+                        }
                     }
 
                     switch (obj.common.role) {
                         case 'indicator.error':
-                            html += '<div class="mobile-widget-c"><div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="led" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                            html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="error" data-states="' + (obj.common.states || '') + '" data-type="' + obj.common.type + '">' + val + '</div>';
                             break;
 
-                        case 'text':
-                            html += '<div class="mobile-widget-c"><strong>' + _(obj.common.type) + '</strong>: <span data-mobile-id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                        case 'level':
+                            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" value="' + val + '"/>';
                             break;
 
                         default:
-                            html += '<div class="mobile-widget-c"><strong>' + _(obj.common.type) + '</strong>: <span data-mobile-id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span></div>';
+                            if (obj.common.role && obj.common.role.indexOf('indicator') != -1) {
+                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="indicator" data-states="' + (obj.common.states || '') + '" data-type="' + obj.common.type + '">' + val + '</div>';
+                            } else
+                            if (obj.common.role && obj.common.role.indexOf('button') != -1) {
+                                if (!direct) html = '';
+                                html += '<input type="button" data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states="' + (obj.common.states || '') + '"data-type="' + obj.common.type + '" value="' + name + '"/>';
+                            } else {
+                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states="' + (obj.common.states || '') + '"data-type="' + obj.common.type + '">' + val + (obj.common.unit || '') + '</div>';
+                            }
                             break;
                     }
-                    html += '</div>';
+
+                    if (!direct) html += '</div></div>';
                 }
                 break;
 
@@ -593,91 +628,6 @@ var mobile = {
 
                         console.log(_('Loading data values...'));
                     }
-
-                    // first of all try to load views
-                    /*that.loadRemote(function () {
-                     // Read all states from server
-                     that.conn.getStates(that.editMode ? null : that.IDs, function (error, data) {
-                     if (error) {
-                     window.alert(error);
-                     }
-                     if (data) {
-                     for (var id in data) {
-                     var obj = data[id];
-
-                     try {
-                     if (that.editMode) {
-                     that.states[id + '.val'] = obj.val;
-                     that.states[id + '.ts'] = obj.ts;
-                     that.states[id + '.ack'] = obj.ack;
-                     that.states[id + '.lc'] = obj.lc;
-                     } else {
-                     var o = {};
-                     o[id + '.val'] = obj.val;
-                     o[id + '.ts'] = obj.ts;
-                     o[id + '.ack'] = obj.ack;
-                     o[id + '.lc'] = obj.lc;
-                     that.states.attr(o);
-                     }
-                     } catch (e) {
-                     that.conn.logError('Error: can\'t create states object for ' + id + '(' + e + ')');
-                     }
-
-                     if (!that.editMode && that.bindings[id]) {
-                     for (var i = 0; i < that.bindings[id].length; i++) {
-                     that.views[that.bindings[id][i].view].widgets[that.bindings[id][i].widget][that.bindings[id][i].type][that.bindings[id][i].attr] = that.formatBinding(that.bindings[id][i].format);
-                     }
-                     }
-                     }
-                     }
-
-                     if (error) {
-                     console.log("Possibly not authenticated, wait for request from server");
-                     // Possibly not authenticated, wait for request from server
-                     } else {
-                     // Get Server language
-                     that.conn.getConfig(function (err, config) {
-                     systemLang = config.language || systemLang;
-                     that.language = systemLang;
-                     that.dateFormat = config.dateFormat;
-                     translateAll();
-                     if (that.isFirstTime) {
-                     // Init edit dialog
-                     if (that.editMode && that.editInit) that.editInit();
-                     that.isFirstTime = false;
-                     that.init();
-                     }
-                     });
-
-                     // If metaIndex required, load it
-                     if (that.editMode) {
-                     // socket.io
-                     if (that.isFirstTime) that.showWaitScreen(true, _('Loading data objects...'), null, 20);
-
-                     // Read all data objects from server
-                     that.conn.getObjects(function (err, data) {
-                     that.objects = data;
-                     // Detect if objects are loaded
-                     for (var ob in data) {
-                     that.objectSelector = true;
-                     break;
-                     }
-                     });
-                     }
-
-                     if (that.isFirstTime) {
-                     setTimeout(function () {
-                     if (that.isFirstTime) {
-                     // Init edit dialog
-                     if (that.editMode && that.editInit) that.editInit();
-                     that.isFirstTime = false;
-                     that.init();
-                     }
-                     }, 1000);
-                     }
-                     }
-                     });
-                     });*/
 
                     // Get Server language
                     that.conn.getConfig(!that.refresh, function (err, config) {

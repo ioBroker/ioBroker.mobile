@@ -60,6 +60,7 @@ input.ui-slider-input {
     display: inline-block;
     float: left;
     width: 100%;
+    font-size: 14px;
 }
 
 .mobile-widget-bc {
@@ -74,6 +75,11 @@ input.ui-slider-input {
 
 .mobile-page-left {
     display: none;
+}
+
+.mobile-value {
+    display: inline-block;
+    float: right;
 }
 
 .leftcolumn_collapsed {
