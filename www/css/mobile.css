@@ -81,6 +81,9 @@ input.ui-slider-input {
     display: inline-block;
     float: right;
 }
+.mobile-error {
+    color: red !important;
+}
 
 .leftcolumn_collapsed {
     display: none;

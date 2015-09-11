@@ -51,8 +51,9 @@ var mobile = {
     conn:         servConn,
     editMode:     false,
     queueStates:  [],
+    updateStates: [],
 
-    updateState: function (id) {
+    updateState: function (id, force) {
         var that = this;
         $('[data-mobile-id="' + id + '"]').each(function () {
             var _id = $(this).data('mobile-id');
@@ -60,19 +61,58 @@ var mobile = {
 
             if (that.states[_id].val === undefined) {
                 console.warn('No data for "' + _id + '".');
-                return;
+                that.states[_id].val = '';
             }
 
-            if (val != that.states[_id].val.toString()) {
-                $(this).val(that.states[_id].val.toString());
+            if (force || val != that.states[_id].val.toString()) {
 
                 var role = $(this).data('role');
                 if ($(this).data('type') == 'range') {
+                    $(this).val(that.states[_id].val.toString());
                     $(this).slider('refresh');
                 } else if (role == 'slider') {
+                    $(this).val(that.states[_id].val.toString());
                     $(this).slider('refresh');
-                } else if (role == 'value') {
-                    $(this).html(that.states[_id].val + ($(this).data('unit') || ''));
+                } else {
+                    var val = that.states[_id].val;
+                    if (val === 'true')  val = true;
+                    if (val === 'false') val = false;
+                    if (parseFloat(val).toString() == val.toString()) val = parseFloat(val);
+
+                    var states = $(this).data('states');
+
+                    if (states && ((role != 'indicator' && role != 'error') || val)) {
+                        // convert JSON
+                        if (states[0] == '{') {
+                            try {
+                                var values = JSON.parse(states);
+                                val = values[val] === undefined ? val : values[val];
+                            } catch (ex) {
+                                console.error('Cannot parse states for ' + id);
+                            }
+                        } else if (typeof states == 'object') {
+                            val = states[val] === undefined ? val : states[val];
+                        }
+                    }
+
+
+                    if (role == 'indicator' || role == 'error') {
+                        if (!val) {
+                            $(this).parent().hide();
+                        } else {
+                            $(this).parent().show();
+                        }
+
+                        if (role == 'error') {
+                            if (val) {
+                                $(this).addClass('mobile-error');
+                            } else {
+                                $(this).removeClass('mobile-error');
+                            }
+                        }
+                    }
+
+                    $(this).html(val + ($(this).data('unit') || ''));
                 }
             }
         });
@@ -99,7 +139,6 @@ var mobile = {
         var html = '';
         var i;
         var id;
-        var val;
         var name = obj.common.name || obj._id;
 
         // remove room or function name from device name
@@ -138,18 +177,17 @@ var mobile = {
                         if (!this.states[id]) {
                             // read states
                             if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                            val = 0;
                         } else {
-                            val = this.states[id].val;
+                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
                         }
 
                         html += '<div class="mobile-widget-b"><select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">' +
                             '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
-                            '<option value="' + this.objects[id].common.max + '"' + (this.states[id].val > this.objects[id].common.min ? ' selected' : '') + '>' + _('on') + '</option>' +
+                            '<option value="' + this.objects[id].common.max + '">' + _('on')  + '</option>' +
                             '</select></div>';
                         html += '<div class="mobile-widget-c">' +
                             '<input class="mobile-control" type="range" data-mobile-id="' + id +
-                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + this.states[id].val + '"/></div>';
+                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '"/></div>';
 
                     }
                 }
@@ -164,22 +202,21 @@ var mobile = {
                         if (!this.states[id]) {
                             // read states
                             if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                            val = 0;
                         } else {
-                            val = this.states[id].val;
+                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
                         }
 
                         html += '<div class="mobile-widget-b">\n' +
                             '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
                             '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
-                            '        <option value="' + this.objects[id].common.max + '"' + (val > this.objects[id].common.min ? ' selected' : '') + '>' + _('opened') + '</option>\n' +
+                            '        <option value="' + this.objects[id].common.max + '">' + _('opened') + '</option>\n' +
                             '    </select>\n' +
                             '</div>\n';
 
 
                         html += '<div class="mobile-widget-c">\n' +
                             '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
-                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" value="' + val + '"/>\n</div>';
+                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" />\n</div>';
                     }
                 }
                 break;
@@ -192,19 +229,15 @@ var mobile = {
                     if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
                         if (!this.states[id]) {
                             // read states
-                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                            val = 0;
+                            if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
                         } else {
-                            val = this.states[id].val;
+                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
                         }
-                        if (val === 'false') val = false;
-                        if (val === '0') val = false;
-
 
                         html += '<div class="mobile-widget-b">\n' +
                             '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" >\n' +
                             '        <option value="false">' + _('off') + '</option>\n' +
-                            '        <option value="true"' + (val ? ' selected' : '') + '>' + _('on') + '</option>\n' +
+                            '        <option value="true" >' + _('on')  + '</option>\n' +
                             '    </select>\n' +
                             '</div>\n';
                     }
@@ -224,43 +257,43 @@ var mobile = {
                 } else {
                     if (direct) html += '</div><div class="mobile-widget-c">';
 
-                    if (!this.states[obj._id]) {
-                        // read states
-                        if (this.queueStates.indexOf(obj._id) == -1) this.queueStates.push(obj._id);
-                        val = '';
-                    } else {
-                        if (obj.common.states && obj.common.states[0] == '{') {
-                            try {
-                                var states = JSON.parse(obj.common.states);
-                                val = states[this.states[obj._id].val] !== undefined ? states[this.states[obj._id].val] : this.states[obj._id].val;
-                            } catch (ex) {
-                                val = this.states[obj._id].val;
+                    var states = obj.common.states || '';
+                    if (states) {
+                        if (typeof states == 'object') {
+                            states = JSON.stringify(states);
+                        } else if (typeof states == 'string' && states[0] != '{') {
+                            var values = states.split(';');
+                            states = {};
+                            for (var v = 0; v < values.length; v++) {
+                                var parts = values.split(':');
+                                states[parts[0]] = parts[1];
                             }
-                        } else {
-                            val = this.states[obj._id].val;
+                            states = JSON.stringify(states);
                         }
                     }
 
-                    switch (obj.common.role) {
-                        case 'indicator.error':
-                            html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="error" data-states="' + (obj.common.states || '') + '" data-type="' + obj.common.type + '">' + val + '</div>';
-                            break;
+                    if (!this.states[obj._id]) {
+                        // read states
+                        if (this.queueStates.indexOf(obj._id) == -1) this.queueStates.push(obj._id);
+                    } else {
+                        if (this.updateStates.indexOf(obj.id) == -1) this.updateStates.push(obj._id);
+                    }
 
-                        case 'level':
-                            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" value="' + val + '"/>';
-                            break;
-
-                        default:
-                            if (obj.common.role && obj.common.role.indexOf('indicator') != -1) {
-                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="indicator" data-states="' + (obj.common.states || '') + '" data-type="' + obj.common.type + '">' + val + '</div>';
-                            } else
-                            if (obj.common.role && obj.common.role.indexOf('button') != -1) {
-                                if (!direct) html = '';
-                                html += '<input type="button" data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states="' + (obj.common.states || '') + '"data-type="' + obj.common.type + '" value="' + name + '"/>';
-                            } else {
-                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states="' + (obj.common.states || '') + '"data-type="' + obj.common.type + '">' + val + (obj.common.unit || '') + '</div>';
-                            }
-                            break;
+                    if (obj.common.role == 'indicator.error') {
+                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="error" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+                    } else
+                    if (obj.common.role && obj.common.role.indexOf('level') != -1) {
+                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" ></div>'
+                        html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
+                    } else
+                    if (obj.common.role && obj.common.role.indexOf('indicator') != -1) {
+                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="indicator" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+                    } else
+                    if (obj.common.role && obj.common.role.indexOf('button') != -1) {
+                        if (!direct) html = '';
+                        html += '<input type="button" data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
+                    } else {
+                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
                     }
 
                     if (!direct) html += '</div></div>';
@@ -513,18 +546,27 @@ var mobile = {
             }.bind(this));
         }
 
+        if (this.updateStates.length) {
+            for (var i = 0; i < this.updateStates.length; i++) {
+                this.updateState(this.updateStates[id], true);
+            }
+
+            this.updateStates = [];
+        }
+
         // read states
         var that = this;
         if (this.queueStates.length) {
             this.conn.getStates(this.queueStates, function (err, states) {
                 for (var id in states) {
                     that.states[id] = states[id];
-                    that.updateState(id);
+                    that.updateState(id, true);
                 }
 
                 that.queueStates = [];
             });
         }
+
 
         // on change
         $('.mobile-control').unbind('click').click(function (e) {
