@@ -13,6 +13,7 @@
         "keywords":                 ["user", "interface", "webapp", "jquerymobile", "ui"],
         "readme":                   "https://github.com/ioBroker/ioBroker.mobile/blob/master/README.md",
         "singleton":                true,
+		"preserveSettings":         "mobile",
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
