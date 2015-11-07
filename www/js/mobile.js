@@ -34,8 +34,84 @@ systemDictionary = {
     'edit description': {
         'en': 'In edit mode you can add, delete or modify the extensions. Additionally the elements can be sorted or styled.',
         'de': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
-        'ru': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.'
-    }
+        'ru': 'В режиме изменений можно добавить, изменить или удалить объекты, кроме того можно перетаскивая изменить порядок элементов, а также загрузить иконки.'
+    },
+    "Loading data values...": {
+        "en": "Loading data values...",
+        "de": "Loading data values...",
+        "ru": "Loading data values..."
+    },
+    "Rooms":            {"en": "Rooms",             "de": "Räume",          "ru": "Комнаты"},
+    "Favorites":        {"en": "Favorites",         "de": "Favorites",      "ru": "Favorites"},
+    "Functions":        {"en": "Functions",         "de": "Funktionen",     "ru": "Функции"},
+    "off":              {"en": "off",               "de": "aus",            "ru": "выкл"},
+    "on":               {"en": "on",                "de": "an",             "ru": "вкл"},
+    "CLOSED":           {"en": "closed",            "de": "zu",             "ru": "закрыто"},
+    "closed":           {"en": "closed",            "de": "zu",             "ru": "закр."},
+    "opened":           {"en": "opened",            "de": "auf",            "ru": "откр."},
+    "OPEN":             {"en": "open",              "de": "auf",            "ru": "открыто"},
+    "open":             {"en": "open",              "de": "auf",            "ru": "открыто"},
+    "TILTED":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
+    "tilted":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
+    "false":            {"en": "false",             "de": "nein",           "ru": "нет"},
+    "true":             {"en": "true",              "de": "ja",             "ru": "да"},
+    "No connection to server": {
+        "en": "No connection to server",
+        "de": "No connection to server",
+        "ru": "Нет соединения с сервером"
+    },
+    "Edit mode":        {"en": "Edit mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
+    "Info":             {"en": "Info",              "de": "Info",           "ru": "Инфо"},
+    "License: ":        {"en": "License: ",         "de": "Lizenz: ",       "ru": "Лицензия: "},
+    "Refresh":          {"en": "Refresh",           "de": "Auktualisieren", "ru": "Обновить"},
+    "Last synchronized: ": {
+        "en": "Last synchronized: ",
+        "de": "Letze Synchronisierung: ",
+        "ru": "Последняя синхронизация: "},
+    "Edit-Mode":        {"en": "Edit-Mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
+    "Finish Edit-Mode": {"en": "Finish Edit-Mode",  "de": "Edit-Modus beenden", "ru": "Завершить изменения"},
+    "Documentation":    {"en": "Documentation",     "de": "Dokumentation",  "ru": "Документация"},
+
+    "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
+    "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
+    "Schlafzimmer":     {"en": "Sleeping room",     "de": "Schlafzimmer",   "ru": "Спальня"},
+    "Kinderzimmer":     {"en": "Kids room",         "de": "Kinderzimmer",   "ru": "Детская"},
+    "Kabinet":          {"en": "Cabinet",           "de": "Kabinet",        "ru": "Кабинет"},
+    "Bad":              {"en": "Bath",              "de": "Bad",            "ru": "Ванная"},
+    "Balkon":           {"en": "Balcony",           "de": "Balkon",         "ru": "Балкон"},
+    "Gäste WC":         {"en": "Guest WC",          "de": "Gäste WC",       "ru": "Гостевой туалет"},
+    "Flur":             {"en": "Hall",              "de": "Flur",           "ru": "Коридор"},
+    "Admin Favorites":  {"en": "Admin Favorites",   "de": "Admin Favorites", "ru": "Admin Favorites"},
+    "Licht":            {"en": "Light",             "de": "Licht",          "ru": "Свет"},
+    "Heizung":          {"en": "Heting",            "de": "Heizung",        "ru": "Отопление"},
+    "Rolladen":         {"en": "Shutter",           "de": "Rolladen",       "ru": "Жалюзи"},
+    "Wetter":           {"en": "Weather",           "de": "Wetter",         "ru": "Погода"},
+    "Umwelt":           {"en": "Environment",       "de": "Umwelt",         "ru": "Окружающая среда"},
+    "Taster":           {"en": "Button",            "de": "Taster",         "ru": "Кнопка"},
+    "Zentrale":         {"en": "Central unit",      "de": "Zentrale",       "ru": "Центральное устройство"},
+    "Fenster":          {"en": "Window",            "de": "Fenster",        "ru": "Окно"},
+    "Aktor":            {"en": "Actor",             "de": "Aktor",          "ru": "Выключатель"},
+    "Beleuchtung":      {"en": "Lighting",          "de": "Beleuchtung",    "ru": "Подсветка"},
+
+    "Valve State":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
+    "Level":            {"en": "Level",             "de": "Wert",           "ru": "Уровень"},
+    "Press Long":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
+    "Press Short":      {"en": "Press short",       "de": "Kurz drucken",   "ru": "Короткое нажатие"},
+    "Press Cont":       {"en": "Press continuous",  "de": "Kontinuerlich",  "ru": "Продолжительное нажатие"},
+    "Press Long Release": {"en": "Press long release", "de": "Press Long Release", "ru": "Прекратить длинное нажатие"},
+    "State":            {"en": "State",             "de": "Zustand",        "ru": "Состояние"},
+    "Adjusting Command": {"en": "Adjusting Command", "de": "Justier-Kommando", "ru": "Команда настойки"},
+    "Adjusting Data":   {"en": "Adjusting Data",    "de": "Justierungsdaten", "ru": "Данные для настойки"},
+    "Setpoint":         {"en": "Setpoint",          "de": "Sollwert",       "ru": "Заданное значение"},
+    "Humidity":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
+    "Temperature":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
+    "Inhibit":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
+    "Open":             {"en": "Open",              "de": "Aufmachen",      "ru": "Открыть"},
+    "Relock Delay":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
+    "State Uncertain":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
+    "Brightness":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
+    "On Time":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
+    "Submit":           {"en": "Submit",             "de": "Bestätigen",    "ru": "Подтвердить"}
 };
 
 
@@ -52,6 +128,13 @@ var mobile = {
     editMode:     false,
     queueStates:  [],
     updateStates: [],
+    ids:          [],
+
+    icons:        {
+        'temperature':  'temp_temperature.svg',
+        'humidity':     'weather_humidity.svg',
+        'setpoint':     'temp_control.svg'
+    },
 
     updateState: function (id, force) {
         var that = this;
@@ -72,12 +155,22 @@ var mobile = {
                     $(this).slider('refresh');
                 } else if (role == 'slider') {
                     $(this).val(that.states[_id].val.toString());
-                    $(this).slider('refresh');
+                    $(this).slider().slider('refresh');
                 } else {
-                    var val = that.states[_id].val;
-                    if (val === 'true')  val = true;
-                    if (val === 'false') val = false;
-                    if (parseFloat(val).toString() == val.toString()) val = parseFloat(val);
+                    var val    = that.states[_id].val;
+                    var rawVal = that.states[_id].val;
+                    if (val === 'true' || val === true) {
+                        rawVal = true;
+                        val = _('true');
+                    } else
+                    if (val === 'false' || val === false) {
+                        rawVal = false;
+                        val = _('false');
+                    } else
+                    if (parseFloat(val).toString() == val.toString()) {
+                        val = parseFloat(val);
+                        rawVal = val;
+                    }
 
                     var states = $(this).data('states');
 
@@ -86,33 +179,59 @@ var mobile = {
                         if (states[0] == '{') {
                             try {
                                 var values = JSON.parse(states);
-                                val = values[val] === undefined ? val : values[val];
+                                if (values[val] === undefined) {
+                                    rawVal = val;
+                                    val    = val;
+                                } else {
+                                    rawVal = values[val];
+                                    val    = _(values[val]);
+                                }
                             } catch (ex) {
                                 console.error('Cannot parse states for ' + id);
                             }
                         } else if (typeof states == 'object') {
-                            val = states[val] === undefined ? val : states[val];
+                            if (states[val] === undefined) {
+                                rawVal = val;
+                                val    = val;
+                            } else {
+                                rawVal = states[val];
+                                val    = _(states[val]);
+                            }
                         }
                     }
 
 
                     if (role == 'indicator' || role == 'error') {
-                        if (!val) {
-                            $(this).parent().hide();
+                        if (!rawVal) {
+                            $(this).hide();
                         } else {
-                            $(this).parent().show();
+                            $(this).show();
                         }
 
                         if (role == 'error') {
-                            if (val) {
+                            if (rawVal) {
                                 $(this).addClass('mobile-error');
                             } else {
                                 $(this).removeClass('mobile-error');
                             }
                         }
                     }
-
-                    $(this).html(val + ($(this).data('unit') || ''));
+                    var unit = $(this).data('unit') || '';
+                    if (unit) unit = ' ' + unit;
+                    if ($(this).data('title')) {
+                        $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
+                    } else {
+                        var id = $(this).data('p');
+                        if (id) {
+                            if (typeof rawVal === 'boolean') {
+                                $('#' + id).html($(this).attr('name'));
+                            } else {
+                                $('#' + id).html($(this).attr('name') + ' - ' + val + unit);
+                            }
+                        } else {
+                            $(this).html(val + unit);
+                        }
+                    }
                 }
             }
         });
@@ -141,6 +260,9 @@ var mobile = {
         var id;
         var name = obj.common.name || obj._id;
 
+        // ignore indicators
+        if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
+
         // remove room or function name from device name
         if (group) {
             var reg1 = new RegExp ('[-.\/]+' + group + '[-.\/]+', 'gi');
@@ -152,96 +274,110 @@ var mobile = {
             name = name.replace(reg3, '');
             name = name.replace(reg4, '');
             name = name.replace(/_/g, ' ');
+            name = name.replace(/\./g, ' ');
             var words = name.split(' ');
             for (var w = 0; w < words.length; w++) {
                 words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
             }
             name = words.join(' ');
         }
-        var tid = obj._id.replace(/\./g, '_');
 
+        if (obj.type === 'state') {
+            name = _(name);
+        }
         if (obj.common.icon) {
             var adapter = obj._id.split('.').shift();
-            html += '<div class="mobile-widget-a"><img class="mobile-widget-icon" src="/adapter/' + adapter + '/' + obj.common.icon + '" style="height: 32px"/><div style="padding-top: 5px">' + name + '</div>';
+            html += '<div class="mobile-widget-a" title="' + (obj.common.role || '') +'">' +
+                '<img class="mobile-widget-icon" src="/adapter/' + adapter + '/' + obj.common.icon + '" style="height: 32px"/>' +
+                '<div class="' + (obj.type == 'channel' ? 'mobile-title' : '') + '">' + name + '</div>';
         } else {
-            html += '<div class="mobile-widget-a">' + name;
+            html += '<div class="mobile-widget-a ' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'">' + name;
         }
 
         switch (obj.common.role) {
             case 'dimmer':
                 html += '</div>';
-                for (i = 0; i < obj.children.length; i++) {
-                    id = obj.children[i];
+                if (obj.children) {
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
 
-                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
-                        if (!this.states[id]) {
-                            // read states
-                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                        } else {
-                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
+                            if (!this.states[id]) {
+                                // read states
+                                if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+                            } else {
+                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                            }
+
+                            html += '<div class="mobile-widget-b"><select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">' +
+                                '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
+                                '<option value="' + this.objects[id].common.max + '">' + _('on')  + '</option>' +
+                                '</select></div>';
+                            html += '<div class="mobile-widget-c">' +
+                                '<input class="mobile-control" type="range" data-mobile-id="' + id +
+                                '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '"/></div>';
+
                         }
-
-                        html += '<div class="mobile-widget-b"><select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">' +
-                            '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
-                            '<option value="' + this.objects[id].common.max + '">' + _('on')  + '</option>' +
-                            '</select></div>';
-                        html += '<div class="mobile-widget-c">' +
-                            '<input class="mobile-control" type="range" data-mobile-id="' + id +
-                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '"/></div>';
-
                     }
                 }
                 break;
 
             case 'blind':
                 html += '</div>';
-                for (i = 0; i < obj.children.length; i++) {
-                    id = obj.children[i];
+                if (obj.children) {
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
 
-                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
-                        if (!this.states[id]) {
-                            // read states
-                            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                        } else {
-                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
+                            if (!this.states[id]) {
+                                // read states
+                                if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+                            } else {
+                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                            }
+
+                            html += '<div class="mobile-widget-b">\n' +
+                                '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
+                                '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
+                                '        <option value="' + this.objects[id].common.max + '">' + _('opened') + '</option>\n' +
+                                '    </select>\n' +
+                                '</div>\n';
+
+
+                            html += '<div class="mobile-widget-c">\n' +
+                                '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
+                                '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" />\n</div>';
                         }
-
-                        html += '<div class="mobile-widget-b">\n' +
-                            '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
-                            '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
-                            '        <option value="' + this.objects[id].common.max + '">' + _('opened') + '</option>\n' +
-                            '    </select>\n' +
-                            '</div>\n';
-
-
-                        html += '<div class="mobile-widget-c">\n' +
-                            '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
-                            '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" />\n</div>';
                     }
                 }
                 break;
 
             case 'switch':
                 html += '</div>';
-                for (i = 0; i < obj.children.length; i++) {
-                    id = obj.children[i];
+                if (obj.children) {
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
 
-                    if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
-                        if (!this.states[id]) {
-                            // read states
-                            if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
-                        } else {
-                            if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                        if (this.objects[id] && this.objects[id].common) {
+                            if (this.objects[id].common.role === 'state') {
+                                if (!this.states[id]) {
+                                    // read states
+                                    if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
+                                } else {
+                                    if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                                }
+
+                                html += '<div class="mobile-widget-b">\n' +
+                                    '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" >\n' +
+                                    '        <option value="false">' + _('off') + '</option>\n' +
+                                    '        <option value="true" >' + _('on') + '</option>\n' +
+                                    '    </select>\n' +
+                                    '</div>\n';
+                            }
                         }
-
-                        html += '<div class="mobile-widget-b">\n' +
-                            '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" >\n' +
-                            '        <option value="false">' + _('off') + '</option>\n' +
-                            '        <option value="true" >' + _('on')  + '</option>\n' +
-                            '    </select>\n' +
-                            '</div>\n';
                     }
                 }
+
                 break;
 
             default:
@@ -279,21 +415,34 @@ var mobile = {
                         if (this.updateStates.indexOf(obj.id) == -1) this.updateStates.push(obj._id);
                     }
 
-                    if (obj.common.role == 'indicator.error') {
-                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="error" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
-                    } else
+
                     if (obj.common.role && obj.common.role.indexOf('level') != -1) {
-                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" ></div>'
+                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" ></div>';
                         html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
-                    } else
-                    if (obj.common.role && obj.common.role.indexOf('indicator') != -1) {
-                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="indicator" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
                     } else
                     if (obj.common.role && obj.common.role.indexOf('button') != -1) {
                         if (!direct) html = '';
                         html += '<input type="button" data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
                     } else {
-                        html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+                        if (obj.common.write && obj.common.type == 'boolean') {
+                            html += '<div class="mobile-widget-b">\n' +
+                                '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" >\n' +
+                                '        <option value="false">' + _('off') + '</option>\n' +
+                                '        <option value="true" >' + _('on') + '</option>\n' +
+                                '    </select>\n' +
+                                '</div>\n';
+                        } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
+                            html += ' - <span data-mobile-id="' + obj._id + '" ' +
+                                'data-type="' + obj.common.type + '" ' +
+                                'data-unit="' + (obj.common.unit || '') + '" ' +
+                                'data-states=' + "'" + states + "'" + '></span>' +
+                                '<div class="mobile-widget-c">\n' +
+                                '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
+                                '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '" />\n</div>';
+
+                        } else {
+                            html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+                        }
                     }
 
                     if (!direct) html += '</div></div>';
@@ -304,12 +453,86 @@ var mobile = {
         return html;
     },
 
+    renderIndicators: function (obj, $elem) {
+        var id;
+        // try to find some in device itself
+        var parent = obj._id.split('.');
+        parent.pop();
+        parent = parent.join('.');
+        if (this.objects[parent] && this.objects[parent].type == 'device') {
+            this.renderIndicators(this.objects[parent], $elem);
+        } else {
+            var checked = $elem.data('indicators') || [];
+            if (checked.indexOf(obj._id) == -1) {
+                var $indicators = $elem.find('.mobile-indicators');
+                if (!$indicators.length) {
+                    $elem.append('<div class="mobile-indicators"></div>');
+                    $indicators = $elem.find('.mobile-indicators');
+                }
+
+                checked.push(obj._id);
+                $elem.data('indicators', checked);
+
+                if (obj.children) {
+                    for (var i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
+
+                        if (this.objects[id] && this.objects[id].common) {
+                            if (this.objects[id].common.role && this.objects[id].common.role.match(/^indicator\.?/)) {
+                                if (!this.states[id]) {
+                                    // read states
+                                    if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+                                } else {
+                                    if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                                }
+                                var states = this.objects[id].common.states || '';
+                                if (states) {
+                                    if (typeof states == 'object') {
+                                        states = JSON.stringify(states);
+                                    } else if (typeof states == 'string' && states[0] != '{') {
+                                        var values = states.split(';');
+                                        states = {};
+                                        for (var v = 0; v < values.length; v++) {
+                                            var parts = values.split(':');
+                                            states[parts[0]] = parts[1];
+                                        }
+                                        states = JSON.stringify(states);
+                                    }
+                                }
+                                var _id = id.replace(/\./g, '-');
+                                var text = '<a href="#' + _id + '" ' +
+                                    'data-mobile-id="' + id + '" ' +
+                                    'data-p="' + _id + '-p" ' +
+                                    'data-states=' + "'" + states + "'" + ' ' +
+                                    'name="' + (this.objects[id].common.name || id) + '" ' +
+                                    'data-rel="popup" ' +
+                                    'data-type="' + this.objects[id].common.type + '" ' +
+                                    'data-role="indicator" ' +
+                                    'class="mobile-widget-a mobile-value mobile-' + this.objects[id].common.role.replace(/\./g, '-') + '" ' +
+                                    'data-transition="pop"></a>' +
+                                    '<div data-role="popup" id="' + _id +'">' +
+                                    '<p id="' + _id + '-p"></p></div>';
+
+                                $indicators.append(text);
+                            }
+                            if (this.objects[id].children && this.objects[id].children.length) {
+                                this.renderIndicators(this.objects[id], $elem);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+
     renderChannel: function (obj, $elem, group) {
-        $elem.append('<li class="mobile-widget">' + this.renderElement(obj, group) + '</li>');
+        var $channel = $('<li class="mobile-widget">' + this.renderElement(obj, group) + '</li>');
+        $elem.append($channel);
 
         if ($elem.hasClass('ui-listview')) {
             $elem.listview('refresh');
         }
+        this.renderIndicators(obj, $channel);
     },
 
     renderType: function (id, state, group) {
@@ -340,48 +563,12 @@ var mobile = {
                 break;
         }
         if (obj.common.unit) {
-            text +=  '<b>' + this.objects[id].common.unit + '</b>';
+            text +=  ' <b>' + this.objects[id].common.unit + '</b>';
         }
         return text;
     },
 
     renderState: function (obj, $elem, group) {
-        /*var html = '';
-        var id = obj._id;
-        html += '<div class="mobile-widget-a">';
-        html += '<h2>' + (obj.common.name || obj._id) + '</h2>';
-
-        var val;
-        if (!this.states[id]) {
-            // read states
-            if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-            val = '';
-        } else {
-            val = this.states[id].val;
-        }
-
-        switch (obj.common.role) {
-            case 'text':
-                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span>';
-                break;
-
-            default:
-                html += '<p><strong>' + _(obj.common.type) + '</strong>: <span id="' + obj._id + '" class="mobile-value" data-type="' + obj.common.type + '">' + val + '</span>';
-                break;
-        }
-        html += '</div>';
-
-        elem.append('<li>' + html + '</li>').listview('refresh');
-
-
-        this.queueStates.push(id);
-        this.conn.getStates([obj._id], function (err, states) {
-            for (var id in states) {
-                var $span = $('.mobile-value[id="' + obj._id + '"]');
-
-                $span.html(this.renderType(id, states[id]));
-            }
-        }.bind(this));*/
         $elem.append('<li class="mobile-widget">' + this.renderElement(obj, group, true) + '</li>');
 
         if ($elem.hasClass('ui-listview')) {
@@ -389,8 +576,10 @@ var mobile = {
         }
     },
     
-    renderDevice: function (obj, elem, group) {
-        elem.append('<li>' + this.renderElement(obj, group) + '</li>').listview('refresh');
+    renderDevice: function (obj, $elem, group) {
+        var $device = $('<li>' + this.renderElement(obj, group) + '</li>');
+        $elem.append($device).listview('refresh');
+        this.renderIndicators(obj, $device);
     },
     
     renderRootPages: function () {
@@ -428,14 +617,14 @@ var mobile = {
                 } else {
                     navbar +=  'star';
                 }
-                navbar += '" href="#' + this.root[j] + '">' + this.enums[this.root[j]].common.name + '</a></li>\n';
+                navbar += '" href="#' + this.root[j] + '">' + _(this.enums[this.root[j]].common.name) + '</a></li>\n';
             }
     
             var menu = '';
     
             for (var id in this.enums) {
                 if (this.enums[id]._id.substring(0, this.root[i].length + 1) == this.root[i] + '.') {
-                    menu += '<li><a href="#' + encodeURIComponent(id) + '">' + this.enums[id].common.name + '</a></li>';
+                    menu += '<li><a href="#' + encodeURIComponent(id) + '">' + _(this.enums[id].common.name) + '</a></li>';
                 }
             }
     
@@ -515,8 +704,8 @@ var mobile = {
         var page =
             '<div id="' + id + '" data-role="page" class="responsive-grid" data-theme="b">' +
             '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">' +
-            '        <a href="#' + encodeURIComponent(parentId) + '" data-role="button" data-icon="arrow-l">' + parentName + '</a>' +
-            '        <h1><span class="mobile-prefix"></span>' + name + '</h1>' +
+            '        <a href="#' + encodeURIComponent(parentId) + '" data-role="button" data-icon="arrow-l">' + _(parentName) + '</a>' +
+            '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
             '        <a href="#info" data-rel="dialog" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
             '    </div>';
 
@@ -616,6 +805,29 @@ var mobile = {
         }
         return updateAvailable;
     },
+    calcChildren: function (objs) {
+        var ids = [];
+        for (var ob in objs) {
+            ids.push(ob);
+        }
+        ids.sort();
+        for (var i = 0; i < ids.length; i++) {
+            if (objs[ids[i]].type == 'device' || objs[ids[i]].type == 'channel') {
+                var parts = ids[i].split('.');
+                var j = i + 1;
+                var len = ids[i].length;
+                while (ids[j].substring(0, len) === ids[i]) {
+                    var ps = ids[j].split('.');
+                    if (ps.length == parts.length + 1) {
+                        objs[ids[i]].children =  objs[ids[i]].children || [];
+                        objs[ids[i]].children.push(ids[j]);
+                    }
+                    j++;
+                }
+            }
+        }
+        return objs;
+    },
 
     init: function (id) {
         $("#server-disconnect").dialog({
@@ -672,39 +884,44 @@ var mobile = {
                     }
 
                     // Get Server language
-                    that.conn.getConfig(!that.refresh, function (err, config) {
-                        systemLang      = config.language || systemLang;
-                        that.language   = systemLang;
-                        that.dateFormat = config.dateFormat;
-                        translateAll();
-                        if (that.isFirstTime) {
-                            // Init edit dialog
-                            that.isFirstTime = false;
-                        }
-                    });
-
                     that.conn.getObjects(!that.refresh, function (err, objects) {
-                        that.objects = objects;
-                        // show last sync time
-                        var syncTime = this.conn.getSyncTime();
-                        if (typeof(Storage) === 'undefined')  {
-                            $('.mobile-refresh').hide();
-                            $('.last-synchronised').html(_('not supported'));
-                        } else {
-                            $('.last-synchronised').html(!syncTime ? _('never') : syncTime.toLocaleDateString() + ' ' + syncTime.toLocaleTimeString());
-                        }
-
-                        this.conn.getEnums(!this.refresh, function (err, enums) {
-                            this.enums = enums;
-                            for (var e in this.enums) {
-                                var parts = e.split('.');
-                                if (parts.length == 2) this.root.push(e);
+                        that.conn.getConfig(!that.refresh, function (err, config) {
+                            systemLang      = config.language || systemLang;
+                            that.language   = systemLang;
+                            that.dateFormat = config.dateFormat;
+                            translateAll();
+                            if (that.isFirstTime) {
+                                // Init edit dialog
+                                that.isFirstTime = false;
                             }
 
-                            this.renderRootPages();
 
-                        }.bind(this));
-                    }.bind(that));
+                            that.objects = that.calcChildren(objects);
+
+                            // find for every object the children
+
+                            // show last sync time
+                            var syncTime = this.conn.getSyncTime();
+                            if (typeof(Storage) === 'undefined')  {
+                                $('.mobile-refresh').hide();
+                                $('.last-synchronised').html(_('not supported'));
+                            } else {
+                                $('.last-synchronised').html(!syncTime ? _('never') : syncTime.toLocaleDateString() + ' ' + syncTime.toLocaleTimeString());
+                            }
+
+                            this.conn.getEnums(!this.refresh, function (err, enums) {
+                                this.enums = enums;
+                                for (var e in this.enums) {
+                                    var parts = e.split('.');
+                                    if (parts.length == 2) this.root.push(e);
+                                }
+
+                                this.renderRootPages();
+
+                            }.bind(this));
+                        }.bind(that));
+                    });
+
                 } else {
                     $("#server-disconnect").dialog("open");
                 }

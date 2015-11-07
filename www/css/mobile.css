@@ -327,7 +327,7 @@ input.ui-slider-input {
         box-shadow: 0px 0px 9px #111;
     }
 
-    /* Images mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
+    /* img mask the hover bg color so we give desktop users feedback by applying the focus style on hover as well. */
     .responsive-grid .ui-listview .ui-btn:hover {
         -moz-box-shadow: 0px 0px 12px #387bbe;
         -webkit-box-shadow: 0px 0px 12px #387bbe;
@@ -487,13 +487,13 @@ input.ui-slider-input {
 }
 
 div.mobile-slider-hue div.ui-slider div.ui-slider-track {
-    background: url(../images/default/hue.png) !important;
+    background: url(../img/hue.png) !important;
     background-size: 100% 100% !important;
 }
 
 
 div.mobile-slider-ct div.ui-slider div.ui-slider-track {
-    background: url(../images/default/ct.png) !important;
+    background: url(../img/ct.png) !important;
     background-size: 100% 100% !important;
 }
 
@@ -530,4 +530,38 @@ div.led16 {
 
 .mobile-program-fail .ui-btn-inner {
     /* background-color: red; */
+}
+
+.mobile-title {
+    padding-top: 5px;
+    font-weight: bold;
+}
+.mobile-indicators {
+    width: 90%;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    padding-right: 10px;
+}
+.mobile-indicator-battery {
+    width: 48px;
+    height: 48px;
+    background-image: url('../img/unreach.png');
+    background-repeat: no-repeat;
+    float: right;
+}
+.mobile-indicator-unreach {
+    width: 48px;
+    height: 48px;
+    background-image: url('../img/unreach.png');
+    background-repeat: no-repeat;
+    float: right;
+}
+.mobile-indicator-error {
+    width: 48px;
+    height: 48px;
+    background-image: url('../img/unreach.png');
+    background-repeat: no-repeat;
+    float: right;
 }

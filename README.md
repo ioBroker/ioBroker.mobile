@@ -1,20 +1,25 @@
+![Logo](admin/mobile.png)
 # ioBroker.mobile
+=================
 
-jQuery Mobile based user interface
+jQuery Mobile based user interface. 
+![Screen](img/screen.png)
 
-Depends on adapter websocket
+ToDO:
+- edit of names,
+- edit of visibility
+- edit of order
+- edit of Icon
 
 ## Changlog
 
-#### 0.0.2
-
-* (hobbyquaker) dimmer
+#### 0.0.4
+* (bluefox) first version. No edit possible.
 
 ## License
-
 The MIT License (MIT)
 
-Copyright (c) 2014 hobbyquaker
+Copyright (c) 2015 bluefox<dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
