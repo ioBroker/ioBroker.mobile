@@ -60,6 +60,14 @@ module.exports = function (grunt) {
                                 srcDir + 'www/cache.manifest'
                         ],
                         dest:    srcDir + 'www'
+                    },
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
+                                srcDir + 'www/js/mobile.js'
+                        ],
+                        dest:    srcDir + 'www/js'
                     }
                 ]
             },
@@ -252,6 +260,10 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('prepublish', [
         'http',
+        'replace'
+    ]);
+	
+	grunt.registerTask('p', [
         'replace'
     ]);
 };

@@ -116,7 +116,7 @@ systemDictionary = {
 
 
 var mobile = {
-    version: "0.0.2",
+    version: "0.0.5",
     requiredServerVersion: "0.0.0",
     enums:        {},
     objects:      {},
@@ -816,7 +816,7 @@ var mobile = {
                 var parts = ids[i].split('.');
                 var j = i + 1;
                 var len = ids[i].length;
-                while (ids[j].substring(0, len) === ids[i]) {
+                while (j < ids.length && ids[j].substring(0, len) === ids[i]) {
                     var ps = ids[j].split('.');
                     if (ps.length == parts.length + 1) {
                         objs[ids[i]].children =  objs[ids[i]].children || [];

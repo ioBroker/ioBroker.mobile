@@ -1,13 +1,3 @@
-body {
-    background-color: #0092d9;
-}
-
-/* Floats einschliessen! */
-li.mobile-widget {
-    overflow: hidden;
-}
-
-
 /* Eingabefeld neben Slider ausblenden */
 input.ui-slider-input {
     display : none !important;
@@ -24,8 +14,8 @@ input.ui-slider-input {
 
 /* a, b und c mit voller breite und untereinander */
 .mobile-page .ui-li-has-thumb {
-    padding-left:10px !important;
-    padding-right:35px !important;
+    padding-left:  10px !important;
+    padding-right: 35px !important;
 }
 
 .mobile-page .ui-li-has-thumb img.ui-li-thumb {
@@ -126,13 +116,13 @@ input.ui-slider-input {
     margin-right: 40px;
 }
 
-.ui-li-thumb {
+/*.ui-li-thumb {
     display: none;
 }
 
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
     padding-left: 10px !important;
-}
+}*/
 
 /* erster breakpoint bei 400px*/
 @media all and (min-width: 400px){
@@ -469,22 +459,22 @@ input.ui-slider-input {
     font-size: 18px;
 }
 
-#edit_channel_name {
+/*#edit_channel_name {
     width: 100%;
     display: block;
     padding-bottom: 5px;
     padding-top: 5px;
     font-weight: bold;
-}
+}*/
 
-.edit_invisible {
+/*.edit_invisible {
     opacity: 0.35;
     display: block;
 }
 
 .invisible {
     display: none !important;
-}
+}*/
 
 div.mobile-slider-hue div.ui-slider div.ui-slider-track {
     background: url(../img/hue.png) !important;
@@ -501,7 +491,7 @@ ul.mobile-page-left h2 {
     margin-left: 5px;
 }
 
-div.led16 {
+/*div.led16 {
     width: 15px;
     height: 15px;
     border-radius: 8px;
@@ -523,14 +513,7 @@ div.led16 {
 .led16-3 {
     background-color: yellow;
 }
-
-.mobile-program-confirm .ui-btn-inner {
-    /* background-color: green; */
-}
-
-.mobile-program-fail .ui-btn-inner {
-    /* background-color: red; */
-}
+*/
 
 .mobile-title {
     padding-top: 5px;
