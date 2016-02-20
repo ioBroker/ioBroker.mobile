@@ -530,7 +530,7 @@ ul.mobile-page-left h2 {
 .mobile-indicator-battery {
     width: 48px;
     height: 48px;
-    background-image: url('../img/unreach.png');
+    background-image: url('../img/battery.png');
     background-repeat: no-repeat;
     float: right;
 }
@@ -544,7 +544,75 @@ ul.mobile-page-left h2 {
 .mobile-indicator-error {
     width: 48px;
     height: 48px;
-    background-image: url('../img/unreach.png');
+    background-image: url('../img/error.png');
     background-repeat: no-repeat;
     float: right;
+}
+.mobile-checkbox-visibility {
+    float: right;
+    margin: 0.7em;
+}
+
+.mobile-edit-element {
+    border-radius: .3125em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.mobile-edit-channel {
+    margin-top: -1em;
+    background-color: rgba(0, 0, 255, 0.5);
+    padding-bottom: 1.3em;
+}
+.mobile-invisible {
+    opacity: 0.5;
+}
+.mobile-edit-state {
+    background-color: rgba(0, 255, 0, 0.4);
+    z-index: 11;
+}
+
+.mobile-edit-enum {
+    background-color: rgba(0, 0, 255, 0.5);
+    border-radius: .3125em;
+    position: absolute;
+    z-index: 11;
+}
+.mobile-enum-visibility {
+    width: 1.1em;
+    height: 1.2em;
+    border: 1px solid gray;
+    background: white;
+    color: black;
+    text-align: center;
+    float: right;
+    margin: 0.7em;
+}
+.mobile-edit-subenum {
+    background-color: rgba(0, 255, 0, 0.5);
+    border-radius: .3125em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+#edit_indicator {
+    border: 1px solid #044062;
+    box-shadow: 0 1px 0 rgba(255,255,255,.3);
+    display: none; font-weight: 700;
+    top: 8px; text-shadow: 0 1px 0 #194b7e;
+    font-family: Helvetica,Arial,sans-serif;
+    color:#fff;
+    padding:3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: fixed;
+    right: 40px;
+    background-color: orange;
+    z-index:10000;
 }

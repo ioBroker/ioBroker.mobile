@@ -59,14 +59,11 @@
     </head>
 
     <body style="height: 100%;">
-
-
         <div data-role="popup" data-overlay-theme="a" id="server-disconnect" style="display: none">
             <p class="translate">No connection to server<p>
         </div>
 
-        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate"
-             style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit mode</div>
+        <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate">Edit mode</div>
 
         <div id="info" data-role="page" data-history="false" data-theme="b">
             <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">
@@ -80,8 +77,8 @@
                 <p>
                     <a class="mobile-editswitch mobile-refresh translate" data-ajax="false" data-role="button" data-icon="refresh" href="?refresh" target="_self">Refresh</a>
                     <div><span class="translate">Last synchronized: </span><span class="last-synchronised"></span></div>
-                    <a class="mobile-editswitch mobile-noedit  translate" data-ajax="false" data-role="button" data-icon="gear" href="?edit" target="_self">Edit-Mode</a>
-                    <a class="mobile-editswitch mobile-edit    translate" data-ajax="false" data-role="button" data-icon="gear" href="./" target="_self">Finish Edit-Mode</a>
+                    <a class="mobile-editswitch mobile-noedit  translate" data-ajax="false" data-role="button" data-icon="gear">Edit-Mode</a>
+                    <a class="mobile-editswitch mobile-edit    translate" data-ajax="false" data-role="button" data-icon="gear">Finish Edit-Mode</a>
                     <span class="translate">edit description</span>
                 </p>
                 <p>

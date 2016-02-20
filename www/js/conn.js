@@ -236,6 +236,19 @@ var servConn = {
             }.bind(this));
 
             this._socket.on('objectChange', function (id, obj) {
+                // If cache used
+                if (this._useStorage && typeof storage !== 'undefined') {
+                    var objects = this._objects || storage.get('objects');
+                    if (objects) {
+                        if (obj) {
+                            objects[id] = obj;
+                        } else {
+                            if (objects[id]) delete objects[id];
+                        }
+                        storage.set('objects',  objects);
+                    }
+                }
+
                 if (this._connCallbacks.onObjectChange) this._connCallbacks.onObjectChange(id, obj);
             }.bind(this));
 
