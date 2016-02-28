@@ -8,11 +8,12 @@ jQuery Mobile based user interface.
 
 ToDO:
 - edit of names,
-- edit of visibility
 - edit of order
 - edit of Icon
 
 ## Changlog
+#### 0.1.0
+* (bluefox) edit of visibility
 
 #### 0.0.4
 * (bluefox) first version. No edit possible.
@@ -20,7 +21,7 @@ ToDO:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015 bluefox<dogafox@gmail.com>
+Copyright (c) 2015-2015 bluefox<dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
