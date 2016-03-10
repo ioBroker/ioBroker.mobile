@@ -1,3 +1,65 @@
+/* ------------------------------ animations ------------------------------------*/
+@-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        -moz-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -moz-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    60% {
+        -moz-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    60% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -moz-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    60% {
+        -moz-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+@keyframes blinker {
+    50% { opacity: 0.0; }
+}
+
+/* --------------------------- end of animations -------------------------------------------*/
+
+
 /* Eingabefeld neben Slider ausblenden */
 input.ui-slider-input {
     display : none !important;
@@ -533,6 +595,7 @@ ul.mobile-page-left h2 {
     background-image: url('../img/battery.png');
     background-repeat: no-repeat;
     float: right;
+    animation: blinker 4s linear infinite;
 }
 .mobile-indicator-unreach {
     width: 48px;
@@ -548,6 +611,46 @@ ul.mobile-page-left h2 {
     background-repeat: no-repeat;
     float: right;
 }
+
+.mobile-indicator-working {
+     width: 48px;
+     height: 48px;
+     background-image: url('../img/gear.png');
+     background-repeat: no-repeat;
+     float: right;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+ }
+
+.mobile-indicator {
+    width: 48px;
+    height: 48px;
+    background-image: url('../img/error.png');
+    background-repeat: no-repeat;
+    float: right;
+}
+.mobile-indicator-direction {
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    float: right;
+}
+
+.mobile-indicator-direction[data-value='UP'] {
+    background-image: url('../img/up.png');
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+}
+
+.mobile-indicator-direction[data-value='DOWN'] {
+    background-image: url('../img/down.png');
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+}
+
 .mobile-checkbox-visibility {
     float: right;
     margin: 0.7em;

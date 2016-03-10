@@ -17,11 +17,13 @@
 /* global clearTimeout */
 /* global io */
 /* global systemLang:true */
+/* global systemLang */
 /* global _ */
 /* global can */
 /* global storage */
 /* global servConn */
 /* global systemDictionary:true */
+/* global systemDictionary */
 /* global $ */
 /* global translateAll */
 /* global jQuery */
@@ -93,6 +95,35 @@ systemDictionary = {
     "Aktor":            {"en": "Actor",             "de": "Aktor",          "ru": "Выключатель"},
     "Beleuchtung":      {"en": "Lighting",          "de": "Beleuchtung",    "ru": "Подсветка"},
 
+    "Technikraum":      {"en": "Technikraum",       "de": "Technical room", "ru": "Technikraum"},
+    "Büro":             {"en": "Office",            "de": "Büro",           "ru": "Бюро"},
+    "Kellerraum": {"en": "Kellerraum", "de": "Kellerraum", "ru": "Kellerraum"},
+    "Vorraum": {"en": "Vorraum", "de": "Vorraum", "ru": "Vorraum"},
+    "Gang EG": {"en": "Gang EG", "de": "Gang EG", "ru": "Gang EG"},
+    "Aussen EG": {"en": "Aussen EG", "de": "Aussen EG", "ru": "Aussen EG"},
+    "Carport": {"en": "Carport", "de": "Carport", "ru": "Carport"},
+    "WC EG": {"en": "WC EG", "de": "WC EG", "ru": "WC EG"},
+    "Bad EG": {"en": "Bad EG", "de": "Bad EG", "ru": "Bad EG"},
+    "Schrankraum": {"en": "Schrankraum", "de": "Schrankraum", "ru": "Schrankraum"},
+    "Bad OG": {"en": "Bad OG", "de": "Bad OG", "ru": "Bad OG"},
+    "Kinderzimmer 1": {"en": "Kinderzimmer 1", "de": "Kinderzimmer 1", "ru": "Kinderzimmer 1"},
+    "Kinderzimmer 2": {"en": "Kinderzimmer 2", "de": "Kinderzimmer 2", "ru": "Kinderzimmer 2"},
+    "Gang OG": {"en": "Gang OG", "de": "Gang OG", "ru": "Gang OG"},
+    "WC OG": {"en": "WC OG", "de": "WC OG", "ru": "WC OG"},
+    "Speis": {"en": "Speis", "de": "Speis", "ru": "Speis"},
+    "Terrasse": {"en": "Terrasse", "de": "Terrasse", "ru": "Terrasse"},
+    "Garten": {"en": "Garten", "de": "Garten", "ru": "Garten"},
+    "Aussen OG": {"en": "Aussen OG", "de": "Aussen OG", "ru": "Aussen OG"},
+    "Treppe": {"en": "Treppe", "de": "Treppe", "ru": "Treppe"},
+    "Esszimmer": {"en": "Esszimmer", "de": "Esszimmer", "ru": "Esszimmer"},
+    "Helligkeitswerte": {"en": "Helligkeitswerte", "de": "Helligkeitswerte", "ru": "Helligkeitswerte"},
+    "IPCams": {"en": "IPCams", "de": "IPCams", "ru": "IPCams"},
+    "Raffstore": {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
+    "Klima": {"en": "Klima", "de": "Klima", "ru": "Klima"},
+    "Sicherheit": {"en": "Sicherheit", "de": "Sicherheit", "ru": "Sicherheit"},
+    "Verschluss": {"en": "Verschluss", "de": "Verschluss", "ru": "Verschluss"},
+    "Energiemanagement": {"en": "Energiemanagement", "de": "Energiemanagement", "ru": "Energiemanagement"},
+
     "Valve State":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
     "Level":            {"en": "Level",             "de": "Wert",           "ru": "Уровень"},
     "Press Long":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
@@ -131,6 +162,7 @@ var mobile = {
     ids:          [],
     randomId:     0,
     user:         'admin',
+    defaultInvisible: ['inhibit', 'button', 'action'],
 
     icons:        {
         'temperature':  'temp_temperature.svg',
@@ -153,10 +185,10 @@ var mobile = {
             if (force || val != that.states[_id].val.toString()) {
 
                 var role = $(this).data('role');
-                if ($(this).data('type') == 'range') {
+                if ($(this).data('type') === 'range') {
                     $(this).val(that.states[_id].val.toString());
                     $(this).slider('refresh');
-                } else if (role == 'slider') {
+                } else if (role === 'slider') {
                     $(this).val(that.states[_id].val.toString());
                     $(this).slider().slider('refresh');
                 } else {
@@ -177,9 +209,9 @@ var mobile = {
 
                     var states = $(this).data('states');
 
-                    if (states && ((role != 'indicator' && role != 'error') || val)) {
+                    if (states && ((role !== 'indicator' && role !== 'error') || val)) {
                         // convert JSON
-                        if (states[0] == '{') {
+                        if (states[0] === '{') {
                             try {
                                 var values = JSON.parse(states);
                                 if (values[val] === undefined) {
@@ -192,7 +224,7 @@ var mobile = {
                             } catch (ex) {
                                 console.error('Cannot parse states for ' + id);
                             }
-                        } else if (typeof states == 'object') {
+                        } else if (typeof states === 'object') {
                             if (states[val] === undefined) {
                                 rawVal = val;
                                 val    = val;
@@ -208,7 +240,7 @@ var mobile = {
                         if (!rawVal) {
                             $(this).hide();
                         } else {
-                            $(this).show();
+                            $(this).show().attr('data-value', rawVal);
                         }
 
                         if (role == 'error') {
@@ -256,6 +288,13 @@ var mobile = {
             default:
         }
     },
+    isDefaultInvisible: function (role) {
+        if (!role) return false;
+        for (var w = 0; w < this.defaultInvisible.length; w++) {
+            if (role.indexOf(this.defaultInvisible[w]) !== -1) return true;
+        }
+        return false;
+    },
 
     renderElement: function (obj, group, direct) {
         var html = '';
@@ -263,9 +302,6 @@ var mobile = {
         var id;
         var name = obj.common.name || obj._id;
 
-        if (obj._id == "hm-rpc.0.JEQ0022132.2.ADJUSTING_COMMAND") {
-            debugger;
-        }
         // ignore indicators
         if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
 
@@ -281,8 +317,12 @@ var mobile = {
             name = name.replace(reg4, '');
             name = name.replace(/_/g, ' ');
             name = name.replace(/\./g, ' ');
-            var words = name.split(' ');
-            for (var w = 0; w < words.length; w++) {
+            var words = name.split(/\s+/);
+            for (var w = words.length - 1; w >= 0; w--) {
+                if (!words[w]) {
+                    words.splice(w, 1);
+                    continue;
+                }
                 words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
             }
             name = words.join(' ');
@@ -300,6 +340,10 @@ var mobile = {
             html += '<div class="mobile-widget-a mobile-visibility' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">' + name;
         }
 
+        if (obj._id.indexOf('KEQ0021340') != -1) {
+            console.log('KEQ0021340');
+        }
+
         switch (obj.common.role) {
             case 'dimmer':
                 html += '</div>';
@@ -310,7 +354,7 @@ var mobile = {
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
                             if (!this.editMode && this.objects[id].common.mobile &&
                                 this.objects[id].common.mobile[this.user] &&
-                                this.objects[id].common.mobile[this.user].visible === false) return;
+                                this.objects[id].common.mobile[this.user].visible === false) return '';
 
                             if (!this.states[id]) {
                                 // read states
@@ -328,18 +372,29 @@ var mobile = {
                                 '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '"/></div>';
                         }
                     }
+                    // render other elements
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
+
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.dimmer') {
+                            // render element
+                            html += this.renderElement(this.objects[id], group, false);
+                        }
+                    }
                 }
                 break;
 
             case 'blind':
                 html += '</div>';
+
                 if (obj.children) {
                     for (i = 0; i < obj.children.length; i++) {
                         id = obj.children[i];
 
+                        // render first blind slider
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
                             if (!this.editMode && this.objects[id].common.mobile &&
-                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return;
+                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
 
                             if (!this.states[id]) {
                                 // read states
@@ -356,9 +411,19 @@ var mobile = {
                                 '</div>\n';
 
 
-                            html += '<div class="mobile-widget-c>\n' +
-                                '   <input class="mobile-controltype="range" data-highlight="true" data-mobile-id="' + id +
+                            html += '<div class="mobile-widget-c">\n' +
+                                '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
                                 '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" />\n</div>';
+                        }
+                    }
+
+                    // render other elements
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
+
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.blind') {
+                            // render element
+                            html += this.renderElement(this.objects[id], obj.common.name || obj._id, false);
                         }
                     }
                 }
@@ -370,25 +435,32 @@ var mobile = {
                     for (i = 0; i < obj.children.length; i++) {
                         id = obj.children[i];
 
-                        if (this.objects[id] && this.objects[id].common) {
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
                             if (!this.editMode && this.objects[id].common.mobile &&
-                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return;
+                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
 
-                            if (this.objects[id].common.role === 'state') {
-                                if (!this.states[id]) {
-                                    // read states
-                                    if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
-                                } else {
-                                    if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
-                                }
-
-                                html += '<div class="mobile-widget-b mobile-visibility" data-visibility-id="' + id + '">\n' +
-                                    '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">\n' +
-                                    '        <option value="false">' + _('off') + '</option>\n' +
-                                    '        <option value="true" >' + _('on') + '</option>\n' +
-                                    '    </select>\n' +
-                                    '</div>\n';
+                            if (!this.states[id]) {
+                                // read states
+                                if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
+                            } else {
+                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
                             }
+
+                            html += '<div class="mobile-widget-b mobile-visibility" data-visibility-id="' + id + '">\n' +
+                                '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">\n' +
+                                '        <option value="false">' + _('off') + '</option>\n' +
+                                '        <option value="true" >' + _('on') + '</option>\n' +
+                                '    </select>\n' +
+                                '</div>\n';
+                        }
+                    }
+                    // render other elements
+                    for (i = 0; i < obj.children.length; i++) {
+                        id = obj.children[i];
+
+                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'state') {
+                            // render element
+                            html += this.renderElement(this.objects[id], group, false);
                         }
                     }
                 }
@@ -409,65 +481,76 @@ var mobile = {
                         }
                     }
                 } else if (this.editMode || !obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible !== false) {
-                    if (direct) html += '</div><div class="mobile-widget-c mobile-visibility" data-visibility-id="' + obj._id + '">';
+                    // do not show inhibit (sperren) by default
+                    if (obj.common.role && !this.editMode &&
+                        (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
+                        this.isDefaultInvisible(obj.common.role)) {
+                        // ignore it if not explicit enabled
+                        html = '';
+                    } else {
+                        if (direct) html += '</div><div class="mobile-widget-c mobile-visibility" data-visibility-id="' + obj._id + '">';
 
-                    var states = obj.common.states || '';
+                        var states = obj.common.states || '';
 
-                    if (states) {
-                        if (typeof states == 'object') {
-                            states = JSON.stringify(states);
-                        } else if (typeof states == 'string' && states[0] != '{') {
-                            var values = states.split(';');
-                            states = {};
-                            for (var v = 0; v < values.length; v++) {
-                                var parts = values.split(':');
-                                states[parts[0]] = parts[1];
+                        if (states) {
+                            if (typeof states == 'object') {
+                                states = JSON.stringify(states);
+                            } else if (typeof states == 'string' && states[0] != '{') {
+                                var values = states.split(';');
+                                states = {};
+                                for (var v = 0; v < values.length; v++) {
+                                    var parts = values.split(':');
+                                    states[parts[0]] = parts[1];
+                                }
+                                states = JSON.stringify(states);
                             }
-                            states = JSON.stringify(states);
                         }
-                    }
 
-                    if (!this.states[obj._id]) {
-                        // read states
-                        if (this.queueStates.indexOf(obj._id) == -1) this.queueStates.push(obj._id);
-                    } else {
-                        if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
-                    }
-
-                    if (obj.common.role && obj.common.role.indexOf('level') != -1) {
-                        html += '<div   class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '"></div>';
-                        html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
-                    } else
-                    if (obj.common.role && obj.common.role.indexOf('button') != -1) {
-                        if (!direct) {
-                            html = '<input class="mobile-value mobile-visibility" data-visibility-id="' + obj._id + '" ';
+                        if (!this.states[obj._id]) {
+                            // read states
+                            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
                         } else {
-                            html += '<input class="mobile-value" '
+                            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
                         }
-                        html += ' type="button" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
-                    } else {
-                        if (obj.common.write && obj.common.type == 'boolean') {
-                            html += '<div class="mobile-widget-b">\n' +
-                                '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
-                                '        <option value="false">' + _('off') + '</option>\n' +
-                                '        <option value="true" >' + _('on')  + '</option>\n' +
-                                '    </select>\n' +
-                                '</div>\n';
-                        } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
-                            html += ' - <span data-mobile-id="' + obj._id + '" ' +
-                                'data-type="' + obj.common.type + '" ' +
-                                'data-unit="' + (obj.common.unit || '') + '" ' +
-                                'data-states=' + "'" + states + "'" + '></span>' +
-                                '<div class="mobile-widget-c">\n' +
-                                '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
-                                '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '"/>\n</div>';
 
+                        if (obj.common.role && obj.common.role.indexOf('level') != -1) {
+                            html += '<div   class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '"></div>';
+                            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
+                        } else
+                        if (obj.common.role && (obj.common.role.indexOf('button') != -1 || obj.common.role.indexOf('action') != -1)) {
+                            if (!direct) {
+                                html = '<input class="mobile-value mobile-visibility" data-visibility-id="' + obj._id + '" ';
+                            } else {
+                                html += '<input class="mobile-value" '
+                            }
+                            html += ' type="button" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
                         } else {
-                            html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
-                        }
-                    }
+                            if (obj.common.write && obj.common.type == 'boolean') {
+                                html += '<div class="mobile-widget-b">\n' +
+                                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
+                                    '        <option value="false">' + _('off') + '</option>\n' +
+                                    '        <option value="true" >' + _('on')  + '</option>\n' +
+                                    '    </select>\n' +
+                                    '</div>\n';
+                            } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
+                                html += ' - <span data-mobile-id="' + obj._id + '" ' +
+                                    'data-type="' + obj.common.type + '" ' +
+                                    'data-unit="' + (obj.common.unit || '') + '" ' +
+                                    'data-states=' + "'" + states + "'" + '></span>\n' +
+                                    '<div class="mobile-widget-c">\n' +
+                                    '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
+                                    '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '"/>\n</div>';
 
-                    if (!direct) html += '</div></div>';
+                            } else {
+                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+                            }
+                        }
+
+                        if (!direct) html += '</div></div>';
+                    }
+                } else {
+                    // invisible
+                    html = '';
                 }
                 break;
 
@@ -524,6 +607,7 @@ var mobile = {
                                 }
                                 var _id = id.replace(/\./g, '-');
                                 var text = '<a href="#' + _id + '" ' +
+                                    'style="display: none" ' +
                                     'data-mobile-id="' + id + '" ' +
                                     'data-p="' + _id + '-p" ' +
                                     'data-states=' + "'" + states + "'" + ' ' +
@@ -533,7 +617,7 @@ var mobile = {
                                     'data-role="indicator" ' +
                                     'class="mobile-widget-a mobile-value mobile-' + this.objects[id].common.role.replace(/\./g, '-') + '" ' +
                                     'data-transition="pop"></a>' +
-                                    '<div data-role="popup" id="' + _id +'">' +
+                                    '<div data-history="false" data-role="popup" id="' + _id +'" style="background: gray">' +
                                     '<p id="' + _id + '-p"></p></div>';
 
                                 $indicators.append(text);
@@ -613,7 +697,7 @@ var mobile = {
     renderEditButtons: function () {
         if (this.editMode) {
             var that = this;
-            $(document).on("pageshow", function( event ) {
+            $(document).on('pageshow', function (event) {
                 // render root pages
                 $('.mobile-visibility-root').each(function () {
                     if (!$(this).is(':visible')) return;
@@ -627,13 +711,13 @@ var mobile = {
                     var mobile = that.objects[id].common.mobile[that.user];
 
                     var $elem = $(this).parent();
-                    var pos = $elem.position();
-                    var h   = $elem.height();
-                    var w   = $elem.width();
+                    var pos   = $elem.position();
+                    var h     = $elem.height();
+                    var w     = $elem.width();
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = true;
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
                         that.saveSettings(id);
                     }
 
@@ -665,7 +749,7 @@ var mobile = {
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = true;
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
                         that.saveSettings(id);
                     }
 
@@ -712,15 +796,17 @@ var mobile = {
                     }
                     // button is invisible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !isButton;
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
                         that.saveSettings(id);
                     }
 
                     var text = '<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '" style="top: ' + pos.top + 'px; height: ' + h + 'px">' +
                         '<input id="vis' + that.randomId + '" ' + (mobile.visible ? 'checked' : '') + ' data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-checkbox-visibility" type="checkbox"/></div>';
 
-                    $elem.before(text);
-                    $('#vis' + that.randomId).change(onVisibility);
+                    var $text = $(text);
+                    $text.change(onVisibility);
+                    $elem.before($text);
+
                 });
 
                 // detect channels, that have all states hidden
@@ -821,7 +907,7 @@ var mobile = {
             $('body').append(page);
         }
     
-        var url    = $.mobile.path.parseUrl(location.href);
+        var url = $.mobile.path.parseUrl(location.href);
 
         // this is a bug. If use all together something goes wrong and string will not be decoded
         var pageId = decodeURIComponent(url.hash.toString());
@@ -862,6 +948,7 @@ var mobile = {
         }
         if ($('div[id="' + id + '"]').html()) {
             console.log(id + ' already rendered');
+            $('div[id="' + id + '"]').trigger('create');
             return;
         }
 
@@ -1060,14 +1147,14 @@ var mobile = {
     },
 
     init: function (id) {
-        $("#server-disconnect").dialog({
+        /*$("#server-disconnect").dialog({
             modal:         true,
             closeOnEscape: false,
             autoOpen:      false,
             dialogClass:   'noTitle',
             width:         400,
             height:        90
-        });
+        });*/
         var that = this;
 
         this.conn.namespace   = 'mobile.0';
@@ -1084,7 +1171,7 @@ var mobile = {
         // show edit indicator
         if (this.editMode) $('#edit_indicator').show();
 
-        $(document).bind("pagebeforechange", function (e, data) {
+        $(document).bind('pagebeforechange', function (e, data) {
             if (typeof data.toPage === 'string') {
                 var u = $.mobile.path.parseUrl(data.toPage);
                 var id = decodeURIComponent(u.hash.toString());
@@ -1110,7 +1197,7 @@ var mobile = {
         this.conn.init(null, {
             onConnChange: function (isConnected) {
                 if (isConnected) {
-                    $("#server-disconnect").dialog("close");
+                    $('#server-disconnect').popup().popup('close');
 
                     if (that.isFirstTime) {
                         that.conn.getVersion(function (version) {
@@ -1168,7 +1255,7 @@ var mobile = {
                     });
 
                 } else {
-                    $("#server-disconnect").dialog("open");
+                    $("#server-disconnect").popup("open");
                 }
             },
             onRefresh: function () {
@@ -1237,11 +1324,11 @@ function onVisibility() {
     var that = mobile;
     var id = $(this).data('visibility-id');
     var checked = $(this).prop('checked');
-    if (that.objects[id].common.mobile[that.user].visible !== checked) {
+    if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].visible !== checked) {
         that.objects[id].common.mobile[that.user].visible = $(this).prop('checked');
         that.saveSettings(id);
     }
-    if (that.objects[id].common.mobile[that.user].visible) {
+    if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].visible) {
         $(this).parent().removeClass('mobile-invisible');
         var $states;
         if ($(this).parent().hasClass('mobile-edit-channel')) {
