@@ -12,6 +12,9 @@ ToDO:
 - edit of Icon
 
 ## Changlog
+#### 0.1.1
+* (bluefox) fix errors for some devcies
+
 #### 0.1.0
 * (bluefox) edit of visibility
 
