@@ -1324,6 +1324,11 @@ function onVisibility() {
     var that = mobile;
     var id = $(this).data('visibility-id');
     var checked = $(this).prop('checked');
+    if (!id || !that.objects[id]) {
+        console.error('Cannot find object ' + id);
+        return;
+    }
+
     if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].visible !== checked) {
         that.objects[id].common.mobile[that.user].visible = $(this).prop('checked');
         that.saveSettings(id);

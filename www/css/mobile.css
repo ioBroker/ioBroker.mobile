@@ -652,8 +652,9 @@ ul.mobile-page-left h2 {
 }
 
 .mobile-checkbox-visibility {
-    float: right;
-    margin: 0.7em;
+    float: right !important;
+    margin: 0.7em  !important;
+    position: relative !important;
 }
 
 .mobile-edit-element {
