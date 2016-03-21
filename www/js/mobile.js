@@ -162,7 +162,7 @@ var mobile = {
     ids:          [],
     randomId:     0,
     user:         'admin',
-    defaultInvisible: ['inhibit', 'button', 'action'],
+    defaultInvisible: ['inhibit', 'button', 'action', 'timer'],
 
     icons:        {
         'temperature':  'temp_temperature.svg',
@@ -288,7 +288,11 @@ var mobile = {
             default:
         }
     },
-    isDefaultInvisible: function (role) {
+
+    isDefaultInvisible: function (role, id) {
+        var name = id.split('.').pop();
+        if (name === 'OLD_LEVEL') return true;
+
         if (!role) return false;
         for (var w = 0; w < this.defaultInvisible.length; w++) {
             if (role.indexOf(this.defaultInvisible[w]) !== -1) return true;
@@ -484,7 +488,7 @@ var mobile = {
                     // do not show inhibit (sperren) by default
                     if (obj.common.role && !this.editMode &&
                         (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
-                        this.isDefaultInvisible(obj.common.role)) {
+                        this.isDefaultInvisible(obj.common.role, obj._id)) {
                         // ignore it if not explicit enabled
                         html = '';
                     } else {
@@ -605,13 +609,14 @@ var mobile = {
                                         states = JSON.stringify(states);
                                     }
                                 }
+                                var name = (this.objects[id].common.name || id).split('.').pop().replace(/_/g, ' ');
                                 var _id = id.replace(/\./g, '-');
                                 var text = '<a href="#' + _id + '" ' +
                                     'style="display: none" ' +
                                     'data-mobile-id="' + id + '" ' +
                                     'data-p="' + _id + '-p" ' +
                                     'data-states=' + "'" + states + "'" + ' ' +
-                                    'name="' + (this.objects[id].common.name || id) + '" ' +
+                                    'name="' + name + '" ' +
                                     'data-rel="popup" ' +
                                     'data-type="' + this.objects[id].common.type + '" ' +
                                     'data-role="indicator" ' +

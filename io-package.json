@@ -19,7 +19,8 @@
         ],
         "localLink":                "%web_protocol%://%ip%:%web_port%/mobile/index.html",
         "type":                     "visualisation",
-        "license":                  "MIT"
+        "license":                  "MIT",
+		"noConfig":                 true
     },
     "native": {
         "root": [
