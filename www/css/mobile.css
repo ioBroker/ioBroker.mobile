@@ -59,6 +59,14 @@
 
 /* --------------------------- end of animations -------------------------------------------*/
 
+body,
+input,
+select,
+textarea,
+button,
+.ui-btn {
+    font-family: "Poiret One", "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
 
 /* Eingabefeld neben Slider ausblenden */
 input.ui-slider-input {
@@ -719,4 +727,60 @@ ul.mobile-page-left h2 {
     right: 40px;
     background-color: orange;
     z-index:10000;
+}
+
+.mobile-value-alone, .mobile-value-with-units {
+    float: left;
+    width: 2.5em;
+    display: inline-block;
+    word-wrap: break-word;
+    background: #3388cc !important;
+    text-align: center;
+    border-radius: 0.3em 0 0 0.3em;
+    margin-right: 0.5em;
+    text-shadow: 0 0 0 black  !important;
+    margin-bottom: 2px;
+    display: table;
+    padding: 2px;
+    color: white !important;
+}
+
+.mobile-value-alone {
+    height: 1.8em;
+    padding-top: 0.7em;
+}
+
+.mobile-value-with-units {
+    height: 2.4em;
+    padding-top: 0.1em;
+}
+.mobile-value-units {
+    font-size: smaller;
+    display: table-row;
+    color: #DEDEDE !important;
+}
+.mobile-value-title {
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+.mobile-visibility {
+    position: relative;
+}
+.bot-left {
+    position: relative;
+}
+.bot-left:after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+}
+.bot-left:after {
+    right: -2px;
+    height: 2px;
+    background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#888), to(transparent));
+    background-image: -webkit-linear-gradient(left, #888, transparent);
+    background-image: -moz-linear-gradient(left, #888, transparent);
+    background-image: -o-linear-gradient(left, #888, transparent);
 }

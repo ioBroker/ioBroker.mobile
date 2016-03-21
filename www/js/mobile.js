@@ -73,6 +73,7 @@ systemDictionary = {
     "Edit-Mode":        {"en": "Edit-Mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
     "Finish Edit-Mode": {"en": "Finish Edit-Mode",  "de": "Edit-Modus beenden", "ru": "Завершить изменения"},
     "Documentation":    {"en": "Documentation",     "de": "Dokumentation",  "ru": "Документация"},
+    "Reset layout":     {"en": "Reset layout",      "de": "Einstellungen löschen",  "ru": "Сбросить настройки"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -95,34 +96,34 @@ systemDictionary = {
     "Aktor":            {"en": "Actor",             "de": "Aktor",          "ru": "Выключатель"},
     "Beleuchtung":      {"en": "Lighting",          "de": "Beleuchtung",    "ru": "Подсветка"},
 
-    "Technikraum":      {"en": "Technikraum",       "de": "Technical room", "ru": "Technikraum"},
+    "Technikraum":      {"en": "Technical room",    "de": "Technikraum",    "ru": "Технческая комната"},
     "Büro":             {"en": "Office",            "de": "Büro",           "ru": "Бюро"},
-    "Kellerraum": {"en": "Kellerraum", "de": "Kellerraum", "ru": "Kellerraum"},
-    "Vorraum": {"en": "Vorraum", "de": "Vorraum", "ru": "Vorraum"},
-    "Gang EG": {"en": "Gang EG", "de": "Gang EG", "ru": "Gang EG"},
-    "Aussen EG": {"en": "Aussen EG", "de": "Aussen EG", "ru": "Aussen EG"},
-    "Carport": {"en": "Carport", "de": "Carport", "ru": "Carport"},
-    "WC EG": {"en": "WC EG", "de": "WC EG", "ru": "WC EG"},
-    "Bad EG": {"en": "Bad EG", "de": "Bad EG", "ru": "Bad EG"},
-    "Schrankraum": {"en": "Schrankraum", "de": "Schrankraum", "ru": "Schrankraum"},
-    "Bad OG": {"en": "Bad OG", "de": "Bad OG", "ru": "Bad OG"},
-    "Kinderzimmer 1": {"en": "Kinderzimmer 1", "de": "Kinderzimmer 1", "ru": "Kinderzimmer 1"},
-    "Kinderzimmer 2": {"en": "Kinderzimmer 2", "de": "Kinderzimmer 2", "ru": "Kinderzimmer 2"},
-    "Gang OG": {"en": "Gang OG", "de": "Gang OG", "ru": "Gang OG"},
-    "WC OG": {"en": "WC OG", "de": "WC OG", "ru": "WC OG"},
-    "Speis": {"en": "Speis", "de": "Speis", "ru": "Speis"},
-    "Terrasse": {"en": "Terrasse", "de": "Terrasse", "ru": "Terrasse"},
-    "Garten": {"en": "Garten", "de": "Garten", "ru": "Garten"},
-    "Aussen OG": {"en": "Aussen OG", "de": "Aussen OG", "ru": "Aussen OG"},
-    "Treppe": {"en": "Treppe", "de": "Treppe", "ru": "Treppe"},
-    "Esszimmer": {"en": "Esszimmer", "de": "Esszimmer", "ru": "Esszimmer"},
-    "Helligkeitswerte": {"en": "Helligkeitswerte", "de": "Helligkeitswerte", "ru": "Helligkeitswerte"},
-    "IPCams": {"en": "IPCams", "de": "IPCams", "ru": "IPCams"},
-    "Raffstore": {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
-    "Klima": {"en": "Klima", "de": "Klima", "ru": "Klima"},
-    "Sicherheit": {"en": "Sicherheit", "de": "Sicherheit", "ru": "Sicherheit"},
-    "Verschluss": {"en": "Verschluss", "de": "Verschluss", "ru": "Verschluss"},
-    "Energiemanagement": {"en": "Energiemanagement", "de": "Energiemanagement", "ru": "Energiemanagement"},
+    "Kellerraum":       {"en": "Basement",          "de": "Kellerraum",     "ru": "Подвал"},
+    "Vorraum":          {"en": "Vestibule",          "de": "Vorraum",       "ru": "Сени"},
+    "Gang EG":          {"en": "Corridor 1st floor", "de": "Gang EG",       "ru": "Коридор 1й этаж"},
+    "Aussen EG":        {"en": "Outside 1st floor", "de": "Aussen EG",      "ru": "Снаружи 1й этаж"},
+    "Carport":          {"en": "Carport",           "de": "Carport",        "ru": "Навес над машиной"},
+    "WC EG":            {"en": "WC 1st floor",      "de": "WC EG",          "ru": "Туалет 1й этаж"},
+    "Bad EG":           {"en": "Bath 1st floor",    "de": "Bad EG",         "ru": "Bad 1й этаж"},
+    "Schrankraum":      {"en": "Wardrobe",          "de": "Schrankraum",    "ru": "Шкаф"},
+    "Bad OG":           {"en": "Bath 2nd floor",    "de": "Bad OG",         "ru": "Ванная 2й этаж"},
+    "Kinderzimmer 1":   {"en": "Kid's room 1",      "de": "Kinderzimmer 1", "ru": "Детская 1"},
+    "Kinderzimmer 2":   {"en": "Kid's room 2",      "de": "Kinderzimmer 2", "ru": "Детская 2"},
+    "Gang OG":          {"en": "Corridor 2nd floor", "de": "Gang OG",       "ru": "Коридор 2й этаж"},
+    "WC OG":            {"en": "WC 2nd floor",      "de": "WC OG",          "ru": "Туалет 2й этаж"},
+    "Speis":            {"en": "Speis", "de": "Speis", "ru": "Speis"},
+    "Terrasse":         {"en": "Terrace",           "de": "Terrasse",       "ru": "Терасса"},
+    "Garten":           {"en": "Garden",            "de": "Garten",         "ru": "Сад"},
+    "Aussen OG":        {"en": "Outside 2nd floor", "de": "Aussen OG",      "ru": "Снаружи 2й этаж"},
+    "Treppe":           {"en": "Stair",             "de": "Treppe",         "ru": "Лестница"},
+    "Esszimmer":        {"en": "Eating room",       "de": "Esszimmer",      "ru": "Столовая"},
+    "Helligkeitswerte": {"en": "Brightness",        "de": "Helligkeitswerte", "ru": "Яркость"},
+    "IPCams":           {"en": "IP Cams",           "de": "IPCams",         "ru": "Веб камеры"},
+    "Raffstore":        {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
+    "Klima":            {"en": "Air condition",     "de": "Klima",          "ru": "Кондиционер"},
+    "Sicherheit":       {"en": "Alarm",             "de": "Sicherheit",     "ru": "Сигнализация"},
+    "Verschluss":       {"en": "Gate",              "de": "Verschluss",     "ru": "Двери"},
+    "Energiemanagement": {"en": "Energy management", "de": "Energiemanagement", "ru": "Потребление энергии"},
 
     "Valve State":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
     "Level":            {"en": "Level",             "de": "Wert",           "ru": "Уровень"},
@@ -142,7 +143,21 @@ systemDictionary = {
     "State Uncertain":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
     "Brightness":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
     "On Time":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
-    "Submit":           {"en": "Submit",             "de": "Bestätigen",    "ru": "Подтвердить"}
+    "Submit":           {"en": "Submit",            "de": "Bestätigen",     "ru": "Подтвердить"},
+    "Filling Level":    {"en": "Filling Level",     "de": "Füllniveau ",    "ru": "Уровень заполнения"},
+    "Defekt State":     {"en": "Defect",            "de": "Defekt State",   "ru": "Поломка"},
+    "UP":               {"en": "up",                "de": "Nach oben",      "ru": "наверх"},
+    "DOWN":             {"en": "down",              "de": "nach unten",     "ru": "вниз"},
+    "Stop":             {"en": "Stop",              "de": "Stop",           "ru": "Стоп"},
+    "Voltage":          {"en": "Voltage",           "de": "Spannung",       "ru": "Напряжение"},
+    "Power":            {"en": "Power",             "de": "Power",          "ru": "Мощность"},
+    "Frequency":        {"en": "Frequency",         "de": "Frequenz",       "ru": "Частота"},
+    "Energy Counter":   {"en": "Energy Counter",    "de": "Energiezähler",  "ru": "Счётчик расхода"},
+    "Current":          {"en": "Current",           "de": "Strom",          "ru": "Ток"},
+    "Boot":             {"en": "Boot",              "de": "Boot",           "ru": "Boot"},
+    "Decision Value":   {"en": "Decision Value",    "de": "Entscheidungswert", "ru": "Порог принятия решения"},
+    "UNDEFINED":        {"en": "--",                "de": "--",             "ru": "--"},
+    "Air Pressure":     {"en": "Air Pressure",      "de": "Luftdruck",      "ru": "Атмосферное давление"}
 };
 
 
@@ -162,12 +177,46 @@ var mobile = {
     ids:          [],
     randomId:     0,
     user:         'admin',
-    defaultInvisible: ['inhibit', 'button', 'action', 'timer'],
+    defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
+    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE'],
 
     icons:        {
         'temperature':  'temp_temperature.svg',
         'humidity':     'weather_humidity.svg',
         'setpoint':     'temp_control.svg'
+    },
+
+    modifyObjects: function (list, cb) {
+        if (!list || !list.length) {
+            cb && cb();
+            return;
+        }
+        var id = list.pop();
+        this.conn._socket.emit('setObject', id, this.objects[id], function (err) {
+            if (!err) {
+                setTimeout(function () {
+                    this.modifyObjects(list, cb);
+                }.bind(this), 0);
+            } else {
+                console.error(err);
+                cb && cb(err, id);
+            }
+        }.bind(this));
+    },
+    resetVisibility: function (cb) {
+        var modified = [];
+        for (var id in this.objects) {
+            if (this.objects[id] &&
+                this.objects[id].common &&
+                this.objects[id].common.mobile &&
+                this.objects[id].common.mobile[this.user] &&
+                this.objects[id].common.mobile[this.user].visible !== undefined) {
+                delete this.objects[id].common.mobile[this.user].visible;
+
+                modified.push(id);
+            }
+        }
+        this.modifyObjects(modified, cb);
     },
 
     updateState: function (id, force) {
@@ -252,7 +301,7 @@ var mobile = {
                         }
                     }
                     var unit = $(this).data('unit') || '';
-                    if (unit) unit = ' ' + unit;
+                    if (unit) unit = '<span class="mobile-value-units">' + unit + '</span>';
                     if ($(this).data('title')) {
                         $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
                     } else {
@@ -290,14 +339,92 @@ var mobile = {
     },
 
     isDefaultInvisible: function (role, id) {
-        var name = id.split('.').pop();
-        if (name === 'OLD_LEVEL') return true;
-
-        if (!role) return false;
-        for (var w = 0; w < this.defaultInvisible.length; w++) {
-            if (role.indexOf(this.defaultInvisible[w]) !== -1) return true;
+        if (id) {
+            var name = id.split('.').pop();
+            if (this.defaultInvisibleNames.indexOf(name) !== -1) return true;
         }
+
+        if (role) {
+            for (var w = 0; w < this.defaultInvisibleRoles.length; w++) {
+                if (role.indexOf(this.defaultInvisibleRoles[w]) !== -1) return true;
+            }
+        }
+
         return false;
+    },
+
+    renderGenericState: function (obj, direct) {
+        var html = '';
+        var states = obj.common.states || '';
+        var stateName = obj._id.split('.').pop();
+
+        if (states) {
+            if (typeof states == 'object') {
+                states = JSON.stringify(states);
+            } else if (typeof states == 'string' && states[0] != '{') {
+                var values = states.split(';');
+                states = {};
+                for (var v = 0; v < values.length; v++) {
+                    var parts = values.split(':');
+                    states[parts[0]] = parts[1];
+                }
+                states = JSON.stringify(states);
+            }
+        }
+
+        if (!this.states[obj._id]) {
+            // read states
+            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
+        } else {
+            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
+        }
+
+        if (obj.common.role && obj.common.role.indexOf('level') != -1) {
+            html += '<div   class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '"></div>';
+            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
+        } else
+        if (obj.common.role && (obj.common.role.indexOf('button') != -1 || obj.common.role.indexOf('action') != -1)) {
+            if (!direct) {
+                html = '<input class="mobile-value mobile-visibility" data-visibility-id="' + obj._id + '" ';
+            } else {
+                html += '<input class="mobile-value" '
+            }
+            html += ' type="button" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
+        } else {
+            if (obj.common.write && obj.common.type == 'boolean') {
+
+                if (stateName == 'OPEN' || stateName == 'CLOSE') {
+                    html += '<div class="mobile-widget-b">\n' +
+                        '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
+                        '        <option value="false">' + _('closed') + '</option>\n' +
+                        '        <option value="true" >' + _('opened')  + '</option>\n' +
+                        '    </select>\n' +
+                        '</div>\n';
+                } else {
+                    html += '<div class="mobile-widget-b">\n' +
+                        '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
+                        '        <option value="false">' + _('off') + '</option>\n' +
+                        '        <option value="true" >' + _('on')  + '</option>\n' +
+                        '    </select>\n' +
+                        '</div>\n';
+                }
+
+            } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
+                html += ' - <span data-mobile-id="' + obj._id + '" ' +
+                    'data-type="' + obj.common.type + '" ' +
+                    'data-unit="' + (obj.common.unit || '') + '" ' +
+                    'data-states=' + "'" + states + "'" + '></span>\n' +
+                    '<div class="mobile-widget-c">\n' +
+                    '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
+                    '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '"/>\n</div>';
+
+            } else {
+                console.log(obj.common.role + ' W:' + obj.common.write);
+                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
+            }
+        }
+
+        return html;
     },
 
     renderElement: function (obj, group, direct) {
@@ -305,6 +432,7 @@ var mobile = {
         var i;
         var id;
         var name = obj.common.name || obj._id;
+        var ifAnyVisible = false;
 
         // ignore indicators
         if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
@@ -341,11 +469,8 @@ var mobile = {
                 '<img class="mobile-widget-icon" src="/adapter/' + adapter + '/' + obj.common.icon + '" style="height: 32px"/>' +
                 '<div class="' + (obj.type == 'channel' ? 'mobile-title' : '') + ' mobile-visibility" data-visibility-id="' + obj._id + '">' + name + '</div>';
         } else {
-            html += '<div class="mobile-widget-a mobile-visibility' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">' + name;
-        }
-
-        if (obj._id.indexOf('KEQ0021340') != -1) {
-            console.log('KEQ0021340');
+            html += '<div class="mobile-widget-a mobile-visibility ' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">' +
+                '<span class="mobile-value-title">' + name + '</span>';
         }
 
         switch (obj.common.role) {
@@ -360,6 +485,7 @@ var mobile = {
                                 this.objects[id].common.mobile[this.user] &&
                                 this.objects[id].common.mobile[this.user].visible === false) return '';
 
+                            ifAnyVisible = true;
                             if (!this.states[id]) {
                                 // read states
                                 if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
@@ -382,7 +508,9 @@ var mobile = {
 
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.dimmer') {
                             // render element
-                            html += this.renderElement(this.objects[id], group, false);
+                            var elem = this.renderElement(this.objects[id], obj.common.name || obj._id, false);
+                            if (elem) ifAnyVisible = true;
+                            html += elem;
                         }
                     }
                 }
@@ -399,6 +527,8 @@ var mobile = {
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
                             if (!this.editMode && this.objects[id].common.mobile &&
                                 this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
+
+                            ifAnyVisible = true;
 
                             if (!this.states[id]) {
                                 // read states
@@ -427,7 +557,9 @@ var mobile = {
 
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.blind') {
                             // render element
-                            html += this.renderElement(this.objects[id], obj.common.name || obj._id, false);
+                            var elem = this.renderElement(this.objects[id], obj.common.name || obj._id, false);
+                            if (elem) ifAnyVisible = true;
+                            html += elem;
                         }
                     }
                 }
@@ -442,6 +574,8 @@ var mobile = {
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
                             if (!this.editMode && this.objects[id].common.mobile &&
                                 this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
+
+                            ifAnyVisible = true;
 
                             if (!this.states[id]) {
                                 // read states
@@ -464,7 +598,9 @@ var mobile = {
 
                         if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'state') {
                             // render element
-                            html += this.renderElement(this.objects[id], group, false);
+                            var elem = this.renderElement(this.objects[id], obj.common.name || obj._id, false);
+                            if (elem) ifAnyVisible = true;
+                            html += elem;
                         }
                     }
                 }
@@ -481,74 +617,24 @@ var mobile = {
                             this.objects[id].common.mobile[this.user].visible === false) continue;
 
                         if (this.objects[id] && this.objects[id].type === 'state') {
-                            html += this.renderElement(this.objects[id], obj.common.name || obj._id);
+                            var elem = this.renderElement(this.objects[id], obj.common.name || obj._id);
+                            if (elem) ifAnyVisible = true;
+                            html += elem;
                         }
                     }
                 } else if (this.editMode || !obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible !== false) {
-                    // do not show inhibit (sperren) by default
-                    if (obj.common.role && !this.editMode &&
+                    // do not show some buttons by default
+                    if (!this.editMode &&
                         (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
                         this.isDefaultInvisible(obj.common.role, obj._id)) {
                         // ignore it if not explicit enabled
                         html = '';
                     } else {
+                        ifAnyVisible = true;
+
                         if (direct) html += '</div><div class="mobile-widget-c mobile-visibility" data-visibility-id="' + obj._id + '">';
 
-                        var states = obj.common.states || '';
-
-                        if (states) {
-                            if (typeof states == 'object') {
-                                states = JSON.stringify(states);
-                            } else if (typeof states == 'string' && states[0] != '{') {
-                                var values = states.split(';');
-                                states = {};
-                                for (var v = 0; v < values.length; v++) {
-                                    var parts = values.split(':');
-                                    states[parts[0]] = parts[1];
-                                }
-                                states = JSON.stringify(states);
-                            }
-                        }
-
-                        if (!this.states[obj._id]) {
-                            // read states
-                            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
-                        } else {
-                            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
-                        }
-
-                        if (obj.common.role && obj.common.role.indexOf('level') != -1) {
-                            html += '<div   class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '"></div>';
-                            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
-                        } else
-                        if (obj.common.role && (obj.common.role.indexOf('button') != -1 || obj.common.role.indexOf('action') != -1)) {
-                            if (!direct) {
-                                html = '<input class="mobile-value mobile-visibility" data-visibility-id="' + obj._id + '" ';
-                            } else {
-                                html += '<input class="mobile-value" '
-                            }
-                            html += ' type="button" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
-                        } else {
-                            if (obj.common.write && obj.common.type == 'boolean') {
-                                html += '<div class="mobile-widget-b">\n' +
-                                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
-                                    '        <option value="false">' + _('off') + '</option>\n' +
-                                    '        <option value="true" >' + _('on')  + '</option>\n' +
-                                    '    </select>\n' +
-                                    '</div>\n';
-                            } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
-                                html += ' - <span data-mobile-id="' + obj._id + '" ' +
-                                    'data-type="' + obj.common.type + '" ' +
-                                    'data-unit="' + (obj.common.unit || '') + '" ' +
-                                    'data-states=' + "'" + states + "'" + '></span>\n' +
-                                    '<div class="mobile-widget-c">\n' +
-                                    '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
-                                    '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '"/>\n</div>';
-
-                            } else {
-                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
-                            }
-                        }
+                        html += this.renderGenericState(obj, direct);
 
                         if (!direct) html += '</div></div>';
                     }
@@ -560,17 +646,20 @@ var mobile = {
 
         }
 
+        if (!ifAnyVisible)
+            return '';
+
         return html;
     },
 
-    renderIndicators: function (obj, $elem) {
+    renderIndicators: function (obj, $elem, originId) {
         var id;
         // try to find some in device itself
         var parent = obj._id.split('.');
         parent.pop();
         parent = parent.join('.');
         if (this.objects[parent] && this.objects[parent].type == 'device') {
-            this.renderIndicators(this.objects[parent], $elem);
+            this.renderIndicators(this.objects[parent], $elem, originId);
         } else {
             var checked = $elem.data('indicators') || [];
             if (checked.indexOf(obj._id) == -1) {
@@ -589,6 +678,11 @@ var mobile = {
 
                         if (this.objects[id] && this.objects[id].common) {
                             if (this.objects[id].common.role && this.objects[id].common.role.match(/^indicator\.?/)) {
+                                // do not render WORKING and DIRECTION for other channels than origin
+                                if ((this.objects[id].common.role === 'indicator.working' || this.objects[id].common.role === 'indicator.direction') && originId !== id.substring(0, originId.length)) {
+                                    continue;
+                                }
+
                                 if (!this.states[id]) {
                                     // read states
                                     if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
@@ -628,7 +722,7 @@ var mobile = {
                                 $indicators.append(text);
                             }
                             if (this.objects[id].children && this.objects[id].children.length) {
-                                this.renderIndicators(this.objects[id], $elem);
+                                this.renderIndicators(this.objects[id], $elem, originId);
                             }
                         }
                     }
@@ -640,13 +734,16 @@ var mobile = {
     renderChannel: function (obj, $elem, group) {
         if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
 
-        var $channel = $('<li class="mobile-widget">' + this.renderElement(obj, group) + '</li>');
-        $elem.append($channel);
+        var elem = this.renderElement(obj, group);
+        if (elem) {
+            var $channel = $('<li class="mobile-widget">' + elem + '</li>');
+            $elem.append($channel);
 
-        if ($elem.hasClass('ui-listview')) {
-            $elem.listview('refresh');
+            if ($elem.hasClass('ui-listview')) {
+                $elem.listview('refresh');
+            }
+            if (!this.editMode) this.renderIndicators(obj, $channel, obj._id);
         }
-        if (!this.editMode) this.renderIndicators(obj, $channel);
     },
 
     renderType: function (id, state, group) {
@@ -694,9 +791,12 @@ var mobile = {
     renderDevice: function (obj, $elem, group) {
         if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
 
-        var $device = $('<li>' + this.renderElement(obj, group) + '</li>');
-        $elem.append($device).listview('refresh');
-        if (!this.editMode) this.renderIndicators(obj, $device);
+        var elem = this.renderElement(obj, group);
+        if (elem) {
+            var $device = $('<li>' + elem + '</li>');
+            $elem.append($device).listview('refresh');
+            if (!this.editMode) this.renderIndicators(obj, $device, obj._id);
+        }
     },
 
     renderEditButtons: function () {
@@ -722,7 +822,7 @@ var mobile = {
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
@@ -754,7 +854,7 @@ var mobile = {
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
@@ -801,7 +901,7 @@ var mobile = {
                     }
                     // button is invisible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
@@ -852,7 +952,6 @@ var mobile = {
         }
     
         for (var i = 0; i < this.root.length; i++) {
-    
             var navbar = '';
             if (!this.editMode && this.objects[this.root[i]] &&
                 this.objects[this.root[i]].common && this.objects[this.root[i]].common.mobile &&
@@ -893,7 +992,7 @@ var mobile = {
     
             var page =
                 '<div id="' + this.root[i].replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
-                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">' +
+                '    <div data-role="header" data-position="" data-id="f2" data-theme="b" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span>' + _(this.enums[this.root[i]].common.name) + '</h1>' +
                 '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
                 '    </div>' +
@@ -978,10 +1077,10 @@ var mobile = {
     
         var page =
             '<div id="' + id.replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
-            '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">' +
+            '    <div data-role="header" data-position="" data-id="f2" data-theme="b" data-fullscreen="false">' +
             '        <a href="#' + encodeURIComponent(parentId.replace(/\./g, '*')) + '" data-role="button" data-icon="arrow-l">' + _(parentName) + '</a>' +
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
-            '        <a href="#info" data-rel="dialog" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
+            '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
             '    </div>';
 
             page +=
@@ -1195,10 +1294,14 @@ var mobile = {
             document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
         });
         $('#edit_indicator').click(function () {
-            this.objects = that.calcChildren();
+            that.objects = that.calcChildren();
             document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
         });
-
+        $('.mobile-reset').click(function () {
+            that.resetVisibility(function () {
+                document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
+            });
+        });
         this.conn.init(null, {
             onConnChange: function (isConnected) {
                 if (isConnected) {
