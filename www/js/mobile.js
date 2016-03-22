@@ -177,7 +177,7 @@ var mobile = {
     ids:          [],
     user:         'admin',
     defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
-    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE'],
+    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND'],
 
     icons:        {
         'temperature':  'temp_temperature.svg',
@@ -657,21 +657,26 @@ var mobile = {
             // show title only one time
             parent.title = null;
         } else {
-            html += '  <td class="mobile-widget-table-begin">' + (control.value   || '') + '</td>\n';
-            html += '  <td class="mobile-widget-table-control">';
 
             if (parent.title && control.control) {
-                html += '<table class="mobile-table-nospace">'
-                html += '<tr><td><div class="mobile-widget-title-state">' + parent.title + '</div></td></tr>\n';
-                html += '<tr><td><div>' + control.control + '</div></td></tr>\n';
-                html += '</table>'
+                html += '<td class="mobile-widget-table-begin">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ')   || '') + '</td>\n';
+                html += '<td class="mobile-widget-table-control">';
+                html += '  <table class="mobile-widget-table">';
+                html += '    <tr><td><div class="mobile-widget-title-state mobile-widget-title-small">' + parent.title + '</div></td></tr>\n';
+                html += '    <tr><td><div>' + control.control + '</div></td></tr>\n';
+                html += '  </table>';
+                html += '</td>';
                 parent.title = null;
             } else if (parent.title && !control.control) {
-                html += '  <div class="mobile-widget-title">'     + parent.title + '</div>\n';
+                html += '  <td class="mobile-widget-table-begin">' + (control.value   || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-control">';
+                html += '      <div class="mobile-widget-title">'     + parent.title + '</div>\n';
+                html += '  </td>';
                 parent.title = null;
             } else {
                 // just control
-                html += (control.control || '');
+                html += '  <td class="mobile-widget-table-begin">'   + (control.value   || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
             }
         }
         html += '</tr>\n';
@@ -697,9 +702,10 @@ var mobile = {
             if (!firstChild) firstChild = child;
             count++;
         }
+
         // do not show title if only one child
         if (count < 2 && !this.editMode) {
-            struct.children[child].title = '';
+            //struct.title = '';
         }
 
         var c;

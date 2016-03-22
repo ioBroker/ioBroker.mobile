@@ -622,52 +622,34 @@ ul.mobile-page-left h2 {
     right: 0;
     padding-right: 10px;
 }
-.mobile-indicator-battery {
-    width: 48px;
-    height: 48px;
-    background-image: url('../img/battery.png');
-    background-repeat: no-repeat;
-    float: right;
-    animation: blinker 4s linear infinite;
-}
-.mobile-indicator-unreach {
-    width: 48px;
-    height: 48px;
-    background-image: url('../img/unreach.png');
-    background-repeat: no-repeat;
-    float: right;
-}
-.mobile-indicator-error {
-    width: 48px;
-    height: 48px;
-    background-image: url('../img/error.png');
+.mobile-indicator, .mobile-indicator-battery, .mobile-indicator-unreach, .mobile-indicator-error, .mobile-indicator-working, .mobile-indicator-direction {
+    width:  1em;
+    height: 1em;
+    background-size: 1em 1em;
     background-repeat: no-repeat;
     float: right;
 }
 
+.mobile-indicator-battery {
+    background-image: url('../img/battery.png');
+    animation: blinker 4s linear infinite;
+}
+.mobile-indicator-unreach {
+    background-image: url('../img/unreach.png');
+}
+.mobile-indicator-error {
+    background-image: url('../img/error.png');
+}
+
 .mobile-indicator-working {
-     width: 48px;
-     height: 48px;
      background-image: url('../img/gear.png');
-     background-repeat: no-repeat;
-     float: right;
     -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
  }
 
 .mobile-indicator {
-    width: 48px;
-    height: 48px;
     background-image: url('../img/error.png');
-    background-repeat: no-repeat;
-    float: right;
-}
-.mobile-indicator-direction {
-    width: 48px;
-    height: 48px;
-    background-repeat: no-repeat;
-    float: right;
 }
 
 .mobile-indicator-direction[data-value='UP'] {
@@ -761,7 +743,14 @@ ul.mobile-page-left h2 {
     width: 2.5em;
     display: inline-block;
     word-wrap: break-word;
-    background: #3388cc !important;
+    background: rgba(51,135,204,1);
+    background: -moz-linear-gradient(left, rgba(51,135,204,1) 0%, rgba(51,135,204,1) 70%, rgba(255,255,255,1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51,135,204,1)), color-stop(70%, rgba(51,135,204,1)), color-stop(100%, rgba(255,255,255,1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51,135,204,1) 0%, rgba(51,135,204,1) 70%, rgba(255,255,255,1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51,135,204,1) 0%, rgba(51,135,204,1) 70%, rgba(255,255,255,1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51,135,204,1) 0%, rgba(51,135,204,1) 70%, rgba(255,255,255,1) 100%) !important;
+    background: linear-gradient(to right, rgba(51,135,204,1) 0%, rgba(51,135,204,1) 70%, rgba(255,255,255,1) 100%) !important ;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3387cc', endColorstr='#ffffff', GradientType=1 ) !important;
     text-align: center;
     border-radius: 0.3em 0 0 0.3em;
     margin-right: 0.5em;
@@ -802,8 +791,11 @@ ul.mobile-page-left h2 {
 .mobile-widget-title {
     padding-left: 0.5em;
 }
+.mobile-widget-title-small {
+    font-size: small;
+}
 
-.mobile-widget-table, .mobile-widget-table tr, .mobile-widget-table td, .mobile-table-nospace, .mobile-table-nospace tr, .mobile-table-nospace td{
+.mobile-widget-table, .mobile-widget-table tr, .mobile-widget-table td {
     border: 0;
     border-spacing: 0;
     border-collapse: separate;
@@ -819,11 +811,13 @@ ul.mobile-page-left h2 {
     background: white;
 }
 
-
-
-
-
-
+.mobile-widget-table-control {
+    border-top:    1px solid #E0DEDE !important;
+    border-bottom: 1px solid #E0DEDE !important;
+}
+.mobile-value-big {
+    height: 3.2em !important;
+}
 
 
 
