@@ -73,6 +73,7 @@ systemDictionary = {
     "Edit-Mode":        {"en": "Edit-Mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
     "Finish Edit-Mode": {"en": "Finish Edit-Mode",  "de": "Edit-Modus beenden", "ru": "Завершить изменения"},
     "Documentation":    {"en": "Documentation",     "de": "Dokumentation",  "ru": "Документация"},
+    "Reset layout":     {"en": "Reset layout",      "de": "Einstellungen löschen",  "ru": "Сбросить настройки"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -95,37 +96,37 @@ systemDictionary = {
     "Aktor":            {"en": "Actor",             "de": "Aktor",          "ru": "Выключатель"},
     "Beleuchtung":      {"en": "Lighting",          "de": "Beleuchtung",    "ru": "Подсветка"},
 
-    "Technikraum":      {"en": "Technikraum",       "de": "Technical room", "ru": "Technikraum"},
+    "Technikraum":      {"en": "Technical room",    "de": "Technikraum",    "ru": "Технческая комната"},
     "Büro":             {"en": "Office",            "de": "Büro",           "ru": "Бюро"},
-    "Kellerraum": {"en": "Kellerraum", "de": "Kellerraum", "ru": "Kellerraum"},
-    "Vorraum": {"en": "Vorraum", "de": "Vorraum", "ru": "Vorraum"},
-    "Gang EG": {"en": "Gang EG", "de": "Gang EG", "ru": "Gang EG"},
-    "Aussen EG": {"en": "Aussen EG", "de": "Aussen EG", "ru": "Aussen EG"},
-    "Carport": {"en": "Carport", "de": "Carport", "ru": "Carport"},
-    "WC EG": {"en": "WC EG", "de": "WC EG", "ru": "WC EG"},
-    "Bad EG": {"en": "Bad EG", "de": "Bad EG", "ru": "Bad EG"},
-    "Schrankraum": {"en": "Schrankraum", "de": "Schrankraum", "ru": "Schrankraum"},
-    "Bad OG": {"en": "Bad OG", "de": "Bad OG", "ru": "Bad OG"},
-    "Kinderzimmer 1": {"en": "Kinderzimmer 1", "de": "Kinderzimmer 1", "ru": "Kinderzimmer 1"},
-    "Kinderzimmer 2": {"en": "Kinderzimmer 2", "de": "Kinderzimmer 2", "ru": "Kinderzimmer 2"},
-    "Gang OG": {"en": "Gang OG", "de": "Gang OG", "ru": "Gang OG"},
-    "WC OG": {"en": "WC OG", "de": "WC OG", "ru": "WC OG"},
-    "Speis": {"en": "Speis", "de": "Speis", "ru": "Speis"},
-    "Terrasse": {"en": "Terrasse", "de": "Terrasse", "ru": "Terrasse"},
-    "Garten": {"en": "Garten", "de": "Garten", "ru": "Garten"},
-    "Aussen OG": {"en": "Aussen OG", "de": "Aussen OG", "ru": "Aussen OG"},
-    "Treppe": {"en": "Treppe", "de": "Treppe", "ru": "Treppe"},
-    "Esszimmer": {"en": "Esszimmer", "de": "Esszimmer", "ru": "Esszimmer"},
-    "Helligkeitswerte": {"en": "Helligkeitswerte", "de": "Helligkeitswerte", "ru": "Helligkeitswerte"},
-    "IPCams": {"en": "IPCams", "de": "IPCams", "ru": "IPCams"},
-    "Raffstore": {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
-    "Klima": {"en": "Klima", "de": "Klima", "ru": "Klima"},
-    "Sicherheit": {"en": "Sicherheit", "de": "Sicherheit", "ru": "Sicherheit"},
-    "Verschluss": {"en": "Verschluss", "de": "Verschluss", "ru": "Verschluss"},
-    "Energiemanagement": {"en": "Energiemanagement", "de": "Energiemanagement", "ru": "Energiemanagement"},
+    "Kellerraum":       {"en": "Basement",          "de": "Kellerraum",     "ru": "Подвал"},
+    "Vorraum":          {"en": "Vestibule",          "de": "Vorraum",       "ru": "Сени"},
+    "Gang EG":          {"en": "Corridor 1st floor", "de": "Gang EG",       "ru": "Коридор 1й этаж"},
+    "Aussen EG":        {"en": "Outside 1st floor", "de": "Aussen EG",      "ru": "Снаружи 1й этаж"},
+    "Carport":          {"en": "Carport",           "de": "Carport",        "ru": "Навес над машиной"},
+    "WC EG":            {"en": "WC 1st floor",      "de": "WC EG",          "ru": "Туалет 1й этаж"},
+    "Bad EG":           {"en": "Bath 1st floor",    "de": "Bad EG",         "ru": "Bad 1й этаж"},
+    "Schrankraum":      {"en": "Wardrobe",          "de": "Schrankraum",    "ru": "Шкаф"},
+    "Bad OG":           {"en": "Bath 2nd floor",    "de": "Bad OG",         "ru": "Ванная 2й этаж"},
+    "Kinderzimmer 1":   {"en": "Kid's room 1",      "de": "Kinderzimmer 1", "ru": "Детская 1"},
+    "Kinderzimmer 2":   {"en": "Kid's room 2",      "de": "Kinderzimmer 2", "ru": "Детская 2"},
+    "Gang OG":          {"en": "Corridor 2nd floor", "de": "Gang OG",       "ru": "Коридор 2й этаж"},
+    "WC OG":            {"en": "WC 2nd floor",      "de": "WC OG",          "ru": "Туалет 2й этаж"},
+    "Speis":            {"en": "Speis", "de": "Speis", "ru": "Speis"},
+    "Terrasse":         {"en": "Terrace",           "de": "Terrasse",       "ru": "Терасса"},
+    "Garten":           {"en": "Garden",            "de": "Garten",         "ru": "Сад"},
+    "Aussen OG":        {"en": "Outside 2nd floor", "de": "Aussen OG",      "ru": "Снаружи 2й этаж"},
+    "Treppe":           {"en": "Stair",             "de": "Treppe",         "ru": "Лестница"},
+    "Esszimmer":        {"en": "Eating room",       "de": "Esszimmer",      "ru": "Столовая"},
+    "Helligkeitswerte": {"en": "Brightness",        "de": "Helligkeitswerte", "ru": "Яркость"},
+    "IPCams":           {"en": "IP Cams",           "de": "IPCams",         "ru": "Веб камеры"},
+    "Raffstore":        {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
+    "Klima":            {"en": "Air condition",     "de": "Klima",          "ru": "Кондиционер"},
+    "Sicherheit":       {"en": "Alarm",             "de": "Sicherheit",     "ru": "Сигнализация"},
+    "Verschluss":       {"en": "Gate",              "de": "Verschluss",     "ru": "Двери"},
+    "Energiemanagement": {"en": "Energy management", "de": "Energiemanagement", "ru": "Потребление энергии"},
 
     "Valve State":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
-    "Level":            {"en": "Level",             "de": "Wert",           "ru": "Уровень"},
+    "Level":            {"en": "Level",             "de": "Wert",           "ru": "Положение"},
     "Press Long":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
     "Press Short":      {"en": "Press short",       "de": "Kurz drucken",   "ru": "Короткое нажатие"},
     "Press Cont":       {"en": "Press continuous",  "de": "Kontinuerlich",  "ru": "Продолжительное нажатие"},
@@ -142,7 +143,21 @@ systemDictionary = {
     "State Uncertain":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
     "Brightness":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
     "On Time":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
-    "Submit":           {"en": "Submit",             "de": "Bestätigen",    "ru": "Подтвердить"}
+    "Submit":           {"en": "Submit",            "de": "Bestätigen",     "ru": "Подтвердить"},
+    "Filling Level":    {"en": "Filling Level",     "de": "Füllniveau ",    "ru": "Уровень заполнения"},
+    "Defekt State":     {"en": "Defect",            "de": "Defekt State",   "ru": "Поломка"},
+    "UP":               {"en": "up",                "de": "Nach oben",      "ru": "наверх"},
+    "DOWN":             {"en": "down",              "de": "nach unten",     "ru": "вниз"},
+    "Stop":             {"en": "Stop",              "de": "Stop",           "ru": "Стоп"},
+    "Voltage":          {"en": "Voltage",           "de": "Spannung",       "ru": "Напряжение"},
+    "Power":            {"en": "Power",             "de": "Power",          "ru": "Мощность"},
+    "Frequency":        {"en": "Frequency",         "de": "Frequenz",       "ru": "Частота"},
+    "Energy Counter":   {"en": "Energy Counter",    "de": "Energiezähler",  "ru": "Счётчик расхода"},
+    "Current":          {"en": "Current",           "de": "Strom",          "ru": "Ток"},
+    "Boot":             {"en": "Boot",              "de": "Boot",           "ru": "Boot"},
+    "Decision Value":   {"en": "Decision Value",    "de": "Entscheidungswert", "ru": "Порог принятия решения"},
+    "UNDEFINED":        {"en": "--",                "de": "--",             "ru": "--"},
+    "Air Pressure":     {"en": "Air Pressure",      "de": "Luftdruck",      "ru": "Атмосферное давление"}
 };
 
 
@@ -160,14 +175,48 @@ var mobile = {
     queueStates:  [],
     updateStates: [],
     ids:          [],
-    randomId:     0,
     user:         'admin',
-    defaultInvisible: ['inhibit', 'button', 'action', 'timer'],
+    defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
+    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE'],
 
     icons:        {
         'temperature':  'temp_temperature.svg',
         'humidity':     'weather_humidity.svg',
         'setpoint':     'temp_control.svg'
+    },
+
+    modifyObjects: function (list, cb) {
+        if (!list || !list.length) {
+            cb && cb();
+            return;
+        }
+        var id = list.pop();
+        this.conn._socket.emit('setObject', id, this.objects[id], function (err) {
+            if (!err) {
+                setTimeout(function () {
+                    this.modifyObjects(list, cb);
+                }.bind(this), 0);
+            } else {
+                console.error(err);
+                cb && cb(err, id);
+            }
+        }.bind(this));
+    },
+
+    resetVisibility: function (cb) {
+        var modified = [];
+        for (var id in this.objects) {
+            if (this.objects[id] &&
+                this.objects[id].common &&
+                this.objects[id].common.mobile &&
+                this.objects[id].common.mobile[this.user] &&
+                this.objects[id].common.mobile[this.user].visible !== undefined) {
+                delete this.objects[id].common.mobile[this.user].visible;
+
+                modified.push(id);
+            }
+        }
+        this.modifyObjects(modified, cb);
     },
 
     updateState: function (id, force) {
@@ -180,20 +229,19 @@ var mobile = {
                 console.warn('No data for "' + _id + '".');
                 that.states[_id].val = '';
             }
-            if (that.states[_id].val === null) that.states[_id].val = '';
 
             if (force || val != that.states[_id].val.toString()) {
+                var role   = $(this).data('role');
+                var val    = that.states[_id].val;
+                var rawVal = that.states[_id].val;
 
-                var role = $(this).data('role');
                 if ($(this).data('type') === 'range') {
-                    $(this).val(that.states[_id].val.toString());
+                    $(this).val(val);
                     $(this).slider('refresh');
                 } else if (role === 'slider') {
-                    $(this).val(that.states[_id].val.toString());
+                    $(this).val(val);
                     $(this).slider().slider('refresh');
                 } else {
-                    var val    = that.states[_id].val;
-                    var rawVal = that.states[_id].val;
                     if (val === 'true'  || val === true) {
                         rawVal = true;
                         val = _('true');
@@ -252,7 +300,7 @@ var mobile = {
                         }
                     }
                     var unit = $(this).data('unit') || '';
-                    if (unit) unit = ' ' + unit;
+                    if (unit) unit = '<span class="mobile-value-units">' + unit + '</span>';
                     if ($(this).data('title')) {
                         $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
                     } else {
@@ -275,7 +323,7 @@ var mobile = {
     renderWidget: function (obj, elem, group) {
         switch (obj.type) {
             case 'device':
-                this.renderDevice(obj, elem, group);
+                this.renderChannel(obj, elem, group);
                 break;
 
             case 'channel':
@@ -290,21 +338,152 @@ var mobile = {
     },
 
     isDefaultInvisible: function (role, id) {
-        var name = id.split('.').pop();
-        if (name === 'OLD_LEVEL') return true;
-
-        if (!role) return false;
-        for (var w = 0; w < this.defaultInvisible.length; w++) {
-            if (role.indexOf(this.defaultInvisible[w]) !== -1) return true;
+        if (id) {
+            var name = id.split('.').pop();
+            if (this.defaultInvisibleNames.indexOf(name) !== -1) return true;
         }
+
+        if (role) {
+            for (var w = 0; w < this.defaultInvisibleRoles.length; w++) {
+                if (role.indexOf(this.defaultInvisibleRoles[w]) !== -1) return true;
+            }
+        }
+
         return false;
     },
 
-    renderElement: function (obj, group, direct) {
-        var html = '';
+    renderGenericState: function (obj, struct) {
+        var states    = obj.common.states || '';
+        var stateName = obj._id.split('.').pop();
+
+        if (states) {
+            if (typeof states == 'object') {
+                states = JSON.stringify(states);
+            } else if (typeof states == 'string' && states[0] != '{') {
+                var values = states.split(';');
+                states = {};
+                for (var v = 0; v < values.length; v++) {
+                    var parts = values.split(':');
+                    states[parts[0]] = parts[1];
+                }
+                states = JSON.stringify(states);
+            }
+        }
+
+        if (!this.states[obj._id]) {
+            // read states
+            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
+        } else {
+            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
+        }
+
+        struct.controls = [];
+        var on  = 'on';
+        var off = 'off';
+        var roles = obj.common.role ? obj.common.role.split('.') : [];
+
+        if (roles.indexOf('blind') !== -1 || stateName === 'OPEN' || stateName === 'CLOSE') {
+            on  = 'closed';
+            off = 'opened';
+        }
+
+        // add for blinds and dimmer on/off switch
+        if (obj.common.role === 'level.dimmer' || obj.common.role === 'level.blind') {
+            struct.controls.push({
+                _class: 'mobile-widget-b',
+                checkbox: true,
+                control:
+                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" >\n' +
+                    '        <option value="' + (obj.common.min !== undefined ? obj.common.min : 0)   + '">' + _(off) + '</option>\n' +
+                    '        <option value="' + (obj.common.max !== undefined ? obj.common.max : 100) + '">' + _(on)  + '</option>\n' +
+                    '    </select>\n'
+            });
+        }
+
+        // add slider
+        if (roles.indexOf('level') !== -1 || (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined)) {
+            struct.controls.push({
+                value:   '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-role="value" data-mobile-id="' + obj._id + '" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
+                control: '<input class="mobile-control" type="range"    data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" />'
+            });
+        } else
+        // add button
+        if (roles.indexOf('button') !== -1 || roles.indexOf('action') !== -1) {
+            struct.controls.push({
+                control:
+                    '<input ' +
+                    'class="mobile-control" ' +
+                    'type="button" ' +
+                    'data-mobile-id="' + obj._id + '" ' +
+                    'data-role="value" ' +
+                    'data-unit="'  + (obj.common.unit || '') + '" ' +
+                    'data-states=' + "'" + states + "'" + ' ' +
+                    'data-type="'  + obj.common.type + '" ' +
+                    'value="'      + struct.title + '"/>'
+            });
+            // title is on the button
+            struct.title = null;
+        } else
+        // generic types
+        // controllable boolean
+        if (obj.common.write && obj.common.type === 'boolean') {
+            struct.controls.push({
+                checkbox: true,
+                control:
+                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : false) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : true) + '" >\n' +
+                    '        <option value="' + (obj.common.min !== undefined ? obj.common.min : false) + '">' + _(off) + '</option>\n' +
+                    '        <option value="' + (obj.common.max !== undefined ? obj.common.max : true)  + '">' + _(on)  + '</option>\n' +
+                    '    </select>'
+            });
+        } else
+        // controllable number, but as text
+        if (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined) {
+            struct.controls.push({
+                value:   '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
+                control: '<input class="mobile-control" type="range" data-type="' +  obj.common.type + '" data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '"/>'
+            });
+        } else if (obj.common.write && !states) {
+            struct.controls.push({
+                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" data-role="value" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' />' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                control: '<input ' +
+                    'class="mobile-control" ' +
+                    'type="button" '   +
+                    'data-mobile-id="' + obj._id + '" ' +
+                    'data-type="set" ' +
+                    'value="' + _('set') + '"/>'
+            });
+        } else if (obj.common.write && states) {
+            // to do select
+            struct.controls.push({
+                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" data-role="value" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' />' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                control: '<input ' +
+                    'class="mobile-control" ' +
+                    'type="button" '   +
+                    'data-mobile-id="' + obj._id + '" ' +
+                    'data-type="set" ' +
+                    'value="' + _('set') + '"/>'
+            });
+        }else {
+            // non controllable value
+            struct.controls.push({
+                value: '<div ' +
+                    'data-mobile-id="' + obj._id + '" ' +
+                    'class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" ' +
+                    'data-role="value" ' +
+                    'data-unit="'  + (obj.common.unit || '') + '" ' +
+                    'data-states=' + "'" + states + "'" + ' ' +
+                    'data-type="'  + obj.common.type + '"></div>'
+            });
+        }
+        return struct;
+    },
+
+    renderElement: function (obj, group, struct) {
         var i;
         var id;
         var name = obj.common.name || obj._id;
+
+        struct = struct || {};
 
         // ignore indicators
         if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
@@ -332,245 +511,71 @@ var mobile = {
             name = words.join(' ');
         }
 
-        if (obj.type === 'state') {
-            name = _(name);
-        }
+        // try to translate the state anme
+        if (obj.type === 'state') name = _(name);
+
+        struct.title = name;
+
         if (obj.common.icon) {
             var adapter = obj._id.split('.').shift();
-            html += '<div class="mobile-widget-a" title="' + (obj.common.role || '') +'">' +
-                '<img class="mobile-widget-icon" src="/adapter/' + adapter + '/' + obj.common.icon + '" style="height: 32px"/>' +
-                '<div class="' + (obj.type == 'channel' ? 'mobile-title' : '') + ' mobile-visibility" data-visibility-id="' + obj._id + '">' + name + '</div>';
+            struct.icon      = '/adapter/' + adapter + '/' + obj.common.icon;
+            //struct.iconHtml  = '<img class="mobile-widget-icon" src="' + struct.icon + '" style="height: 32px"/>';
+            //struct.titleHtml = '<div class="' + (obj.type == 'channel' ? 'mobile-title' : '') + ' mobile-visibility" data-visibility-id="' + obj._id + '">' + name + '</div>';
         } else {
-            html += '<div class="mobile-widget-a mobile-visibility' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">' + name;
+            //struct.titleHtml = '<div class="mobile-widget-a mobile-visibility ' + (obj.type == 'channel' ? 'mobile-title' : '') + '"  title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">' +
+            //    '<span class="mobile-value-title">' + name + '</span>';
+            //html += struct.titleHtml;
         }
 
-        if (obj._id.indexOf('KEQ0021340') != -1) {
-            console.log('KEQ0021340');
+        if (obj.children && obj.children.length) {
+            //html += '</div>';
+            struct.children = {};
+            for (i = 0; i < obj.children.length; i++) {
+                id = obj.children[i];
+                if (!this.editMode && this.objects[id].common.mobile &&
+                    this.objects[id].common.mobile[this.user] &&
+                    this.objects[id].common.mobile[this.user].visible === false) continue;
+
+                if (this.objects[id] && this.objects[id].type === 'state') {
+                    struct.children[id] = struct.children[id] || {};
+                    struct.children[id].parent = obj._id;
+                    this.renderElement(this.objects[id], obj.common.name || obj._id, struct.children[id]);
+
+                    if (!struct.children[id].controls && !struct.children[id].children) delete struct.children[id];
+                }
+            }
+
+            // Check if any child is visible
+            var anyChild = false;
+            for (var c in struct.children) {
+                if (struct.children.hasOwnProperty(c)) {
+                    anyChild = true;
+                    break;
+                }
+            }
+            if (!anyChild) delete struct.children;
+        } else if (this.editMode || !obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible !== false) {
+            // do not show some buttons by default
+            if (!this.editMode &&
+                (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
+                this.isDefaultInvisible(obj.common.role, obj._id)) {
+                // ignore it if not explicit enabled
+            } else {
+                this.renderGenericState(obj, struct);
+            }
         }
 
-        switch (obj.common.role) {
-            case 'dimmer':
-                html += '</div>';
-                if (obj.children) {
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.dimmer') {
-                            if (!this.editMode && this.objects[id].common.mobile &&
-                                this.objects[id].common.mobile[this.user] &&
-                                this.objects[id].common.mobile[this.user].visible === false) return '';
-
-                            if (!this.states[id]) {
-                                // read states
-                                if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                            } else {
-                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
-                            }
-
-                            html += '<div class="mobile-widget-b mobile-visibility" data-visibility-id="' + id + '"><select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">' +
-                                '<option value="' + this.objects[id].common.min + '">' + _('off') + '</option>' +
-                                '<option value="' + this.objects[id].common.max + '">' + _('on')  + '</option>' +
-                                '</select></div>';
-                            html += '<div class="mobile-widget-c">' +
-                                '<input class="mobile-control" type="range" data-mobile-id="' + id +
-                                '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '"/></div>';
-                        }
-                    }
-                    // render other elements
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.dimmer') {
-                            // render element
-                            html += this.renderElement(this.objects[id], group, false);
-                        }
-                    }
-                }
-                break;
-
-            case 'blind':
-                html += '</div>';
-
-                if (obj.children) {
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        // render first blind slider
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'level.blind') {
-                            if (!this.editMode && this.objects[id].common.mobile &&
-                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
-
-                            if (!this.states[id]) {
-                                // read states
-                                if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
-                            } else {
-                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
-                            }
-
-                            html += '<div class="mobile-widget-b mobile-visibility" data-visibility-id="' + id + '">\n' +
-                                '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider" data-min="' + this.objects[id].common.min + '" data-max="' + this.objects[id].common.max + '" >\n' +
-                                '        <option value="' + this.objects[id].common.min + '">' + _('closed') + '</option>\n' +
-                                '        <option value="' + this.objects[id].common.max + '">' + _('opened') + '</option>\n' +
-                                '    </select>\n' +
-                                '</div>\n';
-
-
-                            html += '<div class="mobile-widget-c">\n' +
-                                '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + id +
-                                '" min="' + this.objects[id].common.min + '" max="' + this.objects[id].common.max + '" />\n</div>';
-                        }
-                    }
-
-                    // render other elements
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'level.blind') {
-                            // render element
-                            html += this.renderElement(this.objects[id], obj.common.name || obj._id, false);
-                        }
-                    }
-                }
-                break;
-
-            case 'switch':
-                html += '</div>';
-                if (obj.children) {
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role === 'state') {
-                            if (!this.editMode && this.objects[id].common.mobile &&
-                                this.objects[id].common.mobile[this.user] && this.objects[id].common.mobile[this.user].visible === false) return '';
-
-                            if (!this.states[id]) {
-                                // read states
-                                if (this.queueStates.indexOf(id) == -1)  this.queueStates.push(id);
-                            } else {
-                                if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
-                            }
-
-                            html += '<div class="mobile-widget-b mobile-visibility" data-visibility-id="' + id + '">\n' +
-                                '    <select class="mobile-control" data-mobile-id="' + id + '" data-role="slider">\n' +
-                                '        <option value="false">' + _('off') + '</option>\n' +
-                                '        <option value="true" >' + _('on') + '</option>\n' +
-                                '    </select>\n' +
-                                '</div>\n';
-                        }
-                    }
-                    // render other elements
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-
-                        if (this.objects[id] && this.objects[id].common && this.objects[id].common.role !== 'state') {
-                            // render element
-                            html += this.renderElement(this.objects[id], group, false);
-                        }
-                    }
-                }
-
-                break;
-
-            default:
-                if (obj.children && obj.children.length) {
-                    html += '</div>';
-                    for (i = 0; i < obj.children.length; i++) {
-                        id = obj.children[i];
-                        if (!this.editMode && this.objects[id].common.mobile &&
-                            this.objects[id].common.mobile[this.user] &&
-                            this.objects[id].common.mobile[this.user].visible === false) continue;
-
-                        if (this.objects[id] && this.objects[id].type === 'state') {
-                            html += this.renderElement(this.objects[id], obj.common.name || obj._id);
-                        }
-                    }
-                } else if (this.editMode || !obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible !== false) {
-                    // do not show inhibit (sperren) by default
-                    if (obj.common.role && !this.editMode &&
-                        (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
-                        this.isDefaultInvisible(obj.common.role, obj._id)) {
-                        // ignore it if not explicit enabled
-                        html = '';
-                    } else {
-                        if (direct) html += '</div><div class="mobile-widget-c mobile-visibility" data-visibility-id="' + obj._id + '">';
-
-                        var states = obj.common.states || '';
-
-                        if (states) {
-                            if (typeof states == 'object') {
-                                states = JSON.stringify(states);
-                            } else if (typeof states == 'string' && states[0] != '{') {
-                                var values = states.split(';');
-                                states = {};
-                                for (var v = 0; v < values.length; v++) {
-                                    var parts = values.split(':');
-                                    states[parts[0]] = parts[1];
-                                }
-                                states = JSON.stringify(states);
-                            }
-                        }
-
-                        if (!this.states[obj._id]) {
-                            // read states
-                            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
-                        } else {
-                            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
-                        }
-
-                        if (obj.common.role && obj.common.role.indexOf('level') != -1) {
-                            html += '<div   class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '"></div>';
-                            html += '<input class="mobile-control" type="range" data-mobile-id="' + obj._id + '" min="' + obj.common.min + '" max="' + obj.common.max + '" />';
-                        } else
-                        if (obj.common.role && (obj.common.role.indexOf('button') != -1 || obj.common.role.indexOf('action') != -1)) {
-                            if (!direct) {
-                                html = '<input class="mobile-value mobile-visibility" data-visibility-id="' + obj._id + '" ';
-                            } else {
-                                html += '<input class="mobile-value" '
-                            }
-                            html += ' type="button" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '" value="' + name + '"/>';
-                        } else {
-                            if (obj.common.write && obj.common.type == 'boolean') {
-                                html += '<div class="mobile-widget-b">\n' +
-                                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider">\n' +
-                                    '        <option value="false">' + _('off') + '</option>\n' +
-                                    '        <option value="true" >' + _('on')  + '</option>\n' +
-                                    '    </select>\n' +
-                                    '</div>\n';
-                            } else if (obj.common.write && obj.common.type == 'number' && obj.common.max !== undefined) {
-                                html += ' - <span data-mobile-id="' + obj._id + '" ' +
-                                    'data-type="' + obj.common.type + '" ' +
-                                    'data-unit="' + (obj.common.unit || '') + '" ' +
-                                    'data-states=' + "'" + states + "'" + '></span>\n' +
-                                    '<div class="mobile-widget-c">\n' +
-                                    '   <input class="mobile-control" type="range" data-highlight="true" data-mobile-id="' + obj._id +
-                                    '" min="' + (obj.common.min || 0) + '" max="' + obj.common.max + '"/>\n</div>';
-
-                            } else {
-                                html += '<div data-mobile-id="' + obj._id + '" class="mobile-value" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-states=' + "'" + states + "'" + ' data-type="' + obj.common.type + '"></div>';
-                            }
-                        }
-
-                        if (!direct) html += '</div></div>';
-                    }
-                } else {
-                    // invisible
-                    html = '';
-                }
-                break;
-
-        }
-
-        return html;
+        return struct;
     },
 
-    renderIndicators: function (obj, $elem) {
+    renderIndicators: function (obj, $elem, originId) {
         var id;
         // try to find some in device itself
         var parent = obj._id.split('.');
         parent.pop();
         parent = parent.join('.');
         if (this.objects[parent] && this.objects[parent].type == 'device') {
-            this.renderIndicators(this.objects[parent], $elem);
+            this.renderIndicators(this.objects[parent], $elem, originId);
         } else {
             var checked = $elem.data('indicators') || [];
             if (checked.indexOf(obj._id) == -1) {
@@ -589,6 +594,11 @@ var mobile = {
 
                         if (this.objects[id] && this.objects[id].common) {
                             if (this.objects[id].common.role && this.objects[id].common.role.match(/^indicator\.?/)) {
+                                // do not render WORKING and DIRECTION for other channels than origin
+                                if ((this.objects[id].common.role === 'indicator.working' || this.objects[id].common.role === 'indicator.direction') && originId !== id.substring(0, originId.length)) {
+                                    continue;
+                                }
+
                                 if (!this.states[id]) {
                                     // read states
                                     if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
@@ -628,7 +638,7 @@ var mobile = {
                                 $indicators.append(text);
                             }
                             if (this.objects[id].children && this.objects[id].children.length) {
-                                this.renderIndicators(this.objects[id], $elem);
+                                this.renderIndicators(this.objects[id], $elem, originId);
                             }
                         }
                     }
@@ -637,66 +647,157 @@ var mobile = {
         }
     },
 
+    _renderSingleSubState: function (control, parent) {
+        var html = '';
+        html += '<table class="mobile-widget-table ' + (control.id ? 'mobile-visibility' : '') + '" ' + (control.id ? ' data-visibility-id="' + control.id + '"' : '') + '>';
+        html += '<tr>\n';
+        if (control.checkbox && !control.value) {
+            html += '  <td class="mobile-widget-table-begin">' + (control.control || '') + '</td>\n';
+            html += '  <td class="mobile-widget-title">'       + (parent.title    || '') + '</td>\n';
+            // show title only one time
+            parent.title = null;
+        } else {
+            html += '  <td class="mobile-widget-table-begin">' + (control.value   || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-control">';
+
+            if (parent.title && control.control) {
+                html += '<table class="mobile-table-nospace">'
+                html += '<tr><td><div class="mobile-widget-title-state">' + parent.title + '</div></td></tr>\n';
+                html += '<tr><td><div>' + control.control + '</div></td></tr>\n';
+                html += '</table>'
+                parent.title = null;
+            } else if (parent.title && !control.control) {
+                html += '  <div class="mobile-widget-title">'     + parent.title + '</div>\n';
+                parent.title = null;
+            } else {
+                // just control
+                html += (control.control || '');
+            }
+        }
+        html += '</tr>\n';
+        html += '</table>\n';
+        return html;
+    },
+
     renderChannel: function (obj, $elem, group) {
         if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
 
-        var $channel = $('<li class="mobile-widget">' + this.renderElement(obj, group) + '</li>');
+        var struct = this.renderElement(obj, group);
+
+        if (!struct.controls && !struct.children) return;
+
+        var html = '<li class="mobile-widget">\n';
+
+        // show channel description
+        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">\n';
+
+        var count = 0;
+        var firstChild;
+        for (var child in struct.children) {
+            if (!firstChild) firstChild = child;
+            count++;
+        }
+        // do not show title if only one child
+        if (count < 2 && !this.editMode) {
+            struct.children[child].title = '';
+        }
+
+        var c;
+        // if only one child and not slider
+        if (!this.editMode && count == 1 && (struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
+            // Show all in one line
+            // control | text | icon
+            struct.children[firstChild].controls[0].id = firstChild; // enable visibility
+            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct);
+
+            for (c = 1; c < struct.children[child].controls.length; c++) {
+                struct.children[child].controls[c].id = child; // enable visibility
+                html += this._renderSingleSubState(struct.children[child].controls[c], struct.children[child]);
+            }
+        } else {
+            // place title
+            html += struct.icon  ? '<img class="mobile-widget-icon" src="'   + struct.icon  + '"/>' : '';
+            html += struct.title ? '<span class="mobile-value-group-title">' + struct.title + '</span>\n' : '';
+
+            html += '<div class="mobile-widget-b" title="' + (obj.common.role || '') +'">\n';
+
+            // try to build states
+            for (child in struct.children) {
+                if (!struct.children[child].controls) continue;
+                for (c = 0; c < struct.children[child].controls.length; c++) {
+                    struct.children[child].controls[c].id = child; // enable visibility
+                    html += this._renderSingleSubState(struct.children[child].controls[c], struct.children[child]);
+                }
+            }
+            html += '</div>\n';
+        }
+
+        html += '</div>\n';
+        html += '</li>\n';
+
+
+        var $channel = $(html);
         $elem.append($channel);
 
         if ($elem.hasClass('ui-listview')) {
             $elem.listview('refresh');
         }
-        if (!this.editMode) this.renderIndicators(obj, $channel);
+
+        if (!this.editMode) this.renderIndicators(obj, $channel, obj._id);
     },
 
-    renderType: function (id, state, group) {
-        var text = '';
-        var obj = this.objects[id];
-
-        switch (obj.common.type) {
-            case 'number':
-                text = parseFloat(state.val);
-                break;
-
-            case 'string':
-                text = state.val;
-                break;
-
-            case 'boolean':
-                text = _((!!state.val).toString());
-                break;
-
-            case 'array':
-            case 'object':
-            case 'mixed':
-                if (typeof state.val === 'object') {
-                    text = JSON.stringify(state.val);
-                } else {
-                    text = state.val;
-                }
-                break;
-        }
-        if (obj.common.unit) {
-            text +=  ' <b>' + this.objects[id].common.unit + '</b>';
-        }
-        return text;
+    _renderCombinedSubState : function (control, parent) {
+        var html = '';
+        html += '<table class="mobile-widget-table mobile-widget-b"><tr>\n';
+        html += '<td class="mobile-widget-table-begin">' + (control.value || '') + (control.control || '') + '</td>\n';
+        html += '<td style="position: relative">';
+        html += parent.title ? '<span class="mobile-value-group-title">' + parent.title + '</span>\n' : '';
+        html += '</td><td class="mobile-widget-table-icon">';
+        html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
+        html += '</td></tr></table>\n';
+        return html;
     },
 
     renderState: function (obj, $elem, group) {
         if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
-        $elem.append('<li class="mobile-widget">' + this.renderElement(obj, group, true) + '</li>');
+        var struct = this.renderElement(obj, group);
 
-        if ($elem.hasClass('ui-listview')) {
-            $elem.listview('refresh');
+        if (!struct.controls) return;
+
+        var html = '<li class="mobile-widget">\n';
+        // show State description
+        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-visibility-id="' + obj._id + '">\n';
+
+        var c;
+        if (struct.controls[0].checkbox || !struct.controls[0].control) {
+            // Show all in one line
+            // control | text | icon
+            html += this._renderCombinedSubState(struct.controls[0], struct);
+
+            for (c = 1; c < struct.controls.length; c++) {
+                html += this._renderSingleSubState(struct.controls[c], struct);
+            }
+        } else {
+            // place title
+            html += struct.icon  ? '<img class="mobile-widget-icon" src="'   + struct.icon  + '"/>'       : '';
+            html += struct.title ? '<span class="mobile-value-group-title">' + struct.title + '</span>\n' : '';
+
+            html += '<div class="mobile-widget-b">\n';
+
+            // try to build state
+            for (c = 0; c < struct.controls.length; c++) {
+                html += this._renderSingleSubState(struct.controls[c], struct);
+            }
+            html += '</div>\n';
         }
-    },
-    
-    renderDevice: function (obj, $elem, group) {
-        if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
 
-        var $device = $('<li>' + this.renderElement(obj, group) + '</li>');
-        $elem.append($device).listview('refresh');
-        if (!this.editMode) this.renderIndicators(obj, $device);
+
+        html += '</div>\n';
+        html += '</li>\n';
+
+        $elem.append(html);
+
+        if ($elem.hasClass('ui-listview')) $elem.listview('refresh');
     },
 
     renderEditButtons: function () {
@@ -708,7 +809,6 @@ var mobile = {
                     if (!$(this).is(':visible')) return;
                     if ($(this).parent().find('.mobile-edit-enum').length) return;
 
-                    that.randomId++;
                     var id = $(this).data('visibility-id');
                     var href = $(this).attr('href');
                     that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
@@ -722,17 +822,19 @@ var mobile = {
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
-                    var text = '<div id="vis' + that.randomId + '" data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" style="top: ' + pos.top + 'px; height: ' + h + 'px; width: ' + w + 'px; left: ' + pos.left + 'px">' +
-                        '<div id="vis' + (that.randomId + 1) + '" data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div></div>';
+                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px; width: ' + w + 'px; left: ' + pos.left + 'px"
+                    var $checkbox = $('<div data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
 
-                    $elem.prepend(text);
-                    $('#vis' + that.randomId).click(onForward);
-                    $('#vis' + (that.randomId + 1)).click(onEnumVisibility);
-                    that.randomId++;
+                    $overlay.append($checkbox);
+                    //$elem.prepend($overlay);
+                    $(this).prepend($overlay);
+
+                    $overlay.click(onForward);
+                    $checkbox.click(onEnumVisibility);
                 });
 
                 // render second menu
@@ -740,7 +842,6 @@ var mobile = {
                     if (!$(this).is(':visible')) return;
                     if ($(this).parent().find('.mobile-edit-subenum').length) return;
 
-                    that.randomId++;
                     var id = $(this).data('visibility-id');
                     var href = $(this).attr('href');
                     that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
@@ -754,17 +855,20 @@ var mobile = {
 
                     // everything is visible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
-                    var text = '<div id="vis' + that.randomId + '" data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '">' +
-                        '<div id="vis' + (that.randomId + 1) + '" style="margin-right: 3em;" data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div></div>';
+                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
+                    var $checkbox = $('<div style="margin-right: 3em;" data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
 
-                    $elem.prepend(text);
-                    $('#vis' + that.randomId).click(onForward);
-                    $('#vis' + (that.randomId + 1)).click(onSubEnumVisibility);
-                    that.randomId++;
+                    $overlay.append($checkbox);
+                    //$elem.prepend($overlay);
+                    $(this).prepend($overlay);
+
+
+                    $overlay.click(onForward);
+                    $checkbox.click(onEnumVisibility);
                 });
 
                 // render elements
@@ -775,13 +879,12 @@ var mobile = {
                     if ($(this).data('processed')) return;
                     $(this).data('processed', true);
 
-                    that.randomId++;
                     var $elem;
                     that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
                     var mobile = that.objects[id].common.mobile[that.user];
 
-                    var h;
+                    /*var h;
                     if (that.objects[id].type === 'channel') {
                         // go up with 1 levels
                         $elem = $(this).parent();
@@ -791,27 +894,28 @@ var mobile = {
                     }
 
                     var pos = $elem.position();
-                    h = h || $elem.height();
-                    var isButton = $elem.attr('type') == 'button';
+                    h = h || $elem.height();*/
+                    //var isButton = $elem.attr('type') == 'button';
 
-                    if (isButton) {
+                    /*if (isButton) {
                         $elem = $elem.parent();
                         pos = $elem.position();
                         pos.top += 10;
-                    }
+                    }*/
                     // button is invisible by default
                     if (mobile.visible === undefined) {
-                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role);
+                        mobile.visible = !that.isDefaultInvisible(that.objects[id].common.role, id);
                         that.saveSettings(id);
                     }
 
-                    var text = '<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '" style="top: ' + pos.top + 'px; height: ' + h + 'px">' +
-                        '<input id="vis' + that.randomId + '" ' + (mobile.visible ? 'checked' : '') + ' data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-checkbox-visibility" type="checkbox"/></div>';
+                    var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px"
+                    var $checkbox = $('<div data-visibility-id="' + ($(this).data('visibility-id') || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
 
-                    var $text = $(text);
-                    $text.change(onVisibility);
-                    $elem.before($text);
+                    $overlay.append($checkbox);
+                    //$elem.before($overlay);
+                    $(this).prepend($overlay);
 
+                    $checkbox.click(onStateVisibility);
                 });
 
                 // detect channels, that have all states hidden
@@ -852,7 +956,6 @@ var mobile = {
         }
     
         for (var i = 0; i < this.root.length; i++) {
-    
             var navbar = '';
             if (!this.editMode && this.objects[this.root[i]] &&
                 this.objects[this.root[i]].common && this.objects[this.root[i]].common.mobile &&
@@ -893,7 +996,7 @@ var mobile = {
     
             var page =
                 '<div id="' + this.root[i].replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
-                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">' +
+                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span>' + _(this.enums[this.root[i]].common.name) + '</h1>' +
                 '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
                 '    </div>' +
@@ -978,10 +1081,10 @@ var mobile = {
     
         var page =
             '<div id="' + id.replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
-            '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">' +
+            '    <div data-role="header" data-position="" data-id="f2" data-theme="b" data-fullscreen="false">' +
             '        <a href="#' + encodeURIComponent(parentId.replace(/\./g, '*')) + '" data-role="button" data-icon="arrow-l">' + _(parentName) + '</a>' +
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
-            '        <a href="#info" data-rel="dialog" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
+            '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
             '    </div>';
 
             page +=
@@ -1039,9 +1142,21 @@ var mobile = {
         // on change
         $('.mobile-control').unbind('click').click(function (e) {
             var id  = $(this).data('mobile-id');
-            var val = $(this).val();
-            if (id && that.states[id].val.toString() != val) {
-                that.conn.setState(id, val);
+            if ($(this).attr('type') === 'button') {
+                if ($(this).data('type') === 'set') {
+                    if (id) that.conn.setState(id, $('.mobile-value[data-mobile-id="' + id + '"]').val() || '');
+                } else {
+                    if (id) that.conn.setState(id, true);
+                }
+            } else {
+                var val = $(this).val();
+                if (id && that.states[id].val.toString() != val) {
+                    if ($(this).data('type') === 'number') {
+                        val = parseFloat(val);
+                    }
+
+                    that.conn.setState(id, val);
+                }
             }
         });
 
@@ -1061,7 +1176,11 @@ var mobile = {
     detectHiddenStates: function (id) {
         var $elem = $('.mobile-checkbox-visibility[data-visibility-id="' + id + '"]');
 
-        if (this.objects[id].common.mobile[this.user].visible) {
+        if (this.objects[id] &&
+            this.objects[id].common &&
+            this.objects[id].common.mobile &&
+            this.objects[id].common.mobile[this.user] &&
+            this.objects[id].common.mobile[this.user].visible) {
             var isAllInvisible = true;
 
             if (!this.objects[id].children) {
@@ -1071,7 +1190,9 @@ var mobile = {
 
             for (var i = 0; i < this.objects[id].children.length; i++) {
                 var cid = this.objects[id].children[i];
-                if (this.objects[cid].common.mobile &&
+                if (this.objects[cid] &&
+                    this.objects[cid].common &&
+                    this.objects[cid].common.mobile &&
                     this.objects[cid].common.mobile[this.user] &&
                     this.objects[cid].common.mobile[this.user].visible) {
                     isAllInvisible = false;
@@ -1085,7 +1206,11 @@ var mobile = {
                 this.saveSettings(id);
             }
         }
-        if (!this.objects[id].common.mobile[this.user].visible) {
+        if (this.objects[id] &&
+            this.objects[id].common &&
+            this.objects[id].common.mobile &&
+            this.objects[id].common.mobile[this.user] &&
+            !this.objects[id].common.mobile[this.user].visible) {
             $elem.parent().parent().find('.mobile-edit-state').hide();
         }
     },
@@ -1093,7 +1218,7 @@ var mobile = {
     detectAllHiddenStates: function () {
         var that = this;
         $('.mobile-edit-channel').each(function () {
-            var id = $(this).find('input').data('visibility-id');
+            var id = $(this).find('div').data('visibility-id');
             that.detectHiddenStates(id, $(this));
         });
     },
@@ -1195,10 +1320,14 @@ var mobile = {
             document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
         });
         $('#edit_indicator').click(function () {
-            this.objects = that.calcChildren();
+            that.objects = that.calcChildren();
             document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
         });
-
+        $('.mobile-reset').click(function () {
+            that.resetVisibility(function () {
+                document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
+            });
+        });
         this.conn.init(null, {
             onConnChange: function (isConnected) {
                 if (isConnected) {
@@ -1325,17 +1454,21 @@ var mobile = {
     }
 };
 
-function onVisibility() {
+function onStateVisibility(e) {
+    e.stopPropagation();
     var that = mobile;
     var id = $(this).data('visibility-id');
-    var checked = $(this).prop('checked');
+    var checked = $(this).html();
+    checked = !checked;
+    $(this).html(checked ? '&#10003;' : '');
+
     if (!id || !that.objects[id]) {
         console.error('Cannot find object ' + id);
         return;
     }
 
     if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].visible !== checked) {
-        that.objects[id].common.mobile[that.user].visible = $(this).prop('checked');
+        that.objects[id].common.mobile[that.user].visible = checked;
         that.saveSettings(id);
     }
     if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].visible) {
@@ -1348,7 +1481,7 @@ function onVisibility() {
         if ($states && $states.length) {
             var oneVisible = false;
             $states.each(function () {
-                var $input = $(this).find('input');
+                var $input = $(this).find('div');
                 var cid = $input.data('visibility-id');
                 if (that.objects[cid].common.mobile[that.user].visible) {
                     oneVisible = true;
@@ -1358,13 +1491,13 @@ function onVisibility() {
 
             if (!oneVisible) {
                 $states = $($states[0]);
-                var $input = $states.find('input');
+                var $input = $states.find('div');
                 var cid = $input.data('visibility-id');
                 if (!that.objects[cid].common.mobile[that.user].visible) {
                     // show only one element of channel
                     that.objects[cid].common.mobile[that.user].visible = true;
                     that.saveSettings(cid);
-                    $input.prop('checked', true);
+                    $input.html('&#10003;');
                     $states.removeClass('mobile-invisible');
                 }
             }

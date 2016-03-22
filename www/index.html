@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="lib/css/light/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="lib/css/jquery.mobile.structure-1.4.5.min.css" />
 
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
         <link rel="shortcut icon" sizes="196x196" href="img/favicon.png">
         <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
@@ -67,7 +68,7 @@
              style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit mode</div>
 
         <div id="info" data-role="page" data-history="false" data-theme="b">
-            <div data-role="header" data-position="fixed" data-id="f2" data-theme="b">
+            <div data-role="header" data-position="" data-id="f2" data-theme="b">
                 <a href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" data-iconpos="notext" class="mobile-info ui-btn-left"></a>
                 <h1><span class="translate">Info</span><span class="mobile-version"></span></h1>
             </div>
@@ -84,6 +85,8 @@
                 </p>
                 <p>
                     <a data-ajax="false" data-role="button" data-icon="info" class="translate" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Documentation</a>
+                <p>
+                    <a class="mobile-editswitch mobile-reset translate" data-ajax="false" data-role="button" data-icon="delete">Reset layout</a>
                 </p>
                 <!--p style="font-size: 10px" class="translate">MIT text</p-->
             </div>
