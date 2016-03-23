@@ -615,24 +615,26 @@ ul.mobile-page-left h2 {
     font-weight: bold;
 }
 .mobile-indicators {
-    width: 90%;
-    height: 20px;
-    position: absolute;
-    top: 5px;
-    right: 0;
-    padding-right: 10px;
+    width:          90%;
+    height:         1.1em;
+    position:       absolute;
+    top:            0.3em;
+    right:          0;
+    padding-right:  1em;
 }
 .mobile-indicator, .mobile-indicator-battery, .mobile-indicator-unreach, .mobile-indicator-error, .mobile-indicator-working, .mobile-indicator-direction {
-    width:  1em;
-    height: 1em;
-    background-size: 1em 1em;
-    background-repeat: no-repeat;
-    float: right;
+    width:              1em;
+    height:             1em;
+    background-size:    1em 1em;
+    background-repeat:  no-repeat;
+    float:              right;
 }
 
 .mobile-indicator-battery {
     background-image: url('../img/battery.png');
-    animation: blinker 4s linear infinite;
+    -webkit-animation:  blinker 4s linear infinite;
+    -moz-animation:     blinker 4s linear infinite;
+    animation:          blinker 4s linear infinite;
 }
 .mobile-indicator-unreach {
     background-image: url('../img/unreach.png');
@@ -643,9 +645,9 @@ ul.mobile-page-left h2 {
 
 .mobile-indicator-working {
      background-image: url('../img/gear.png');
-    -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+    -webkit-animation:  spin 4s linear infinite;
+    -moz-animation:     spin 4s linear infinite;
+    animation:          spin 4s linear infinite;
  }
 
 .mobile-indicator {
@@ -654,16 +656,16 @@ ul.mobile-page-left h2 {
 
 .mobile-indicator-direction[data-value='UP'] {
     background-image: url('../img/up.png');
-    -moz-animation: bounce 2s infinite;
-    -webkit-animation: bounce 2s infinite;
-    animation: bounce 2s infinite;
+    -moz-animation:     bounce 2s infinite;
+    -webkit-animation:  bounce 2s infinite;
+    animation:          bounce 2s infinite;
 }
 
 .mobile-indicator-direction[data-value='DOWN'] {
     background-image: url('../img/down.png');
-    -moz-animation: bounce 2s infinite;
-    -webkit-animation: bounce 2s infinite;
-    animation: bounce 2s infinite;
+    -moz-animation:     bounce 2s infinite;
+    -webkit-animation:  bounce 2s infinite;
+    animation:          bounce 2s infinite;
 }
 
 .mobile-checkbox-visibility {
@@ -700,16 +702,20 @@ ul.mobile-page-left h2 {
     border-radius: .3125em;
     position: absolute;
     z-index: 11;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 .mobile-enum-visibility {
-    width: 1.1em;
-    height: 1.2em;
-    border: 1px solid gray;
+    width:      1.1em;
+    height:     1.2em;
+    border:     1px solid gray;
     background: white;
-    color: black;
+    color:      black;
     text-align: center;
-    float: right;
-    margin: 0.7em;
+    float:      right;
+    margin:     0.7em;
 }
 .mobile-edit-subenum {
     background-color: rgba(0, 255, 0, 0.5);
@@ -778,17 +784,28 @@ ul.mobile-page-left h2 {
 .mobile-value-group-title {
     font-weight: bold;
     padding-left: 0.5em;
+    padding-bottom: 0.5em;
+    display: inline-block;
 }
+
+.mobile-value-small-title {
+    padding-left: 0.5em;
+    font-size: x-small;
+}
+
 .mobile-value-title {
 }
 
 .mobile-visibility {
     position: relative;
 }
+.mobile-visibility table {
+    /*table-layout: fixed;*/
+}
 .mobile-widget-table {
     width: 100%;
 }
-.mobile-widget-title {
+.mobile-widget-title-normal {
     padding-left: 0.5em;
 }
 .mobile-widget-title-small {
@@ -816,12 +833,29 @@ ul.mobile-page-left h2 {
     border-bottom: 1px solid #E0DEDE !important;
 }
 .mobile-value-big {
+    padding-top: 0.5em !important;
     height: 3.2em !important;
 }
+.mobile-edit-name {
+    /*margin-left: 1em !important;*/
+    float: right;
+}
+.mobile-widget-b li, .mobile-widget-b ul{
+    list-style-type: none;
+    padding: 0 !important;
+    margin: 0 !important;
+}
 
-
-
-
+.mobile-widget-a ul {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.mobile-edit-sort {
+    background: none !important;
+    border: 0 !important;
+    opacity: 0.5;
+}
 
 
 .bot-left {
