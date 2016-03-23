@@ -688,33 +688,40 @@ var mobile = {
         // ignore indicators
         if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
 
-        name = decodeURIComponent(name);
-        // remove room or function name from device name
-        if (parentName) {
-            var reg1 = new RegExp ('[-.\/]+' + parentName + '[-.\/]+', 'gi');
-            var reg2 = new RegExp ('[-.\/]+' + parentName, 'gi');
-            var reg3 = new RegExp (parentName + '[-.\/]+', 'gi');
-            var reg4 = new RegExp (parentName, 'gi');
-            name = name.replace(reg1, '.');
-            name = name.replace(reg2, '');
-            name = name.replace(reg3, '');
-            name = name.replace(reg4, '');
-            name = name.replace(/_/g, ' ');
-            name = name.replace(/\./g, ' ');
-            try {
-                name = decodeURIComponent(name);
-            } catch(err) {
-                console.error('Cannot decode: ' + name + '(' + err + ')');
-            }
-            var words = name.split(/\s+/);
-            for (var w = words.length - 1; w >= 0; w--) {
-                if (!words[w]) {
-                    words.splice(w, 1);
-                    continue;
+        var name;
+
+        if (obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].name) {
+            name = obj.common.mobile[this.user].name
+        } else {
+            name = obj.common.name || obj._id;
+            name = decodeURIComponent(name);
+            // remove room or function name from device name
+            if (parentName) {
+                var reg1 = new RegExp ('[-.\/]+' + parentName + '[-.\/]+', 'gi');
+                var reg2 = new RegExp ('[-.\/]+' + parentName, 'gi');
+                var reg3 = new RegExp (parentName + '[-.\/]+', 'gi');
+                var reg4 = new RegExp (parentName, 'gi');
+                name = name.replace(reg1, '.');
+                name = name.replace(reg2, '');
+                name = name.replace(reg3, '');
+                name = name.replace(reg4, '');
+                name = name.replace(/_/g, ' ');
+                name = name.replace(/\./g, ' ');
+                try {
+                    name = decodeURIComponent(name);
+                } catch(err) {
+                    console.error('Cannot decode: ' + name + '(' + err + ')');
                 }
-                words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
+                var words = name.split(/\s+/);
+                for (var w = words.length - 1; w >= 0; w--) {
+                    if (!words[w]) {
+                        words.splice(w, 1);
+                        continue;
+                    }
+                    words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
+                }
+                name = words.join(' ');
             }
-            name = words.join(' ');
         }
 
         // try to translate the state anme
@@ -900,7 +907,8 @@ var mobile = {
     },
 
     renderChannel: function (obj, $elem, parentName) {
-        if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
+        var _mobile = obj.common && obj.common.mobile ? obj.common.mobile[this.user] : null;
+        if (!this.editMode && _mobile && _mobile.visible === false) return;
 
         var struct = this.prepareElement(obj, parentName);
 
@@ -912,18 +920,32 @@ var mobile = {
         html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-edit-id="' + obj._id + '">\n';
 
         var count = 0;
+        var order;
         var firstChild;
         for (var child in struct.children) {
             if (!firstChild) firstChild = child;
             count++;
         }
 
+        var c;
+        order = _mobile.order || [];
+        if (struct.children) {
+            for (child in struct.children) {
+                if (order.indexOf(child) === -1) order.push(child);
+            }
+            for (c = order.length - 1; c >= 0; c--) {
+                if (!struct.children[order[c]]) order.splice(c, 1);
+            }
+        } else {
+            order = [];
+        }
+
+
         // do not show title if only one child
         if (count < 2 && !this.editMode) {
             //struct.title = '';
         }
 
-        var c;
         // if only one child and not slider
         if (!this.editMode && count == 1 && (struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
             // Show all in one line
@@ -943,7 +965,8 @@ var mobile = {
             html += '<' + (this.editMode ? 'ul' : 'div') + ' class="mobile-widget-b" title="' + (obj.common.role || '') +'" style="padding: 0" data-edit-id="' + obj._id + '">\n';
 
             // try to build states
-            for (child in struct.children) {
+            for (var or = 0; or < order.length; or++) {
+                child = order[or];
                 if (!struct.children[child].controls) continue;
                 for (c = 0; c < struct.children[child].controls.length; c++) {
                     struct.children[child].controls[c].id = child; // enable visibility
@@ -1031,8 +1054,8 @@ var mobile = {
                     }
 
                     var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px; width: ' + w + 'px; left: ' + pos.left + 'px"
-                    var $checkbox = $('<div data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>');
+                    var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
+                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>');
                     //var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
 
                     $overlay.append($checkbox);
@@ -1063,8 +1086,8 @@ var mobile = {
                     }
 
                     var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
-                    var $checkbox = $('<div style="margin-right: 3em;" data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" ></a>');
+                    var $checkbox = $('<div style="margin-right: 3em;" data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
+                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" ></a>');
                     var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
 
                     $overlay.append($checkbox);
@@ -1097,8 +1120,8 @@ var mobile = {
                     }
 
                     var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px"
-                    var $checkbox = $('<div data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + ($(this).data('edit-id') || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: 1.6em; margin-top: 0"' : '') + '></a>');
+                    var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
+                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: 1.6em; margin-top: 0"' : '') + '></a>');
                     var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;' + (that.objects[id].type !== 'state' ? ' margin-right: 1.6em; margin-top: 0' : '') + '"></a>');
 
                     $overlay.append($checkbox);
@@ -1236,23 +1259,25 @@ var mobile = {
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
 
-                menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(id.replace(/\./g, '*')) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
+                menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(_id.replace(/\./g, '*')) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
             }
 
             name = rCommon.mobile && rCommon.mobile[this.user] ? rCommon.mobile[this.user].name || rCommon.name || this.root[i] : rCommon.name || this.root[i];
 
             var page =
                 '<div id="' + this.root[i].replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
+                // header
                 '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
                 '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
                 '    </div>' +
+                // content
                 '    <div data-role="content" data-theme="c">' +
-                '       <ul id="menu_' + this.root[i].replace(/\./g, '*') + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
                 '       <ul id="menu_' + this.root[i].replace(/\./g, '*') + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
                 menu +
                 '      </ul>' +
                 '    </div>' +
+                // footer
                 '    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-id="f1" data-theme="b">' +
                 '        <div data-role="navbar" data-grid="' + grid + '">' +
                 '            <ul>' + navbar + '</ul>' +
@@ -1335,10 +1360,10 @@ var mobile = {
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
             '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
             '    </div>';
-        // content
+            // content
             page +=
                 '    <div data-role="content" data-theme="c">' +
-                '        <ul data-role="listview" data-inset="true" class="mobile-sortable">' +
+                '        <ul data-edit-id="' + id + '" data-role="listview" data-inset="true" class="mobile-sortable">' +
                 '        </ul>' +
                 '    </div>';
             page += '</div>';
@@ -1352,9 +1377,20 @@ var mobile = {
 
         if (members) {
             var that = this;
+            var order = (this.enums[id].common.mobile && this.enums[id].common.mobile[this.user]) ? this.enums[id].common.mobile[this.user].order || [] : members;
+            // check if all members are still in order
             for (var i = 0; i < members.length; i++) {
-                var children = this.objects[members[i]] ? this.objects[members[i]].children : undefined;
-                this.conn.getObject(members[i], !this.refresh, function (err, obj) {
+                if (order.indexOf(members[i]) === -1) order.push(members[i]);
+            }
+            // check if all orders are still in memebrs
+            for (var i = order.length - 1; i >= 0; i--) {
+                if (members.indexOf(order[i]) === -1) {
+                    order.splice(i, 1);
+                }
+            }
+            for (var i = 0; i < order.length; i++) {
+                var children = this.objects[order[i]] ? this.objects[order[i]].children : undefined;
+                this.conn.getObject(order[i], !this.refresh, function (err, obj) {
                     if (err) console.error(err);
 
                     if (obj) {
