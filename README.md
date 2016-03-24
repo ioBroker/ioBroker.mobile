@@ -7,11 +7,15 @@ jQuery Mobile based user interface.
 ![Screen](img/screen.png)
 
 ToDO:
-- edit of names,
-- edit of order
 - edit of Icon
+- show some widgets with more icons
+- tablet view
+- show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.2.1
+* (bluefox) fix some errors
+
 #### 0.2.0
 * (bluefox) sorting and edit name
 
@@ -27,7 +31,7 @@ ToDO:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2015 bluefox<dogafox@gmail.com>
+Copyright (c) 2015-2016 bluefox<dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

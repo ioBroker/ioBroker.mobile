@@ -38,20 +38,24 @@
 
         <!--<link rel="stylesheet" href="css/add2home-2.0.8.css" />-->
 
-        <script type="text/javascript" src="../lib/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
         <!--script type="text/javascript" src="lib/js/jquery-1.11.3.js"></script-->
         <script type="text/javascript" src="lib/js/loStorage.min.js"></script>
-        <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="../../lib/js/socket.io.js"></script>
         <script type="text/javascript">
-            $(document).on("mobileinit", function () {
+            $(document).on('mobileinit', function () {
                 $.mobile.autoInitializePage = false;
-
+                $.mobile.loader.prototype.options.text = 'loading';
+                $.mobile.loader.prototype.options.textVisible = true;
+                $.mobile.loader.prototype.options.theme = 'a';
+                $.mobile.loader.prototype.options.textonly = false;
+                $.mobile.loader.prototype.options.html = '<span class="ui-bar ui-overlay-c ui-corner-all"></span>';
             });
         </script>
-        <script type="text/javascript" src="../lib/js/jquery-ui-1.11.4.full.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/jquery-ui-1.11.4.full.min.js"></script>
         <script type="text/javascript" src="lib/js/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="lib/js/jquery.ui.touch-punch.min.js"></script>
-        <script type="text/javascript" src="../lib/js/translate.js"></script>
+        <script type="text/javascript" src="../../lib/js/translate.js"></script>
         <script type="text/javascript" src="_socket/info.js"></script>
         <script type="text/javascript" src="js/conn.js"></script>
         <script type="text/javascript" src="js/mobile.js"></script>
@@ -59,9 +63,14 @@
     </head>
 
     <body style="height: 100%;">
-        <div data-role="popup" data-overlay-theme="a" id="server-disconnect" style="background: orangered" data-history="false">
-            <p class="translate">No connection to server<p>
+        <div id="server-disconnect" data-history="false">
+            <div class="splash-screen-text">...</div>
+            <div class="splash-screen-circle-outer"></div>
+            <div class="splash-screen-circle-inner"></div>
         </div>
+        <!--div data-role="popup" data-overlay-theme="a" id="server-disconnect" style="background: orangered" data-history="false">
+            <p class="translate">No connection to server<p>
+        </div-->
 
         <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate"
              style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit mode</div>
@@ -87,7 +96,7 @@
                 <p>
                     <a class="mobile-editswitch mobile-reset translate" data-ajax="false" data-role="button" data-icon="delete">Reset layout</a>
                 </p>
-                <!--p style="font-size: 10px" class="translate">MIT text</p-->
+                <p style="font-size: 10px" class="translate">Used icons</p>
             </div>
         </div>
         <div data-role="popup" id="popupEditName" data-theme="b" class="ui-corner-all" data-history="false">

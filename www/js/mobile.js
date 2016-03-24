@@ -66,6 +66,12 @@ systemDictionary = {
     "Info":             {"en": "Info",              "de": "Info",           "ru": "Инфо"},
     "License: ":        {"en": "License: ",         "de": "Lizenz: ",       "ru": "Лицензия: "},
     "Refresh":          {"en": "Refresh",           "de": "Auktualisieren", "ru": "Обновить"},
+    "Used icons": {
+        "en": 'Used icons from <a href="https://icons8.com/" target="_blank">icons8.com/</a>.',
+        "de": 'Hier werden die Bilder von <a href="https://icons8.com/" target="_blank">icons8.com/</a> benutzt.',
+        "ru": 'Используются иконки с ресурса <a href="https://icons8.com/" target="_blank">icons8.com/</a>.'
+    },
+    "Edit name": {      "en": "Edit name",          "de": "Name ändern",    "ru": "Изменить имя"},
     "Last synchronized: ": {
         "en": "Last synchronized: ",
         "de": "Letze Synchronisierung: ",
@@ -74,6 +80,14 @@ systemDictionary = {
     "Finish Edit-Mode": {"en": "Finish Edit-Mode",  "de": "Edit-Modus beenden", "ru": "Завершить изменения"},
     "Documentation":    {"en": "Documentation",     "de": "Dokumentation",  "ru": "Документация"},
     "Reset layout":     {"en": "Reset layout",      "de": "Einstellungen löschen",  "ru": "Сбросить настройки"},
+
+    "%s seconds ago":   {"en": "%s days ago",       "de": "vor %s Sekunden", "ru": "%s секунд(у) назад"},
+    "ca. %s minutes ago": {"en": "ca. %s minutes ago", "de": "vor ca. %s Minuten", "ru": "примеро %s минут(у) назад"},
+    "%s minutes ago":   {"en": "%s minutes ago",    "de": "vor %s Minuten", "ru": "%s минут(у) назад"},
+    "%s h. and %s m. ago": {"en": "%s h. and %s m. ago", "de": "vor %s Stunden und %s Minuten", "ru": "%s час(ов) и %s минут(у) назад"},
+    "%s hours ago":     {"en": "%s hours ago",      "de": "vor %s Stunden", "ru": "%s час(ов) назад"},
+    "%s days and %s h. ago": {"en": "%s days and %s h. ago",  "de": "vor %s Tagen und %s Stunden", "ru": "%s дней и %s час(ов) назад"},
+    "%s days ago":      {"en": "%s days ago",       "de": "vor %s days",    "ru": "%s дней назад"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -178,23 +192,18 @@ var mobile = {
     user:         'admin',
     defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
     defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND'],
+    lastTimes:    [],
+    activePage:   null,
+    erasePage:    {},
 
     icons:        {
-        'temperature':  'temp_temperature.svg',
-        'humidity':     'weather_humidity.svg',
-        'setpoint':     'temp_control.svg'
+        temperature:  'temp_temperature.svg',
+        humidity:     'weather_humidity.svg',
+        setpoint:     'temp_control.svg'
     },
 
 
     init: function (id) {
-        /*$("#server-disconnect").dialog({
-         modal:         true,
-         closeOnEscape: false,
-         autoOpen:      false,
-         dialogClass:   'noTitle',
-         width:         400,
-         height:        90
-         });*/
         var that = this;
 
         this.conn.namespace   = 'mobile.0';
@@ -238,10 +247,22 @@ var mobile = {
             if (typeof data.toPage === 'string') {
                 var u = $.mobile.path.parseUrl(data.toPage);
                 var id = decodeURIComponent(u.hash.toString());
+
                 id = id.substring(1);
                 id = decodeURIComponent(id);
                 id = id.replace(/&.*$/, '');
                 that.renderPage(id);
+
+                if (id && that.activePage !== id && that.activePage) {
+                    // destroy page
+                    that.destroyPage(that.activePage);
+                }
+                if (id && that.erasePage[id]) {
+                    clearTimeout(that.erasePage[id]);
+                    delete that.erasePage[id];
+                }
+
+                that.activePage = id;
             }
         });
 
@@ -264,7 +285,7 @@ var mobile = {
         this.conn.init(null, {
             onConnChange: function (isConnected) {
                 if (isConnected) {
-                    $('#server-disconnect').popup().popup('close');
+                    //$('#server-disconnect').popup().popup('close');
 
                     if (that.isFirstTime) {
                         that.conn.getVersion(function (version) {
@@ -321,7 +342,7 @@ var mobile = {
                     });
 
                 } else {
-                    $('#server-disconnect').popup('open');
+                    //$('#server-disconnect').popup('open');
                 }
             },
             onRefresh: function () {
@@ -420,100 +441,154 @@ var mobile = {
         this.modifyObjects(modified, cb);
     },
 
+    updateLastStates: function (justStartStopTimer) {
+        var that = mobile;
+        if (that.lastTimes.length && !that.lastTimesTimer) {
+            that.lastTimesTimer = setInterval(function () {
+                that.updateLastStates();
+            }, 30000);
+        } else if (!that.lastTimes.length && that.lastTimesTimer) {
+            clearInterval(that.lastTimesTimer);
+            that.lastTimesTimer = null;
+        }
+
+        if (!justStartStopTimer) {
+            var actual = JSON.parse(JSON.stringify(that.lastTimes));
+
+            $('.mobile-last-change').each(function () {
+                var lc = $(this).data('time');
+                if (!lc) return;
+                var pos = actual.indexOf($(this).data('edit-id'));
+                if (!pos) {
+                    that.lastTimes.push($(this).data('edit-id'));
+                } else {
+                    actual.splice(pos, 1);
+                }
+
+                $(this).html(that.formatLastChange(lc));
+            });
+            // remove all ids from  that.lastTimes, that are no more exists
+            for (var a = 0; a < actual.length; a++) {
+                var pos = that.lastTimes.indexOf(actual[a]);
+                if (pos) that.lastTimes.splice(pos, 1);
+            }
+        }
+    },
+
     updateState: function (id, force) {
         var that = this;
         $('[data-mobile-id="' + id + '"]').each(function () {
-            var _id = $(this).data('mobile-id');
-            var val = $(this).val();
-
-            if (that.states[_id].val === undefined || that.states[_id].val === 'undefined') {
-                console.warn('No data for "' + _id + '".');
-                that.states[_id].val = '';
-            }
-
-            if (force || val != that.states[_id].val.toString()) {
-                var role   = $(this).data('role');
-                var val    = that.states[_id].val;
-                var rawVal = that.states[_id].val;
-
-                if ($(this).data('type') === 'range') {
-                    $(this).val(val);
-                    $(this).slider('refresh');
-                } else if (role === 'slider') {
-                    $(this).val(val);
-                    $(this).slider().slider('refresh');
-                } else {
-                    if (val === 'true'  || val === true) {
-                        rawVal = true;
-                        val = _('true');
-                    } else
-                    if (val === 'false' || val === false) {
-                        rawVal = false;
-                        val = _('false');
-                    } else
-                    if (parseFloat(val).toString() == val.toString()) {
-                        val = parseFloat(val);
-                        rawVal = val;
+            var _id  = $(this).data('mobile-id'); // actually _id and id must be equal
+            var role = $(this).data('role');
+            if (role == 'lastChange') {
+                var lc = that.states[_id].lc;
+                var pos = that.lastTimes.indexOf(_id);
+                if (!lc) {
+                    if (pos !== -1) {
+                        that.lastTimes.splice(pos, 1);
+                        that.updateLastStates(true);
                     }
+                    $(this).data('time', null).hide();
+                    return;
+                }
+                $(this)
+                    .data('time', lc)
+                    .show()
+                    .html(that.formatLastChange(lc));
+                if (pos === -1) {
+                    that.lastTimes.push(_id);
+                    that.updateLastStates(true);
+                }
+            } else {
+                var val = $(this).val();
 
-                    var states = $(this).data('states');
+                if (that.states[_id].val === undefined || that.states[_id].val === 'undefined') {
+                    console.warn('No data for "' + _id + '".');
+                    that.states[_id].val = '';
+                }
 
-                    if (states && ((role !== 'indicator' && role !== 'error') || val)) {
-                        // convert JSON
-                        if (states[0] === '{') {
-                            try {
-                                var values = JSON.parse(states);
-                                if (values[val] === undefined) {
+                if (force || val != that.states[_id].val.toString()) {
+                    var val    = that.states[_id].val;
+                    var rawVal = that.states[_id].val;
+
+                    if ($(this).data('type') === 'range') {
+                        $(this).val(val);
+                        $(this).slider('refresh');
+                    } else if (role === 'slider') {
+                        $(this).val(val);
+                        $(this).slider().slider('refresh');
+                    } else {
+                        if (val === 'true'  || val === true) {
+                            rawVal = true;
+                            val = _('true');
+                        } else
+                        if (val === 'false' || val === false) {
+                            rawVal = false;
+                            val = _('false');
+                        } else
+                        if (val !== null && parseFloat(val).toString() == val.toString()) {
+                            val = parseFloat(val);
+                            rawVal = val;
+                        }
+
+                        var states = $(this).data('states');
+
+                        if (states && ((role !== 'indicator' && role !== 'error') || val)) {
+                            // convert JSON
+                            if (states[0] === '{') {
+                                try {
+                                    var values = JSON.parse(states);
+                                    if (values[val] === undefined) {
+                                        rawVal = val;
+                                        val    = val;
+                                    } else {
+                                        rawVal = values[val];
+                                        val    = _(values[val]);
+                                    }
+                                } catch (ex) {
+                                    console.error('Cannot parse states for ' + id);
+                                }
+                            } else if (typeof states === 'object') {
+                                if (states[val] === undefined) {
                                     rawVal = val;
                                     val    = val;
                                 } else {
-                                    rawVal = values[val];
-                                    val    = _(values[val]);
+                                    rawVal = states[val];
+                                    val    = _(states[val]);
                                 }
-                            } catch (ex) {
-                                console.error('Cannot parse states for ' + id);
-                            }
-                        } else if (typeof states === 'object') {
-                            if (states[val] === undefined) {
-                                rawVal = val;
-                                val    = val;
-                            } else {
-                                rawVal = states[val];
-                                val    = _(states[val]);
                             }
                         }
-                    }
 
+                        if (role == 'indicator' || role == 'error') {
+                            if (!rawVal) {
+                                $(this).hide();
+                            } else {
+                                $(this).show().attr('data-value', rawVal);
+                            }
 
-                    if (role == 'indicator' || role == 'error') {
-                        if (!rawVal) {
-                            $(this).hide();
+                            if (role == 'error') {
+                                if (rawVal) {
+                                    $(this).addClass('mobile-error');
+                                } else {
+                                    $(this).removeClass('mobile-error');
+                                }
+                            }
+                        }
+                        var unit = $(this).data('unit') || '';
+                        if (unit) unit = '<span class="mobile-value-units">' + unit + '</span>';
+                        if ($(this).data('title')) {
+                            $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
                         } else {
-                            $(this).show().attr('data-value', rawVal);
-                        }
-
-                        if (role == 'error') {
-                            if (rawVal) {
-                                $(this).addClass('mobile-error');
+                            var id = $(this).data('p');
+                            if (id) {
+                                if (typeof rawVal === 'boolean') {
+                                    $('#' + id).html($(this).attr('name'));
+                                } else {
+                                    $('#' + id).html($(this).attr('name') + ' - ' + val + unit);
+                                }
                             } else {
-                                $(this).removeClass('mobile-error');
+                                $(this).html(val + unit);
                             }
-                        }
-                    }
-                    var unit = $(this).data('unit') || '';
-                    if (unit) unit = '<span class="mobile-value-units">' + unit + '</span>';
-                    if ($(this).data('title')) {
-                        $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
-                    } else {
-                        var id = $(this).data('p');
-                        if (id) {
-                            if (typeof rawVal === 'boolean') {
-                                $('#' + id).html($(this).attr('name'));
-                            } else {
-                                $('#' + id).html($(this).attr('name') + ' - ' + val + unit);
-                            }
-                        } else {
-                            $(this).html(val + unit);
                         }
                     }
                 }
@@ -553,7 +628,7 @@ var mobile = {
         return false;
     },
 
-    renderGenericState: function (obj, struct) {
+    prepareGenericState: function (obj, struct) {
         var states    = obj.common.states || '';
         var stateName = obj._id.split('.').pop();
 
@@ -672,7 +747,8 @@ var mobile = {
                     'data-role="value" ' +
                     'data-unit="'  + (obj.common.unit || '') + '" ' +
                     'data-states=' + "'" + states + "'" + ' ' +
-                    'data-type="'  + obj.common.type + '"></div>'
+                    'data-type="'  + obj.common.type + '"></div>',
+                lastChange: (obj.common.type === 'boolean') ? '<div class="mobile-last-change" data-role="lastChange" data-mobile-id="' + obj._id + '"></div>' : undefined
             });
         }
         return struct;
@@ -768,7 +844,7 @@ var mobile = {
                 this.isDefaultInvisible(obj.common.role, obj._id)) {
                 // ignore it if not explicit enabled
             } else {
-                this.renderGenericState(obj, struct);
+                this.prepareGenericState(obj, struct);
             }
         }
 
@@ -853,10 +929,34 @@ var mobile = {
             }
         }
     },
+    
+    formatLastChange: function (ms) {
+        if (ms < 946684800000) ms *= 1000; // if less than 2000.01.01 may be it is seconds
+        var now = new Date().getTime();
+        var seconds = Math.round((now - ms) / 1000);
+        var text = '<img class="mobile-icon-last-change" src="img/lastChange.png"/>';
+        // format seconds
+        if (seconds < 60) {
+            text += _('%s seconds ago', seconds);
+        } else if (seconds < 180) { // under 3 minutes
+            text += _('ca. %s minutes ago', Math.floor(seconds / 60));
+        } else if (seconds < 600) { // under 10 minutes
+            text += _('%s minutes ago', Math.round(seconds / 60));
+        } else if (seconds < 36000) { // under 10 hours
+            text += _('%s h. and %s m. ago', Math.floor(seconds / 3600), Math.round(seconds / 60) % 60);
+        } else if (seconds < 86400) { // under one day
+            text += _('%s hours ago', Math.floor(seconds / 3600), Math.round(seconds / 60) % 60);
+        } else if (seconds < 86400) { // under 3 days
+            text += _('%s days and %s h. ago', Math.floor(seconds / 86400), Math.round(seconds / 3600) % 24);
+        } else  {
+            text += _('%s days ago', Math.round(seconds / 86400));
+        }
+        return text;
+    },
 
     _renderSingleSubState: function (control, parent, id) {
         var html = '';
-        html += '<' + (this.editMode ? 'li' : 'div') + ' style="width: 100%" class="' + (control.id ? 'mobile-visibility' : '') + '" ' + (control.id ? ' data-edit-id="' + control.id + '"' : '') + '><table class="mobile-widget-table">';
+        html += '<' + (this.editMode && !control.oneState ? 'li' : 'div') + ' style="width: 100%" class="' + (control.id ? 'mobile-visibility' : '') + '" ' + (control.id ? ' data-edit-id="' + control.id + '"' : '') + '><table class="mobile-widget-table">';
         html += '<tr>\n';
 
         if (control.checkbox && !control.value) {
@@ -878,21 +978,30 @@ var mobile = {
             } else if (parent.title && !control.control) {
                 html += '  <td class="mobile-widget-table-begin">' + (control.value   || '') + '</td>\n';
                 html += '  <td class="mobile-widget-table-control">';
-                html += '      <div class="mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + parent.title + '</div>\n';
+                if (control.lastChange) {
+                    html += '      <table class="mobile-widget-table">';
+                    html += '        <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
+                    html += '        <tr><td><div class="mobile-widget-last-change">' + control.lastChange + '</div></td></tr>\n';
+                    html += '      </table>';
+                } else {
+                    html += '      <div class="mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + parent.title + '</div>\n';
+                }
                 html += '  </td>';
                 parent.title = null;
-            } else {
-                // just control
+            } else if (control.control) {
+                // just control or just value
                 html += '  <td class="mobile-widget-table-begin">'   + (control.value   || '') + '</td>\n';
                 html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
+            } else {
+
             }
         }
         html += '</tr>\n';
-        html += '</table></' + (this.editMode ? 'li' : 'div') + '>\n';
+        html += '</table></' + (this.editMode && !control.oneState ? 'li' : 'div') + '>\n';
         return html;
     },
 
-    _renderCombinedSubState : function (control, parent, state) {
+    _renderCombinedSubState : function (control, parent, state, id) {
         // used only in non edit mode
         var html = '';
         html += '<div><table class="mobile-widget-table mobile-widget-b"><tr>\n';
@@ -900,6 +1009,7 @@ var mobile = {
         html += '   <td style="position: relative">';
         html += parent.title  ? '<div class="mobile-value-group-title">' + parent.title  + '</div>\n' : '';
         html += state && state.title ? '<div class="mobile-value-small-title">' + state.title + '</div>\n' : '';
+        html += control.lastChange ? '<div class="mobile-widget-last-change">' + control.lastChange + '</div>' : '';
         html += '</td><td class="mobile-widget-table-icon">';
         html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
         html += '</td></tr></table></div>\n';
@@ -928,7 +1038,7 @@ var mobile = {
         }
 
         var c;
-        order = _mobile.order || [];
+        order = _mobile ? _mobile.order || [] : [];
         if (struct.children) {
             for (child in struct.children) {
                 if (order.indexOf(child) === -1) order.push(child);
@@ -951,7 +1061,7 @@ var mobile = {
             // Show all in one line
             // control | text | icon
             struct.children[firstChild].controls[0].id = firstChild; // enable visibility
-            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length == 1 ? struct.children[firstChild]: null);
+            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length == 1 ? struct.children[firstChild]: null, firstChild);
 
             for (c = 1; c < struct.children[child].controls.length; c++) {
                 struct.children[child].controls[c].id = child; // enable visibility
@@ -959,7 +1069,7 @@ var mobile = {
             }
         } else {
             // place title
-            html += struct.icon  ? '<img class="mobile-widget-icon" src="'   + struct.icon  + '"/>' : '';
+            html += struct.icon  ? '<img class="mobile-widget-icon" src="' + struct.icon + '"/>' : '';
             html += struct.title ? '<div class="mobile-widget-title mobile-value-group-title" data-edit-id="' + obj._id + '">' + struct.title + '</div>\n' : '';
 
             html += '<' + (this.editMode ? 'ul' : 'div') + ' class="mobile-widget-b" title="' + (obj.common.role || '') +'" style="padding: 0" data-edit-id="' + obj._id + '">\n';
@@ -1004,7 +1114,7 @@ var mobile = {
         if (!this.editMode && (struct.controls[0].checkbox || !struct.controls[0].control)) {
             // Show all in one line
             // control | text | icon
-            html += this._renderCombinedSubState(struct.controls[0], struct);
+            html += this._renderCombinedSubState(struct.controls[0], struct, null, obj._id);
 
             for (c = 1; c < struct.controls.length; c++) {
                 html += this._renderSingleSubState(struct.controls[c], struct, obj._id);
@@ -1018,6 +1128,7 @@ var mobile = {
 
             // try to build state
             for (c = 0; c < struct.controls.length; c++) {
+                struct.controls[c].oneState = true;
                 html += this._renderSingleSubState(struct.controls[c], struct, obj._id);
             }
             html += '</div>\n';
@@ -1053,7 +1164,7 @@ var mobile = {
                         that.saveSettings(id);
                     }
 
-                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px; width: ' + w + 'px; left: ' + pos.left + 'px"
+                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>');
                     var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
                     var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>');
                     //var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
@@ -1119,7 +1230,7 @@ var mobile = {
                         that.saveSettings(id);
                     }
 
-                    var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>'); //style="top: ' + pos.top + 'px; height: ' + h + 'px"
+                    var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
                     var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
                     var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: 1.6em; margin-top: 0"' : '') + '></a>');
                     var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;' + (that.objects[id].type !== 'state' ? ' margin-right: 1.6em; margin-top: 0' : '') + '"></a>');
@@ -1295,8 +1406,9 @@ var mobile = {
         pageId = pageId.substring(1);
         pageId = decodeURIComponent(pageId);
         pageId = pageId.replace(/&.*$/, '');
-        this.renderPage(pageId || this.root[0].replace(/\./g, '*'));
-    
+        this.activePage = pageId || this.root[0].replace(/\./g, '*');
+        this.renderPage(this.activePage);
+
         $.mobile.initializePage();
         $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.root[0].replace(/\./g, '*') : url.hash);
 
@@ -1404,7 +1516,7 @@ var mobile = {
 
         if (this.updateStates.length) {
             for (var i = 0; i < this.updateStates.length; i++) {
-                this.updateState(this.updateStates[id], true);
+                this.updateState(this.updateStates[i], true);
             }
 
             this.updateStates = [];
@@ -1455,6 +1567,25 @@ var mobile = {
                 }
             });
         }, 500);
+    },
+
+    destroyPage: function (id) {
+        var that = this;
+        // do not destroy firts leve pages
+
+        if (!this.erasePage[id] && id.split('*').length > 2) {
+            console.log('Add to destroy: ' + id)
+            this.erasePage[id] = setTimeout(function () {
+                delete that.erasePage[id];
+                if ($.mobile.activePage.attr('id') !== id) {
+                    console.log('Destroy page: ' + id);
+                    $('div[id="' + id + '"]').remove();
+                } else {
+                    console.log('Trying to destroy active page!');
+                }
+
+            }, 15000);
+        }
     },
 
     detectHiddenStates: function (id) {
@@ -1702,6 +1833,8 @@ if ('applicationCache' in window) {
 // Start of initialisation: main ()
 (function ($) {
     $(document).ready(function () {
+        // force loading menu
+        $('body').css('visibility', 'visible');
         mobile.init();
     });
 })(jQuery);
