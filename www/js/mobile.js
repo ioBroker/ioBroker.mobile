@@ -253,7 +253,7 @@ var mobile = {
                 id = id.replace(/&.*$/, '');
                 that.renderPage(id);
 
-                if (id && that.activePage !== id && that.activePage) {
+                if (id && that.activePage !== id && that.activePage && id !== 'info') {
                     // destroy page
                     that.destroyPage(that.activePage);
                 }
@@ -261,25 +261,25 @@ var mobile = {
                     clearTimeout(that.erasePage[id]);
                     delete that.erasePage[id];
                 }
-
-                that.activePage = id;
+                if (id !== 'info') that.activePage = id;
             }
         });
 
         // edit mode is off => switch it on
         $('.mobile-noedit').click(function () {
-            document.location = "?edit" + document.location.hash.replace('&ui-state=dialog', '');
+            document.location = '?edit#' + (that.activePage || '');
         });
+        // edit mode is on => switch it off
         $('.mobile-edit').click(function () {
-            document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
+            document.location = './#' + (that.activePage || '');
         });
         $('#edit_indicator').click(function () {
             that.objects = that.calcChildren();
-            document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
+            document.location = './' + document.location.hash.replace('&ui-state=dialog', '');
         });
         $('.mobile-reset').click(function () {
             that.resetVisibility(function () {
-                document.location = "./" + document.location.hash.replace('&ui-state=dialog', '');
+                document.location = './' + document.location.hash.replace('&ui-state=dialog', '');
             });
         });
         this.conn.init(null, {
@@ -1380,7 +1380,7 @@ var mobile = {
                 // header
                 '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
-                '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
+                '         <a  href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
                 '    </div>' +
                 // content
                 '    <div data-role="content" data-theme="c">' +
@@ -1470,7 +1470,7 @@ var mobile = {
             '    <div data-role="header" data-position="" data-id="f2" data-theme="b" data-fullscreen="false">' +
             '        <a href="#' + encodeURIComponent(parentId.replace(/\./g, '*')) + '" data-role="button" data-icon="arrow-l">' + _(parentName) + '</a>' +
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
-            '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right"></a>' +
+            '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
             '    </div>';
             // content
             page +=
