@@ -49,8 +49,8 @@ systemDictionary = {
     "off":              {"en": "off",               "de": "aus",            "ru": "выкл"},
     "on":               {"en": "on",                "de": "an",             "ru": "вкл"},
     "CLOSED":           {"en": "closed",            "de": "zu",             "ru": "закрыто"},
-    "closed":           {"en": "closed",            "de": "zu",             "ru": "закр."},
-    "opened":           {"en": "opened",            "de": "auf",            "ru": "откр."},
+    "closed":           {"en": "closed",            "de": "zu",             "ru": "закр"},
+    "opened":           {"en": "opened",            "de": "auf",            "ru": "откр"},
     "OPEN":             {"en": "open",              "de": "auf",            "ru": "открыто"},
     "open":             {"en": "open",              "de": "auf",            "ru": "открыто"},
     "TILTED":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
@@ -65,7 +65,7 @@ systemDictionary = {
     "Edit mode":        {"en": "Edit mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
     "Info":             {"en": "Info",              "de": "Info",           "ru": "Инфо"},
     "License: ":        {"en": "License: ",         "de": "Lizenz: ",       "ru": "Лицензия: "},
-    "Refresh":          {"en": "Refresh",           "de": "Auktualisieren", "ru": "Обновить"},
+    "Refresh":          {"en": "Refresh",           "de": "Aktualisieren",  "ru": "Обновить"},
     "Used icons": {
         "en": 'Used icons from <a href="https://icons8.com/" target="_blank">icons8.com/</a>.',
         "de": 'Hier werden die Bilder von <a href="https://icons8.com/" target="_blank">icons8.com/</a> benutzt.',
@@ -192,6 +192,7 @@ var mobile = {
     user:         'admin',
     defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
     defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND'],
+    ignoreIndicators: ['indicator.updates', 'indicator.state'],
     lastTimes:    [],
     activePage:   null,
     erasePage:    {},
@@ -201,7 +202,6 @@ var mobile = {
         humidity:     'weather_humidity.svg',
         setpoint:     'temp_control.svg'
     },
-
 
     init: function (id) {
         var that = this;
@@ -271,11 +271,11 @@ var mobile = {
         });
         // edit mode is on => switch it off
         $('.mobile-edit').click(function () {
-            document.location = './#' + (that.activePage || '');
+            document.location = './?refresh#' + (that.activePage || '');
         });
         $('#edit_indicator').click(function () {
             that.objects = that.calcChildren();
-            document.location = './' + document.location.hash.replace('&ui-state=dialog', '');
+            document.location = './?refresh' + document.location.hash.replace('&ui-state=dialog', '');
         });
         $('.mobile-reset').click(function () {
             that.resetVisibility(function () {
@@ -305,38 +305,44 @@ var mobile = {
 
                     // Get Server language
                     that.conn.getObjects(!that.refresh, function (err, objects) {
+                        if (err) console.error(err);
                         that.conn.getConfig(!that.refresh, function (err, config) {
-                            systemLang      = config.language || systemLang;
-                            that.language   = systemLang;
-                            that.dateFormat = config.dateFormat;
-                            translateAll();
-                            if (that.isFirstTime) {
-                                // Init edit dialog
-                                that.isFirstTime = false;
-                            }
-
-
-                            that.objects = that.calcChildren(objects);
-
-                            // find for every object the children
-
-                            // show last sync time
-                            var syncTime = that.conn.getSyncTime();
-                            if (typeof(Storage) === 'undefined')  {
-                                $('.mobile-refresh').hide();
-                                $('.last-synchronised').html(_('not supported'));
-                            } else {
-                                $('.last-synchronised').html(!syncTime ? _('never') : syncTime.toLocaleDateString() + ' ' + syncTime.toLocaleTimeString());
-                            }
-
-                            that.conn.getEnums(!that.refresh, function (err, enums) {
-                                that.enums = enums;
-                                for (var e in that.enums) {
-                                    var parts = e.split('.');
-                                    if (parts.length == 2) that.root.push(e);
+                            if (err) console.error(err);
+                            that.conn.getObject('system.adapter.' + that.conn.namespace, !that.refresh, function (err, mobileconfig) {
+                                if (err) console.error(err);
+                                systemLang      = config.language || systemLang;
+                                that.language   = systemLang;
+                                that.dateFormat = config.dateFormat;
+                                translateAll();
+                                if (that.isFirstTime) {
+                                    // Init edit dialog
+                                    that.isFirstTime = false;
                                 }
 
-                                that.renderRootPages();
+                                that.config  = mobileconfig && mobileconfig.native ? mobileconfig.native : {indicators: {}};
+                                that.config.indicators = that.config.indicators || {};
+                                that.objects = that.calcChildren(objects);
+
+                                // find for every object the children
+
+                                // show last sync time
+                                var syncTime = that.conn.getSyncTime();
+                                if (typeof(Storage) === 'undefined') {
+                                    $('.mobile-refresh').hide();
+                                    $('.last-synchronised').html(_('not supported'));
+                                } else {
+                                    $('.last-synchronised').html(!syncTime ? _('never') : syncTime.toLocaleDateString() + ' ' + syncTime.toLocaleTimeString());
+                                }
+
+                                that.conn.getEnums(!that.refresh, function (err, enums) {
+                                    that.enums = enums;
+                                    for (var e in that.enums) {
+                                        var parts = e.split('.');
+                                        if (parts.length == 2) that.root.push(e);
+                                    }
+
+                                    that.renderRootPages();
+                                });
                             });
                         });
                     });
@@ -404,6 +410,16 @@ var mobile = {
         this.saveTimeout = setTimeout(function () {
             that.saveObjects();
         }, 300);
+    },
+
+    saveConfig: function (cb) {
+        var that = this;
+        this.conn._socket.emit('getObject', 'system.adapter.' + this.conn.namespace, function (err, obj) {
+            obj.common = that.config;
+            that.conn._socket.emit('setObject', obj._id, obj, function (err) {
+                cb && cb(err);
+            });
+        });
     },
 
     modifyObjects: function (list, cb) {
@@ -502,7 +518,7 @@ var mobile = {
             } else {
                 var val = $(this).val();
 
-                if (that.states[_id].val === undefined || that.states[_id].val === 'undefined') {
+                if (that.states[_id].val === undefined || that.states[_id].val === 'undefined' || that.states[_id].val === null || that.states[_id].val === 'null') {
                     console.warn('No data for "' + _id + '".');
                     that.states[_id].val = '';
                 }
@@ -517,6 +533,10 @@ var mobile = {
                     } else if (role === 'slider') {
                         $(this).val(val);
                         $(this).slider().slider('refresh');
+                    } else if (role === 'select') {
+                        $(this).val(val);
+                        $(this).selectmenu().selectmenu('refresh');
+                        $(this).prev().removeClass('ui-body-inherit');
                     } else {
                         if (val === 'true'  || val === true) {
                             rawVal = true;
@@ -630,10 +650,12 @@ var mobile = {
 
     prepareGenericState: function (obj, struct) {
         var states    = obj.common.states || '';
+        var vStates;
         var stateName = obj._id.split('.').pop();
 
         if (states) {
             if (typeof states == 'object') {
+                vStates = states;
                 states = JSON.stringify(states);
             } else if (typeof states == 'string' && states[0] != '{') {
                 var values = states.split(';');
@@ -642,6 +664,7 @@ var mobile = {
                     var parts = values.split(':');
                     states[parts[0]] = parts[1];
                 }
+                vStates = states;
                 states = JSON.stringify(states);
             }
         }
@@ -667,6 +690,7 @@ var mobile = {
         if (obj.common.role === 'level.dimmer' || obj.common.role === 'level.blind') {
             struct.controls.push({
                 checkbox: true,
+                value: '',
                 control:
                     '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" >\n' +
                     '        <option value="' + (obj.common.min !== undefined ? obj.common.min : 0)   + '">' + _(off) + '</option>\n' +
@@ -685,6 +709,7 @@ var mobile = {
         // add button
         if (roles.indexOf('button') !== -1 || roles.indexOf('action') !== -1) {
             struct.controls.push({
+                value: '',
                 control:
                     '<input ' +
                     'class="mobile-control" ' +
@@ -702,17 +727,62 @@ var mobile = {
         // generic types
         // controllable boolean
         if (obj.common.write && obj.common.type === 'boolean') {
+            var min;
+            var max;
+
+            // support of boolean states
+            if (vStates) {
+                if (vStates[0] !== undefined) {
+                    min = 0;
+                    off = vStates[0];
+                } else
+                if (vStates['false'] !== undefined) {
+                    min = false;
+                    off = vStates['false'];
+                } else {
+                    var count = 0;
+                    for (var v in vStates) {
+                        if (count === 0) {
+                            min = v;
+                            off = vStates[v];
+                        } else
+                        if (count === 1) {
+                            on = vStates[v];
+                            max = v;
+                            break;
+                        }
+                        count++;
+                    }
+                }
+                if (vStates[1] !== undefined) {
+                    max = 1;
+                    on = vStates[1];
+                } else
+                if (vStates['true'] !== undefined) {
+                    max = true;
+                    on = vStates['true'];
+                }
+            } else {
+                min = (obj.common.min !== undefined ? obj.common.min : false);
+                max = (obj.common.max !== undefined ? obj.common.max : true);
+            }
+            var length = off.length;
+            if (on.length > length) length = on.length;
+            length = 70 + length * 7;
+            if (length < 112) length = 112;
+
             struct.controls.push({
                 checkbox: true,
+                value: '',
                 control:
-                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : false) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : true) + '" >\n' +
-                    '        <option value="' + (obj.common.min !== undefined ? obj.common.min : false) + '">' + _(off) + '</option>\n' +
-                    '        <option value="' + (obj.common.max !== undefined ? obj.common.max : true)  + '">' + _(on)  + '</option>\n' +
+                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + min + '" data-max="' + max + '" data-width="' + length + 'px">\n' +
+                    '        <option value="' + min + '">' + _(off) + '</option>\n' +
+                    '        <option value="' + max + '">' + _(on)  + '</option>\n' +
                     '    </select>'
             });
         } else
         // controllable number, but as text
-        if (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined) {
+        if (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined && !states) {
             struct.controls.push({
                 value:   '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
                 control: '<input class="mobile-control" type="range" data-type="' +  obj.common.type + '" data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '"/>'
@@ -727,16 +797,21 @@ var mobile = {
                     'data-type="set" ' +
                     'value="' + _('set') + '"/>'
             });
-        } else if (obj.common.write && states) {
-            // to do select
+        } else if (obj.common.write  && states) {
+            var text = '<select ' +
+                'class="mobile-control" ' +
+                'data-mobile-id="' + obj._id + '" ' +
+                'data-role="select" ' +
+                'data-type="'  + obj.common.type + '">\n';
+            for (var v in vStates) {
+                text += '<option value="' + v + '">' + _(vStates[v]) + '</option>\n';
+            }
+            text += '</select>\n';
+
             struct.controls.push({
-                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" data-role="value" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' />' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
-                control: '<input ' +
-                    'class="mobile-control" ' +
-                    'type="button" '   +
-                    'data-mobile-id="' + obj._id + '" ' +
-                    'data-type="set" ' +
-                    'value="' + _('set') + '"/>'
+                value: '',
+                select: true,
+                control: text
             });
         }else {
             // non controllable value
@@ -762,7 +837,7 @@ var mobile = {
         struct = struct || {};
 
         // ignore indicators
-        if (obj.common.role && obj.common.role.match(/^indicator\.?/)) return '';
+        if (obj.common.role && obj.common.role.match(/^indicator\./) && this.ignoreIndicators.indexOf(obj.common.role) === -1) return '';
 
         var name;
 
@@ -876,11 +951,13 @@ var mobile = {
                         id = obj.children[i];
 
                         if (this.objects[id] && this.objects[id].common) {
-                            if (this.objects[id].common.role && this.objects[id].common.role.match(/^indicator\.?/)) {
+                            if (this.objects[id].common.role && this.objects[id].common.role.match(/^indicator\./) && this.ignoreIndicators.indexOf(obj.common.role) === -1) {
                                 // do not render WORKING and DIRECTION for other channels than origin
                                 if ((this.objects[id].common.role === 'indicator.working' || this.objects[id].common.role === 'indicator.direction') && originId !== id.substring(0, originId.length)) {
                                     continue;
                                 }
+                                var stateName = id.split('.').pop();
+                                if (this.config.indicators[stateName] !== undefined && !this.config.indicators[stateName]) continue;
 
                                 if (!this.states[id]) {
                                     // read states
@@ -1057,7 +1134,7 @@ var mobile = {
         }
 
         // if only one child and not slider
-        if (!this.editMode && count == 1 && (struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
+        if (!this.editMode && count == 1 && (struct.children[firstChild].controls[0].select || struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
             // Show all in one line
             // control | text | icon
             struct.children[firstChild].controls[0].id = firstChild; // enable visibility
@@ -1111,7 +1188,7 @@ var mobile = {
         html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-edit-id="' + obj._id + '">\n';
 
         var c;
-        if (!this.editMode && (struct.controls[0].checkbox || !struct.controls[0].control)) {
+        if (!this.editMode && (struct.controls[0].select || struct.controls[0].checkbox || !struct.controls[0].control)) {
             // Show all in one line
             // control | text | icon
             html += this._renderCombinedSubState(struct.controls[0], struct, null, obj._id);
@@ -1280,6 +1357,14 @@ var mobile = {
         }
     },
 
+    renderIndicatorSettings: function () {
+        var text = '<legend>' + _('Enabled indicators') + ':</legend>';
+        for (var ind in this.config.indicators) {
+            text += '<input type="checkbox" data-name="' + ind + '" id="chb_' + ind + '" class="mobile-indicator-settings" ' + (this.config.indicators[ind] ? 'checked' : '') + '/><label for="chb_' + ind + '" >' + ind + '</label>';
+        }
+        $('#enabledIndicators').html(text);
+    },
+
     renderRootPages: function () {
         // http://demos.jquerymobile.com/1.2.1/docs/toolbars/docs-navbar.html
         var grid;
@@ -1408,12 +1493,27 @@ var mobile = {
         pageId = pageId.replace(/&.*$/, '');
         this.activePage = pageId || this.root[0].replace(/\./g, '*');
         this.renderPage(this.activePage);
+        this.renderIndicatorSettings();
 
         $.mobile.initializePage();
         $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.root[0].replace(/\./g, '*') : url.hash);
 
         // manage enumerations
         this.renderEditButtons();
+
+        // init all indicator settings
+        var that = this;
+        $('.mobile-indicator-settings').change(function () {
+            var ind = $(this).data('name');
+            that.config.indicators[ind] = $(this).prop('checked');
+            that.saveConfig();
+            // destroy all second level pages to re-render the indicators
+            $('div[data-role="page"]').each(function () {
+                if ($(this).attr('id').split('*').length > 2) {
+                    $(this).remove();
+                }
+            });
+        });
     },
 
     renderInfoPage: function () {
@@ -1557,6 +1657,22 @@ var mobile = {
         });
 
         setTimeout(function () {
+            // set slider width
+            $('select[data-role="slider"]').each(function () {
+                $(this).next().css('width', $(this).data('width'));
+            });
+
+            $('select[data-role="select"]').each(function () {
+                $(this).prev().removeClass('ui-body-inherit');
+                $(this).on('change', function () {
+                    $(this)
+                        .prev()
+                        .removeClass('ui-body-inherit ui-focus')
+                    .parent()
+                        .removeClass('ui-body-inherit ui-focus');
+                });
+            });
+
             $('.mobile-control').on('slidestop stop', function () {
                 var id  = $(this).data('mobile-id');
                 if (id) {
@@ -1571,7 +1687,8 @@ var mobile = {
 
     destroyPage: function (id) {
         var that = this;
-        // do not destroy firts leve pages
+
+        // do not destroy first level pages
 
         if (!this.erasePage[id] && id.split('*').length > 2) {
             console.log('Add to destroy: ' + id)
@@ -1667,9 +1784,16 @@ var mobile = {
 
     calcChildren: function (objs) {
         var ids = [];
+        var indicators = {};
         for (var ob in objs) {
             ids.push(ob);
+            if (objs[ob].common && objs[ob].common.role && this.ignoreIndicators.indexOf(objs[ob].common.role) === -1 && objs[ob].common.role.match(/^indicator\./)) {
+                var name = ob.split('.').pop();
+                if (!indicators[name]) indicators[name] = this.config.indicators[name] === undefined ? true : this.config.indicators[name];
+            }
         }
+        this.config.indicators = indicators;
+
         ids.sort();
         for (var i = 0; i < ids.length; i++) {
             if (objs[ids[i]].type == 'device' || objs[ids[i]].type == 'channel') {
@@ -1691,6 +1815,7 @@ var mobile = {
         return objs;
     }
 };
+
 function onEditName(e) {
     e.stopPropagation();
     var that = mobile;
