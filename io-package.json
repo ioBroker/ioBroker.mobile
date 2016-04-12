@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "title":                    "Mobile UI",
         "desc":                     "jQuery Mobile based ioBroker user interface",
         "platform":                 "javascript/Node.js",

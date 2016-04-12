@@ -13,6 +13,10 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.2.2
+* (bluefox) fix locations in edit mode
+* (bluefox) enable visibility of indicators
+
 #### 0.2.1
 * (bluefox) fix some errors
 
