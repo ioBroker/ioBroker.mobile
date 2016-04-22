@@ -844,7 +844,7 @@ ul.mobile-page-left h2 {
     padding-top: 0.5em !important;
     height: 3.2em !important;
 }
-.mobile-edit-name {
+.mobile-edit-name, .mobile-edit-icon {
     /*margin-left: 1em !important;*/
     float: right;
 }
@@ -868,6 +868,11 @@ ul.mobile-page-left h2 {
     font-size: xx-small;
     opacity: 0.8;
     padding-left: 1em;
+}
+.mobile-version {
+    position: absolute;
+    top: 0.7em;
+    right: 1em;
 }
 
 /* ------------------ connecting -------------------------- */

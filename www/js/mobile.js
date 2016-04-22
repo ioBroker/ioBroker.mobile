@@ -51,7 +51,7 @@ systemDictionary = {
     "CLOSED":           {"en": "closed",            "de": "zu",             "ru": "закрыто"},
     "closed":           {"en": "closed",            "de": "zu",             "ru": "закр"},
     "opened":           {"en": "opened",            "de": "auf",            "ru": "откр"},
-    "OPEN":             {"en": "open",              "de": "auf",            "ru": "открыто"},
+/*    "OPEN":             {"en": "open",              "de": "auf",            "ru": "открыто"},*/
     "open":             {"en": "open",              "de": "auf",            "ru": "открыто"},
     "TILTED":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
     "tilted":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
@@ -139,41 +139,46 @@ systemDictionary = {
     "Verschluss":       {"en": "Gate",              "de": "Verschluss",     "ru": "Двери"},
     "Energiemanagement": {"en": "Energy management", "de": "Energiemanagement", "ru": "Потребление энергии"},
 
-    "Valve State":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
-    "Level":            {"en": "Level",             "de": "Wert",           "ru": "Положение"},
-    "Press Long":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
-    "Press Short":      {"en": "Press short",       "de": "Kurz drucken",   "ru": "Короткое нажатие"},
-    "Press Cont":       {"en": "Press continuous",  "de": "Kontinuerlich",  "ru": "Продолжительное нажатие"},
-    "Press Long Release": {"en": "Press long release", "de": "Press Long Release", "ru": "Прекратить длинное нажатие"},
-    "State":            {"en": "State",             "de": "Zustand",        "ru": "Состояние"},
-    "Adjusting Command": {"en": "Adjusting Command", "de": "Justier-Kommando", "ru": "Команда настойки"},
-    "Adjusting Data":   {"en": "Adjusting Data",    "de": "Justierungsdaten", "ru": "Данные для настойки"},
-    "Setpoint":         {"en": "Setpoint",          "de": "Sollwert",       "ru": "Заданное значение"},
-    "Humidity":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
-    "Temperature":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
-    "Inhibit":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
-    "Open":             {"en": "Open",              "de": "Aufmachen",      "ru": "Открыть"},
-    "Relock Delay":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
-    "State Uncertain":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
-    "Brightness":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
-    "On Time":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
-    "Submit":           {"en": "Submit",            "de": "Bestätigen",     "ru": "Подтвердить"},
-    "Filling Level":    {"en": "Filling Level",     "de": "Füllniveau ",    "ru": "Уровень заполнения"},
-    "Defekt State":     {"en": "Defect",            "de": "Defekt State",   "ru": "Поломка"},
+    "VALVE STATE":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
+    "LEVEL":            {"en": "Level",             "de": "Wert",           "ru": "Положение"},
+    "PRESS LONG":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
+    "PRESS SHORT":      {"en": "Press short",       "de": "Kurz drucken",   "ru": "Короткое нажатие"},
+    "PRESS CONT":       {"en": "Press continuous",  "de": "Kontinuerlich",  "ru": "Продолжительное нажатие"},
+    "PRESS LONG RELEASE": {"en": "Press long release", "de": "Press Long Release", "ru": "Прекратить длинное нажатие"},
+    "STATE":            {"en": "State",             "de": "Zustand",        "ru": "Состояние"},
+    "ADJUSTING COMMAND": {"en": "Adjusting Command", "de": "Justier-Kommando", "ru": "Команда настойки"},
+    "ADJUSTING DATA":   {"en": "Adjusting Data",    "de": "Justierungsdaten", "ru": "Данные для настойки"},
+    "SETPOINT":         {"en": "Setpoint",          "de": "Sollwert",       "ru": "Заданное значение"},
+    "HUMIDITY":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
+    "TEMPERATURE":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
+    "INHIBIT":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
+    "OPEN":             {"en": "Open",              "de": "Aufmachen",      "ru": "Открыть"},
+    "RELOCK DELAY":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
+    "STATE UNCERTAIN":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
+    "BRIGHTNESS":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
+    "ON TIME":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
+    "SUBMIT":           {"en": "Submit",            "de": "Bestätigen",     "ru": "Подтвердить"},
+    "FILLING LEVEL":    {"en": "Filling Level",     "de": "Füllniveau ",    "ru": "Уровень заполнения"},
+    "DEFEKT STATE":     {"en": "Defect",            "de": "Defekt State",   "ru": "Поломка"},
     "UP":               {"en": "up",                "de": "Nach oben",      "ru": "наверх"},
     "DOWN":             {"en": "down",              "de": "nach unten",     "ru": "вниз"},
-    "Stop":             {"en": "Stop",              "de": "Stop",           "ru": "Стоп"},
-    "Voltage":          {"en": "Voltage",           "de": "Spannung",       "ru": "Напряжение"},
-    "Power":            {"en": "Power",             "de": "Power",          "ru": "Мощность"},
-    "Frequency":        {"en": "Frequency",         "de": "Frequenz",       "ru": "Частота"},
-    "Energy Counter":   {"en": "Energy Counter",    "de": "Energiezähler",  "ru": "Счётчик расхода"},
-    "Current":          {"en": "Current",           "de": "Strom",          "ru": "Ток"},
-    "Boot":             {"en": "Boot",              "de": "Boot",           "ru": "Boot"},
-    "Decision Value":   {"en": "Decision Value",    "de": "Entscheidungswert", "ru": "Порог принятия решения"},
+    "STOP":             {"en": "Stop",              "de": "Stop",           "ru": "Стоп"},
+    "VOLTAGE":          {"en": "Voltage",           "de": "Spannung",       "ru": "Напряжение"},
+    "POWER":            {"en": "Power",             "de": "Power",          "ru": "Мощность"},
+    "FREQUENCY":        {"en": "Frequency",         "de": "Frequenz",       "ru": "Частота"},
+    "ENERGY COUNTER":   {"en": "Energy Counter",    "de": "Energiezähler",  "ru": "Счётчик расхода"},
+    "CURRENT":          {"en": "Current",           "de": "Strom",          "ru": "Ток"},
+    "BOOT":             {"en": "Boot",              "de": "Boot",           "ru": "Boot"},
+    "DECISION VALUE":   {"en": "Decision Value",    "de": "Entscheidungswert", "ru": "Порог принятия решения"},
     "UNDEFINED":        {"en": "--",                "de": "--",             "ru": "--"},
-    "Air Pressure":     {"en": "Air Pressure",      "de": "Luftdruck",      "ru": "Атмосферное давление"}
+    "AIR PRESSURE":     {"en": "Air Pressure",      "de": "Luftdruck",      "ru": "Атмосферное давление"},
+    "RAINING":          {"en": "Raining",           "de": "Regen",          "ru": "Дождь"},
+    "RAIN COUNTER":     {"en": "Rain counter",      "de": "Luftdruck",      "ru": "Атмосферное давление"},
+    "SUNSHINEDURATION": {"en": "Sunshine duration", "de": "Sonnenscheindauer", "ru": "Длительность солнечного сияния"},
+    "WIND DIRECTION":   {"en": "Wind direction",    "de": "Windrichtung",   "ru": "Направление ветра"},
+    "WIND DIRECTION RANGE": {"en": "Wind direction range", "de": "Windrichtungumfang", "ru": "Разброс направления ветра"},
+    "WIND SPEED":       {"en": "Wind speed",        "de": "Windgeschwindigkeit", "ru": "Скорость ветра"}
 };
-
 
 var mobile = {
     version: "0.0.5",
@@ -191,7 +196,7 @@ var mobile = {
     ids:          [],
     user:         'admin',
     defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
-    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND'],
+    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND', 'INSTALL_TEST'],
     ignoreIndicators: ['indicator.updates', 'indicator.state'],
     lastTimes:    [],
     activePage:   null,
@@ -290,7 +295,6 @@ var mobile = {
                     if (that.isFirstTime) {
                         that.conn.getVersion(function (version) {
                             if (version) {
-                                $('#mobile-version').html(version);
                                 if (that.compareVersion(version, that.requiredServerVersion)) {
                                     window.alert(_('Warning: requires Server version %s - found Server version %s - please update Server.', that.requiredServerVersion, version));
                                 }
@@ -373,6 +377,8 @@ var mobile = {
                 window.alert(_('Cannot execute %s for %s, because of insufficient permissions', err.command, err.arg), _('Insufficient permissions'), 'alert', 600);
             }
         }, true/*edit mode */);
+
+        $('.mobile-version').html('v' + this.version);
     },
 
     saveObjects: function (cb) {
@@ -848,10 +854,10 @@ var mobile = {
             name = decodeURIComponent(name);
             // remove room or function name from device name
             if (parentName) {
-                var reg1 = new RegExp ('[-.\/]+' + parentName + '[-.\/]+', 'gi');
-                var reg2 = new RegExp ('[-.\/]+' + parentName, 'gi');
-                var reg3 = new RegExp (parentName + '[-.\/]+', 'gi');
-                var reg4 = new RegExp (parentName, 'gi');
+                var reg1 = new RegExp('[-.\/]+' + parentName + '[-.\/]+', 'gi');
+                var reg2 = new RegExp('[-.\/]+' + parentName, 'gi');
+                var reg3 = new RegExp(parentName + '[-.\/]+', 'gi');
+                var reg4 = new RegExp(parentName, 'gi');
                 name = name.replace(reg1, '.');
                 name = name.replace(reg2, '');
                 name = name.replace(reg3, '');
@@ -869,7 +875,9 @@ var mobile = {
                         words.splice(w, 1);
                         continue;
                     }
-                    words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
+                    if (!words[w].match(/^[A-ZÜÖÄА-Я0-9]+$/)) {
+                        words[w] = words[w][0].toUpperCase() + words[w].substring(1).toLowerCase();
+                    }
                 }
                 name = words.join(' ');
             }
@@ -981,7 +989,8 @@ var mobile = {
                                 }
                                 var name = (this.objects[id].common.name || id).split('.').pop().replace(/_/g, ' ');
                                 var _id = id.replace(/\./g, '-');
-                                var text = '<a href="#' + _id + '" ' +
+                                var text =
+                                    '<a href="#' + _id + '" ' +
                                     'style="display: none" ' +
                                     'data-mobile-id="' + id + '" ' +
                                     'data-p="' + _id + '-p" ' +
@@ -1276,10 +1285,12 @@ var mobile = {
                     var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
                     var $checkbox = $('<div style="margin-right: 3em;" data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
                     var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" ></a>');
+                    var $icon     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-icon ui-btn ui-shadow ui-corner-all ui-icon-video ui-btn-icon-notext ui-btn-inline"></a>');
                     var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
 
                     $overlay.append($checkbox);
                     $overlay.append($name);
+                    $overlay.append($icon);
                     $overlay.append($sort);
                     $(this).parent().prepend($overlay);
 
@@ -1422,7 +1433,7 @@ var mobile = {
                 } else {
                     navbar += 'star';
                 }
-                navbar += '" href="#' + this.root[j].replace(/\./g, '*') + '">' + _(name) + '</a></li>\n';
+                navbar += '" href="#' + this.objectId2htmlId(this.root[j]) + '">' + _(name) + '</a></li>\n';
             }
     
             var menu = '';
@@ -1444,7 +1455,6 @@ var mobile = {
                 }
             }
 
-
             // build content
             for (var k = 0; k < order.length; k++) {
                 var _id = order[k];
@@ -1455,21 +1465,21 @@ var mobile = {
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
 
-                menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(_id.replace(/\./g, '*')) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
+                menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
             }
 
             name = rCommon.mobile && rCommon.mobile[this.user] ? rCommon.mobile[this.user].name || rCommon.name || this.root[i] : rCommon.name || this.root[i];
 
             var page =
-                '<div id="' + this.root[i].replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
+                '<div id="' + this.objectId2htmlId(this.root[i]) + '" data-role="page" class="responsive-grid" data-theme="b">' +
                 // header
                 '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
-                '         <a  href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
+                '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
                 '    </div>' +
                 // content
                 '    <div data-role="content" data-theme="c">' +
-                '       <ul id="menu_' + this.root[i].replace(/\./g, '*') + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
+                '       <ul id="menu_' + this.objectId2htmlId(this.root[i]) + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
                 menu +
                 '      </ul>' +
                 '    </div>' +
@@ -1491,12 +1501,13 @@ var mobile = {
         pageId = pageId.substring(1);
         pageId = decodeURIComponent(pageId);
         pageId = pageId.replace(/&.*$/, '');
-        this.activePage = pageId || this.root[0].replace(/\./g, '*');
+        this.activePage = pageId || this.objectId2htmlId(this.root[0]);
         this.renderPage(this.activePage);
         this.renderIndicatorSettings();
 
         $.mobile.initializePage();
-        $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.root[0].replace(/\./g, '*') : url.hash);
+        $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.objectId2htmlId(this.root[0]) : url.hash);
+        $('#nav-panel').panel();
 
         // manage enumerations
         this.renderEditButtons();
@@ -1529,6 +1540,14 @@ var mobile = {
         $('#info').show();
     },
 
+    htmlId2objectId: function(id) {
+        return id.replace(/\*/g, '.').replace(/§§/g, ' ');
+    },
+
+    objectId2htmlId: function(id) {
+        return id.replace(/\./g, '*').replace(/\s/g, '§§');
+    },
+
     renderPage: function (id) {
         if (!id) {
             console.log('no id given');
@@ -1548,7 +1567,7 @@ var mobile = {
         var name;
         var parentId;
         var parentName = id.split('*');
-        id = id.replace(/\*/g, '.');
+        id = this.htmlId2objectId(id);
         parentName.pop();
         parentName = parentName.join('.');
         var common = this.enums[id] ? this.enums[id].common : null;
@@ -1564,11 +1583,13 @@ var mobile = {
             name       = '';
         }
 
+        var hrefId = this.objectId2htmlId(id);
         // header
         var page =
-            '<div id="' + id.replace(/\./g, '*') + '" data-role="page" class="responsive-grid" data-theme="b">' +
-            '    <div data-role="header" data-position="" data-id="f2" data-theme="b" data-fullscreen="false">' +
-            '        <a href="#' + encodeURIComponent(parentId.replace(/\./g, '*')) + '" data-role="button" data-icon="arrow-l">' + _(parentName) + '</a>' +
+            '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages" data-theme="f">' + // responsive-grid
+            '    <div data-role="header" data-position="" data-id="f2" data-theme="c" data-fullscreen="false">' +
+            '        <div class="nav-panel-btn ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-shadow" style="position: absolute;top: -0.1em;" data-href="' + hrefId + '-nav-panel"></div>' +
+            '        <a href="#' + encodeURIComponent(this.objectId2htmlId(parentId)) + '" data-role="button" data-icon="arrow-l" style="margin-left: 2.3em">' + _(parentName) + '</a>' +
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
             '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
             '    </div>';
@@ -1579,11 +1600,58 @@ var mobile = {
                 '        </ul>' +
                 '    </div>';
             page += '</div>';
-    
-        $('body').append(page);
 
-        var members = this.enums[id].common.members;
-        var $ul = $('div[id="' + id.replace(/\./g, '*') + '"] ul');
+        if (this.panelActive != parentId) {
+            this.panelActive = parentId;
+            // build sidebar
+            var members = this.enums[parentId] && this.enums[parentId].children ? this.enums[parentId].children : null;
+            var panel = '';
+
+            if (members) {
+                var order = (this.enums[parentId].common.mobile && this.enums[parentId].common.mobile[this.user]) ? this.enums[parentId].common.mobile[this.user].order || [] : members;
+                // check if all members are still in order
+                for (var i = 0; i < members.length; i++) {
+                    if (order.indexOf(members[i]) === -1) order.push(members[i]);
+                }
+
+                // build content
+                for (var k = 0; k < order.length; k++) {
+                    var _id = order[k];
+                    var common = this.objects[_id] ? this.objects[_id].common : null;
+
+                    // hide if invisible
+                    if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
+
+                    var name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
+
+                    panel +='        <li data-filtertext="wai-aria voiceover accessibility screen reader">';
+                    panel +='            <a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '">' + _(name) + '</a>';
+                    panel +='        </li>';
+                }
+            }
+            $('#nav-panel-ul').html(panel);
+
+            try {
+                $('#nav-panel-ul').listview('refresh');
+            } catch (e) {
+                $('#nav-panel-ul').listview();
+            }
+        }
+
+        var $page = $(page);
+        $('body').append($page);
+        var that = this;
+
+        $page.find('.nav-panel-btn').click(function () {
+            $('#nav-panel').show().panel('open');
+        });
+
+        if (!this.enums[id] || !this.enums[id].common) {
+            return;
+        }
+
+        var members = this.enums[id].common.members || [];
+        var $ul = $('div[id="' + this.objectId2htmlId(id) + '"] ul');
 
         $ul.listview();
 
@@ -1594,7 +1662,7 @@ var mobile = {
             for (var i = 0; i < members.length; i++) {
                 if (order.indexOf(members[i]) === -1) order.push(members[i]);
             }
-            // check if all orders are still in memebrs
+            // check if all orders are still in members
             for (var i = order.length - 1; i >= 0; i--) {
                 if (members.indexOf(order[i]) === -1) {
                     order.splice(i, 1);
@@ -1657,6 +1725,12 @@ var mobile = {
         });
 
         setTimeout(function () {
+            $('.pages').unbind('swipeleft').on('swipeleft', function(){
+                $('#nav-panel').panel('close');
+            }).unbind('swiperight').on('swiperight', function(){
+                $('#nav-panel').panel('open');
+            });
+
             // set slider width
             $('select[data-role="slider"]').each(function () {
                 $(this).next().css('width', $(this).data('width'));

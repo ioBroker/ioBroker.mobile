@@ -2,6 +2,11 @@
 # ioBroker.mobile
 =================
 
+[![NPM version](http://img.shields.io/npm/v/iobroker.mobile.svg)](https://www.npmjs.com/package/iobroker.mobile)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.mobile.svg)](https://www.npmjs.com/package/iobroker.mobile)
+
+[![NPM](https://nodei.co/npm/iobroker.mobile.png?downloads=true)](https://nodei.co/npm/iobroker.mobile/)
+
 jQuery Mobile based user interface. 
 
 ![Screen](img/screen.png)
@@ -13,6 +18,10 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.3.0
+* (bluefox) fix problem with room names with spaces
+* (bluefox) implement side panel
+
 #### 0.2.2
 * (bluefox) fix locations in edit mode
 * (bluefox) enable visibility of indicators

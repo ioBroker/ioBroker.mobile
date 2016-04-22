@@ -17,14 +17,14 @@
 
         <title>ioBroker.mobile</title>
 
-        <link rel="apple-touch-icon" href="img/favicon.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="img/favicon.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="img/favicon.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="img/favicon.png" />
+        <link rel="apple-touch-icon"          href="img/favicon.png" />
+        <link rel="apple-touch-icon"          href="img/favicon.png" sizes="76x76"   />
+        <link rel="apple-touch-icon"          href="img/favicon.png" sizes="120x120" />
+        <link rel="apple-touch-icon"          href="img/favicon.png" sizes="152x152" />
         <link rel="apple-touch-startup-image" href="img/favicon.png" />
-        <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="img/favicon.png">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait)" href="img/favicon.png">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape)" href="img/favicon.png">
+        <link rel="apple-touch-startup-image" href="img/favicon.png" media="(device-width: 320px) and (device-height: 568px)  and (-webkit-device-pixel-ratio: 2)" />
+        <link rel="apple-touch-startup-image" href="img/favicon.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="img/favicon.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape)" />
 
         <!-- Hier den Pfad/Dateinamen anpassen für individuelle jqueryMobile Themes -->
         <!--link rel="stylesheet" href="lib/css/jquery.mobile-1.4.5.min.css" /-->
@@ -33,8 +33,8 @@
         <link rel="stylesheet" href="lib/css/jquery.mobile.structure-1.4.5.min.css" />
         <link rel="shortcut icon" sizes="196x196" href="img/favicon.png">
         <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
-        <link rel="icon" href="img/favicon.png" type="image/x-icon">
-        <link rel="stylesheet" href="css/mobile.css" />
+        <link rel="icon"          href="img/favicon.png" type="image/x-icon">
+        <link rel="stylesheet"    href="css/mobile.css" />
 
         <!--<link rel="stylesheet" href="css/add2home-2.0.8.css" />-->
 
@@ -68,9 +68,6 @@
             <div class="splash-screen-circle-outer"></div>
             <div class="splash-screen-circle-inner"></div>
         </div>
-        <!--div data-role="popup" data-overlay-theme="a" id="server-disconnect" style="background: orangered" data-history="false">
-            <p class="translate">No connection to server<p>
-        </div-->
 
         <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate"
              style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit mode</div>
@@ -78,11 +75,11 @@
         <div id="info" data-role="page" data-history="false" data-theme="b">
             <div data-role="header" data-position="" data-id="f2" data-theme="b">
                 <a id="mobile-info-back" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" data-iconpos="notext" class="mobile-info ui-btn-left"></a>
-                <h1><span class="translate">Info</span><span class="mobile-version"></span></h1>
+                <h1><span class="translate">Info</span> <span class="mobile-version"></span></h1>
             </div>
             <div data-role="content" data-theme="b">
-                <h3>ioBroker.mobile <span class="mobile-version"></span></h3>
-                Copyright &copy; 2015 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a><br/>
+                <h3>ioBroker.mobile</h3>
+                Copyright &copy; 2015-2016 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a><br/>
                 <span class="translate">License: </span><b>MIT</b>
                 <p>
                     <a class="mobile-editswitch mobile-refresh translate" data-ajax="false" data-role="button" data-icon="refresh" href="?refresh" target="_self">Refresh</a>
@@ -109,6 +106,9 @@
                     <input type="text" id="name_edit" placeholder="name" data-theme="b" class="translateP" style="width: 90%;border: 1px solid gray; height: 2em;">
                     <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-check ui-btn-icon-left" data-rel="back" data-transition="flow" class="translate" id="ok_edit">Ok</a>
                 </div>
+        </div>
+        <div data-role="panel" data-position="left" data-position-fixed="false" data-display="overlay" id="nav-panel" data-theme="a" style="z-index: 1000; display: none">
+            <ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search" id="nav-panel-ul"></ul>
         </div>
     </body>
 </html>
