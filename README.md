@@ -18,6 +18,9 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.4.0
+* (bluefox) add theme switcher
+
 #### 0.3.0
 * (bluefox) fix problem with room names with spaces
 * (bluefox) implement side panel

@@ -28,8 +28,8 @@
 
         <!-- Hier den Pfad/Dateinamen anpassen für individuelle jqueryMobile Themes -->
         <!--link rel="stylesheet" href="lib/css/jquery.mobile-1.4.5.min.css" /-->
-        <link rel="stylesheet" href="lib/css/light/jquery.mobile.min.css" />
-        <link rel="stylesheet" href="lib/css/light/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" id="css-mobile"/>
+        <link rel="stylesheet" id="css-mobile-icons"/>
         <link rel="stylesheet" href="lib/css/jquery.mobile.structure-1.4.5.min.css" />
         <link rel="shortcut icon" sizes="196x196" href="img/favicon.png">
         <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
@@ -72,21 +72,26 @@
         <div id="edit_indicator" class="ui-shadow ui-btn-corner-all ui-btn-inline translate"
              style="border: 1px solid #044062; box-shadow: 0 1px 0 rgba(255,255,255,.3); display: none; font-weight: 700; top: 8px; text-shadow: 0 1px 0 #194b7e; font-family: Helvetica,Arial,sans-serif; color:#fff; padding:3px; padding-left: 10px; padding-right: 10px; position: absolute; right: 40px; background-color: orange; z-index:10000;">Edit mode</div>
 
-        <div id="info" data-role="page" data-history="false" data-theme="b">
-            <div data-role="header" data-position="" data-id="f2" data-theme="b">
+        <div id="info" data-role="page" data-history="false" data-theme="a">
+            <div data-role="header" data-position="" data-id="f2" data-theme="a">
                 <a id="mobile-info-back" data-rel="back" data-role="button" data-icon="arrow-l" data-inline="true" data-iconpos="notext" class="mobile-info ui-btn-left"></a>
                 <h1><span class="translate">Info</span> <span class="mobile-version"></span></h1>
             </div>
-            <div data-role="content" data-theme="b">
+            <div data-role="content" data-theme="a">
                 <h3>ioBroker.mobile</h3>
                 Copyright &copy; 2015-2016 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a><br/>
                 <span class="translate">License: </span><b>MIT</b>
+                <p style="font-size: 16px" class="translate">Used icons</p>
                 <p>
                     <a class="mobile-editswitch mobile-refresh translate" data-ajax="false" data-role="button" data-icon="refresh" href="?refresh" target="_self">Refresh</a>
                     <div><span class="translate">Last synchronized: </span><span class="last-synchronised"></span></div>
                     <a class="mobile-editswitch mobile-noedit  translate" data-ajax="false" data-role="button" data-icon="gear">Edit-Mode</a>
                     <a class="mobile-editswitch mobile-edit    translate" data-ajax="false" data-role="button" data-icon="gear">Finish Edit-Mode</a>
-                    <span class="translate">edit description</span>
+                    <span class="translate">edit description</span><br>
+                    <h3 class="translate">Theme</h3>
+                    <input type="button" data-inline="true" value="Light" class="mobile-theme-selector" data-theme="light" />
+                    <input type="button" data-inline="true" value="Dark"  class="mobile-theme-selector" data-theme="default" />
+                    <input type="button" data-inline="true" value="Grey"  class="mobile-theme-selector" data-theme="grey" />
                 </p>
                 <p>
                     <a data-ajax="false" data-role="button" data-icon="info" class="translate" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Documentation</a>
@@ -96,19 +101,18 @@
                 <p>
                     <fieldset data-role="controlgroup" id="enabledIndicators"></fieldset>
                 </p>
-                <p style="font-size: 10px" class="translate">Used icons</p>
             </div>
         </div>
-        <div data-role="popup" id="popupEditName" data-theme="b" class="ui-corner-all" data-history="false">
+        <div data-role="popup" id="popupEditName" data-theme="a" class="ui-corner-all" data-history="false">
                 <div style="text-align: center">
                     <h3 class="translate">Edit name</h3>
                     <!--label for="name_edit" class="ui-hidden-accessible" class="translate">Name:</label-->
-                    <input type="text" id="name_edit" placeholder="name" data-theme="b" class="translateP" style="width: 90%;border: 1px solid gray; height: 2em;">
+                    <input type="text" id="name_edit" placeholder="name" data-theme="a" class="translateP" style="width: 90%;border: 1px solid gray; height: 2em;">
                     <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-check ui-btn-icon-left" data-rel="back" data-transition="flow" class="translate" id="ok_edit">Ok</a>
                 </div>
         </div>
         <div data-role="panel" data-position="left" data-position-fixed="false" data-display="overlay" id="nav-panel" data-theme="a" style="z-index: 1000; display: none">
-            <ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search" id="nav-panel-ul"></ul>
+            <ul data-role="listview" data-theme="a" data-divider-theme="b" style="margin-top:-16px;" class="nav-search" id="nav-panel-ul"></ul>
         </div>
     </body>
 </html>

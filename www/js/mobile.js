@@ -88,6 +88,7 @@ systemDictionary = {
     "%s hours ago":     {"en": "%s hours ago",      "de": "vor %s Stunden", "ru": "%s час(ов) назад"},
     "%s days and %s h. ago": {"en": "%s days and %s h. ago",  "de": "vor %s Tagen und %s Stunden", "ru": "%s дней и %s час(ов) назад"},
     "%s days ago":      {"en": "%s days ago",       "de": "vor %s days",    "ru": "%s дней назад"},
+    "Theme":            {"en": "Theme",             "de": "Thema",          "ru": "Тема"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -177,7 +178,8 @@ systemDictionary = {
     "SUNSHINEDURATION": {"en": "Sunshine duration", "de": "Sonnenscheindauer", "ru": "Длительность солнечного сияния"},
     "WIND DIRECTION":   {"en": "Wind direction",    "de": "Windrichtung",   "ru": "Направление ветра"},
     "WIND DIRECTION RANGE": {"en": "Wind direction range", "de": "Windrichtungumfang", "ru": "Разброс направления ветра"},
-    "WIND SPEED":       {"en": "Wind speed",        "de": "Windgeschwindigkeit", "ru": "Скорость ветра"}
+    "WIND SPEED":       {"en": "Wind speed",        "de": "Windgeschwindigkeit", "ru": "Скорость ветра"},
+    "INSTALL TEST":     {"en": "Install test",      "de": "Installtest",    "ru": "INSTALL TEST"}
 };
 
 var mobile = {
@@ -312,7 +314,7 @@ var mobile = {
                         if (err) console.error(err);
                         that.conn.getConfig(!that.refresh, function (err, config) {
                             if (err) console.error(err);
-                            that.conn.getObject('system.adapter.' + that.conn.namespace, !that.refresh, function (err, mobileconfig) {
+                            that.conn.getObject('system.adapter.' + that.conn.namespace, !that.refresh, function (err, mobileConfig) {
                                 if (err) console.error(err);
                                 systemLang      = config.language || systemLang;
                                 that.language   = systemLang;
@@ -323,8 +325,10 @@ var mobile = {
                                     that.isFirstTime = false;
                                 }
 
-                                that.config  = mobileconfig && mobileconfig.native ? mobileconfig.native : {indicators: {}};
+                                that.config  = mobileConfig && mobileConfig.native ? mobileConfig.native : {indicators: {}, theme: 'light'};
                                 that.config.indicators = that.config.indicators || {};
+                                that.config.theme      = that.config.theme      || 'light';
+                                that.loadStyle();
                                 that.objects = that.calcChildren(objects);
 
                                 // find for every object the children
@@ -379,6 +383,22 @@ var mobile = {
         }, true/*edit mode */);
 
         $('.mobile-version').html('v' + this.version);
+
+        $('.mobile-theme-selector').click(function () {
+            var oldTheme = that.config.theme;
+            that.config.theme = $(this).data('theme');
+            that.saveConfig();
+            that.loadStyle();
+            $('.mobile-theme-' + oldTheme).removeClass('mobile-theme-' + oldTheme).addClass('mobile-theme-' + that.config.theme);
+
+            $('.mobile-theme-selector').each(function () {
+                if ($(this).data('theme') === that.config.theme) {
+                    $(this).parent().addClass('ui-btn-active');
+                } else {
+                    $(this).parent().removeClass('ui-btn-active');
+                }
+            });
+        });
     },
 
     saveObjects: function (cb) {
@@ -421,7 +441,7 @@ var mobile = {
     saveConfig: function (cb) {
         var that = this;
         this.conn._socket.emit('getObject', 'system.adapter.' + this.conn.namespace, function (err, obj) {
-            obj.common = that.config;
+            obj.native = that.config;
             that.conn._socket.emit('setObject', obj._id, obj, function (err) {
                 cb && cb(err);
             });
@@ -537,7 +557,7 @@ var mobile = {
                         $(this).val(val);
                         $(this).slider('refresh');
                     } else if (role === 'slider') {
-                        $(this).val(val);
+                        $(this).val(val.toString());
                         $(this).slider().slider('refresh');
                     } else if (role === 'select') {
                         $(this).val(val);
@@ -824,7 +844,7 @@ var mobile = {
             struct.controls.push({
                 value: '<div ' +
                     'data-mobile-id="' + obj._id + '" ' +
-                    'class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" ' +
+                    'class="mobile-value  ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" ' +
                     'data-role="value" ' +
                     'data-unit="'  + (obj.common.unit || '') + '" ' +
                     'data-states=' + "'" + states + "'" + ' ' +
@@ -1046,15 +1066,16 @@ var mobile = {
         html += '<tr>\n';
 
         if (control.checkbox && !control.value) {
-            html += '  <td class="mobile-widget-table-begin">' + (control.control || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
             html += '  <td class="mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">'       + (parent.title    || '') + '</td>\n';
             // show title only one time
             parent.title = null;
         } else {
 
             if (parent.title && control.control) {
-                html += '<td class="mobile-widget-table-begin">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ')   || '') + '</td>\n';
-                html += '<td class="mobile-widget-table-control">';
+                html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ')   || '') + '</td>\n';
+                //html += '<td class="mobile-widget-table-control">';
+                html += '<td class="ui-body-b ui-body-inherit">';
                 html += '  <table class="mobile-widget-table">';
                 html += '    <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
                 html += '    <tr><td><div>' + control.control + '</div></td></tr>\n';
@@ -1062,8 +1083,9 @@ var mobile = {
                 html += '</td>';
                 parent.title = null;
             } else if (parent.title && !control.control) {
-                html += '  <td class="mobile-widget-table-begin">' + (control.value   || '') + '</td>\n';
-                html += '  <td class="mobile-widget-table-control">';
+                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value   || '') + '</td>\n';
+                //html += '<td class="mobile-widget-table-control">';
+                html += '<td class="ui-body-b ui-body-inherit">';
                 if (control.lastChange) {
                     html += '      <table class="mobile-widget-table">';
                     html += '        <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
@@ -1076,8 +1098,10 @@ var mobile = {
                 parent.title = null;
             } else if (control.control) {
                 // just control or just value
-                html += '  <td class="mobile-widget-table-begin">'   + (control.value   || '') + '</td>\n';
-                html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">'   + (control.value   || '') + '</td>\n';
+                //html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
+                html += '  <td class="ui-body-b ui-body-inherit">' + (control.control || '') + '</td>\n';
+
             } else {
 
             }
@@ -1091,7 +1115,7 @@ var mobile = {
         // used only in non edit mode
         var html = '';
         html += '<div><table class="mobile-widget-table mobile-widget-b"><tr>\n';
-        html += '   <td class="mobile-widget-table-begin">' + (control.value || '') + (control.control || '') + '</td>\n';
+        html += '   <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value || '') + (control.control || '') + '</td>\n';
         html += '   <td style="position: relative">';
         html += parent.title  ? '<div class="mobile-value-group-title">' + parent.title  + '</div>\n' : '';
         html += state && state.title ? '<div class="mobile-value-small-title">' + state.title + '</div>\n' : '';
@@ -1471,20 +1495,20 @@ var mobile = {
             name = rCommon.mobile && rCommon.mobile[this.user] ? rCommon.mobile[this.user].name || rCommon.name || this.root[i] : rCommon.name || this.root[i];
 
             var page =
-                '<div id="' + this.objectId2htmlId(this.root[i]) + '" data-role="page" class="responsive-grid" data-theme="b">' +
+                '<div id="' + this.objectId2htmlId(this.root[i]) + '" data-role="page" class="responsive-grid" data-theme="a">' +
                 // header
-                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="b" data-fullscreen="false">' +
+                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="a" data-fullscreen="false">' +
                 '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
                 '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
                 '    </div>' +
                 // content
-                '    <div data-role="content" data-theme="c">' +
+                '    <div data-role="content" data-theme="a">' +
                 '       <ul id="menu_' + this.objectId2htmlId(this.root[i]) + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
                 menu +
                 '      </ul>' +
                 '    </div>' +
                 // footer
-                '    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-id="f1" data-theme="b">' +
+                '    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-id="f1" data-theme="a">' +
                 '        <div data-role="navbar" data-grid="' + grid + '">' +
                 '            <ul>' + navbar + '</ul>' +
                 '        </div>' +
@@ -1538,6 +1562,18 @@ var mobile = {
             $('.mobile-refresh').show();
         }
         $('#info').show();
+
+        var theme = this.config.theme || 'light';
+
+        setTimeout(function () {
+            $('.mobile-theme-selector').each(function () {
+                if ($(this).data('theme') === theme) {
+                    $(this).parent().addClass('ui-btn-active');
+                } else {
+                    $(this).parent().removeClass('ui-btn-active');
+                }
+            });
+        }, 500);
     },
 
     htmlId2objectId: function(id) {
@@ -1587,7 +1623,7 @@ var mobile = {
         // header
         var page =
             '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages" data-theme="f">' + // responsive-grid
-            '    <div data-role="header" data-position="" data-id="f2" data-theme="c" data-fullscreen="false">' +
+            '    <div data-role="header" data-position="" data-id="f2" data-theme="a" data-fullscreen="false">' +
             '        <div class="nav-panel-btn ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-shadow" style="position: absolute;top: -0.1em;" data-href="' + hrefId + '-nav-panel"></div>' +
             '        <a href="#' + encodeURIComponent(this.objectId2htmlId(parentId)) + '" data-role="button" data-icon="arrow-l" style="margin-left: 2.3em">' + _(parentName) + '</a>' +
             '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
@@ -1595,7 +1631,7 @@ var mobile = {
             '    </div>';
             // content
             page +=
-                '    <div data-role="content" data-theme="c">' +
+                '    <div data-role="content" data-theme="a">' +
                 '        <ul data-edit-id="' + id + '" data-role="listview" data-inset="true" class="mobile-sortable">' +
                 '        </ul>' +
                 '    </div>';
@@ -1887,6 +1923,12 @@ var mobile = {
             }
         }
         return objs;
+    },
+
+    loadStyle: function (theme) {
+        theme = theme || this.config.theme || 'light';
+        $('#css-mobile').attr('href', 'lib/css/' + theme + '/jquery.mobile.min.css');
+        $('#css-mobile-icons').attr('href', 'lib/css/' + theme + '/jquery.mobile.icons.min.css');
     }
 };
 
