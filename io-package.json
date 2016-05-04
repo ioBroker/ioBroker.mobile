@@ -3,7 +3,11 @@
         "name":                     "mobile",
         "version": "0.4.0",
         "title":                    "Mobile UI",
-        "desc":                     "jQuery Mobile based ioBroker user interface",
+        "desc":                     {
+            "en": "jQuery Mobile based ioBroker user interface",
+            "de": "ioBroker GUI für mobile Geräte",
+            "ru": "ioBroker визуализация для мобильных устройств"
+        },
         "platform":                 "javascript/Node.js",
         "onlyWWW":                  "true",
         "loglevel":                 "info",
@@ -13,14 +17,14 @@
         "keywords":                 ["user", "interface", "webapp", "jquerymobile", "ui"],
         "readme":                   "https://github.com/ioBroker/ioBroker.mobile/blob/master/README.md",
         "singleton":                true,
-		"preserveSettings":         "mobile",
+        "preserveSettings":         "mobile",
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
         "localLink":                "%web_protocol%://%ip%:%web_port%/mobile/index.html",
         "type":                     "visualisation",
         "license":                  "MIT",
-		"noConfig":                 true
+        "noConfig":                 true
     },
     "native": {
         "root": [
