@@ -18,6 +18,9 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.4.1 (2016-05-12)
+* (bluefox) fix control of logical states
+
 #### 0.4.0
 * (bluefox) add theme switcher
 

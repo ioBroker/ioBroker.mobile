@@ -7,6 +7,7 @@
  *
  */
 
+/* jshint browser:--undef */
 /* jshint browser:true */
 /* global document */
 /* global console */
@@ -27,6 +28,7 @@
 /* global $ */
 /* global translateAll */
 /* global jQuery */
+/* global $ */
 /* global document */
 /* jshint -W097 */// jshint strict:false
 "use strict";
@@ -236,8 +238,9 @@ var mobile = {
 
         $('#ok_edit').click(function (e) {
             e.stopPropagation();
-            var id  = $('#name_edit').data('id');
-            var val = $('#name_edit').val();
+            var $nameEdit = $('#name_edit');
+            var id  = $nameEdit.data('id');
+            var val = $nameEdit.val();
 
             if (that.objects[id].common) {
                 that.objects[id].common.mobile = that.objects[id].common.mobile || {};
@@ -378,7 +381,7 @@ var mobile = {
                 }
             },
             onError: function (err) {
-                window.alert(_('Cannot execute %s for %s, because of insufficient permissions', err.command, err.arg), _('Insufficient permissions'), 'alert', 600);
+                window.alert(_('Cannot execute %s for %s, because of insufficient permissions', err.command, err.arg));
             }
         }, true/*edit mode */);
 
@@ -586,18 +589,16 @@ var mobile = {
                                     var values = JSON.parse(states);
                                     if (values[val] === undefined) {
                                         rawVal = val;
-                                        val    = val;
                                     } else {
                                         rawVal = values[val];
                                         val    = _(values[val]);
                                     }
                                 } catch (ex) {
-                                    console.error('Cannot parse states for ' + id);
+                                    console.error('Cannot parse states for ' + _id);
                                 }
                             } else if (typeof states === 'object') {
                                 if (states[val] === undefined) {
                                     rawVal = val;
-                                    val    = val;
                                 } else {
                                     rawVal = states[val];
                                     val    = _(states[val]);
@@ -686,8 +687,8 @@ var mobile = {
             } else if (typeof states == 'string' && states[0] != '{') {
                 var values = states.split(';');
                 states = {};
-                for (var v = 0; v < values.length; v++) {
-                    var parts = values.split(':');
+                for (var w = 0; w < values.length; w++) {
+                    var parts = values[w].split(':');
                     states[parts[0]] = parts[1];
                 }
                 vStates = states;
@@ -767,14 +768,14 @@ var mobile = {
                     off = vStates['false'];
                 } else {
                     var count = 0;
-                    for (var v in vStates) {
+                    for (var vv in vStates) {
                         if (count === 0) {
-                            min = v;
-                            off = vStates[v];
+                            min = vv;
+                            off = vStates[vv];
                         } else
                         if (count === 1) {
-                            on = vStates[v];
-                            max = v;
+                            on = vStates[vv];
+                            max = vv;
                             break;
                         }
                         count++;
@@ -1331,7 +1332,6 @@ var mobile = {
                     if ($(this).data('processed')) return;
                     $(this).data('processed', true);
 
-                    var $elem;
                     that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
                     var mobile = that.objects[id].common.mobile[that.user];
@@ -1584,6 +1584,22 @@ var mobile = {
         return id.replace(/\./g, '*').replace(/\s/g, '§§');
     },
 
+    convertValue: function (id, val) {
+        if (typeof val === 'string') {
+            if (val === 'true') {
+                val = true;
+            } else
+            if (val === 'false') {
+                val = false;
+            } else {
+                var f = parseFloat(val);
+                if (f.toString() === val) val = f;
+            }
+        }
+
+        return val;
+    },
+
     renderPage: function (id) {
         if (!id) {
             console.log('no id given');
@@ -1692,7 +1708,6 @@ var mobile = {
         $ul.listview();
 
         if (members) {
-            var that = this;
             var order = (this.enums[id].common.mobile && this.enums[id].common.mobile[this.user]) ? this.enums[id].common.mobile[this.user].order || [] : members;
             // check if all members are still in order
             for (var i = 0; i < members.length; i++) {
@@ -1706,6 +1721,7 @@ var mobile = {
             }
             for (var i = 0; i < order.length; i++) {
                 var children = this.objects[order[i]] ? this.objects[order[i]].children : undefined;
+
                 this.conn.getObject(order[i], !this.refresh, function (err, obj) {
                     if (err) console.error(err);
 
@@ -1727,7 +1743,6 @@ var mobile = {
         }
 
         // read states
-        var that = this;
         if (this.queueStates.length) {
             this.conn.getStates(this.queueStates, function (err, states) {
                 for (var id in states) {
@@ -1744,17 +1759,14 @@ var mobile = {
             var id  = $(this).data('mobile-id');
             if ($(this).attr('type') === 'button') {
                 if ($(this).data('type') === 'set') {
-                    if (id) that.conn.setState(id, $('.mobile-value[data-mobile-id="' + id + '"]').val() || '');
+                    var val = that.convertValue(id, $('.mobile-value[data-mobile-id="' + id + '"]').val());
+                    if (id) that.conn.setState(id, val);
                 } else {
                     if (id) that.conn.setState(id, true);
                 }
             } else {
-                var val = $(this).val();
-                if (id && that.states[id].val.toString() != val) {
-                    if ($(this).data('type') === 'number') {
-                        val = parseFloat(val);
-                    }
-
+                var val = that.convertValue($(this).val());
+                if (id && that.states[id].val !== val) {
                     that.conn.setState(id, val);
                 }
             }
@@ -1786,9 +1798,13 @@ var mobile = {
             $('.mobile-control').on('slidestop stop', function () {
                 var id  = $(this).data('mobile-id');
                 if (id) {
-                    that.states[id].val  = $(this).val();
+                    var val = that.convertValue(id, $(this).val());
+                    if (that.states[id].val != val) {
+                        that.states[id].lc  = (new Date()).getTime();
+                        that.states[id].val = val;
+                    }
                     that.states[id].ack  = false;
-                    that.states[id].time = (new Date()).getTime();
+                    that.states[id].ts   = (new Date()).getTime();
                     that.conn.setState(id, that.states[id].val);
                 }
             });
@@ -1801,7 +1817,7 @@ var mobile = {
         // do not destroy first level pages
 
         if (!this.erasePage[id] && id.split('*').length > 2) {
-            console.log('Add to destroy: ' + id)
+            console.log('Add to destroy: ' + id);
             this.erasePage[id] = setTimeout(function () {
                 delete that.erasePage[id];
                 if ($.mobile.activePage.attr('id') !== id) {
@@ -2051,8 +2067,7 @@ function onEnumVisibility(e) {
 }
 
 function onForward(e) {
-    var href = $(this).data('href');
-    document.location.href = href;
+    document.location.href = $(this).data('href');
     e.stopPropagation();
 }
 
