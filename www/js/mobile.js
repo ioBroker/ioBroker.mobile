@@ -181,7 +181,8 @@ systemDictionary = {
     "WIND DIRECTION":   {"en": "Wind direction",    "de": "Windrichtung",   "ru": "Направление ветра"},
     "WIND DIRECTION RANGE": {"en": "Wind direction range", "de": "Windrichtungumfang", "ru": "Разброс направления ветра"},
     "WIND SPEED":       {"en": "Wind speed",        "de": "Windgeschwindigkeit", "ru": "Скорость ветра"},
-    "INSTALL TEST":     {"en": "Install test",      "de": "Installtest",    "ru": "INSTALL TEST"}
+    "INSTALL TEST":     {"en": "Install test",      "de": "Installtest",    "ru": "INSTALL TEST"},
+    "VENT_CLOSED":      {"en": "Closed",            "de": "Ventil Zu",      "ru": "Закрыто"}
 };
 
 var mobile = {
