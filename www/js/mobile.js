@@ -186,7 +186,7 @@ systemDictionary = {
 };
 
 var mobile = {
-    version: "0.0.5",
+    version: "0.4.2",
     requiredServerVersion: '0.0.0',
     enums:        {},
     objects:      {},

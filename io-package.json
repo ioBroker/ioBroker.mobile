@@ -1,7 +1,14 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.1",
+        "version": "0.4.2",
+        "news": {
+            "0.4.2": {
+                "en": "update version number",
+                "de": "update version number",
+                "ru": "update version number"
+            }
+        },
         "title":                    "Mobile UI",
         "desc":                     {
             "en": "jQuery Mobile based ioBroker user interface",
