@@ -1445,6 +1445,11 @@ var mobile = {
             for (var j = 0; j < this.root.length; j++) {
                 common = this.objects[this.root[j]] ? this.objects[this.root[j]].common : null;
 
+                if (!common) {
+                    console.error('Invalid object "' + _id + '" ');
+                    continue;
+                }
+                
                 // hide if invisible
                 if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
 
@@ -1484,6 +1489,11 @@ var mobile = {
             for (var k = 0; k < order.length; k++) {
                 var _id = order[k];
                 common = this.objects[_id] ? this.objects[_id].common : null;
+
+                if (!common) {
+                    console.error('Invalid object "' + _id + '" ');
+                    continue;
+                }
 
                 // hide if invisible
                 if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
