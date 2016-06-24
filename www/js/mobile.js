@@ -2,7 +2,7 @@
  *  ioBroker.mobile
  *  https://github.com/ioBroker/ioBroker.mobile
  *
- *  Copyright (c) 2015 bluefox https://github.com/GermanBluefox
+ *  Copyright (c) 2015-2016 bluefox https://github.com/GermanBluefox
  *  MIT
  *
  */
@@ -403,6 +403,20 @@ var mobile = {
                 }
             });
         });
+
+        that.monitorSleep();
+    },
+    monitorSleep: function () {
+        var that = this;
+        that.lastTimerUpdate = new Date().getTime();
+        that.sleepTimer = setTimeout(function () {
+            var now = new Date().getTime();
+            if (now - that.lastTimerUpdate > 31000) {
+                window.location.reload();
+            } else{
+                that.monitorSleep();
+            }
+        }, 10000);
     },
 
     saveObjects: function (cb) {
@@ -1649,7 +1663,7 @@ var mobile = {
         var hrefId = this.objectId2htmlId(id);
         // header
         var page =
-            '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages" data-theme="f">' + // responsive-grid
+            '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages ui-body-a" data-theme="f">' + // responsive-grid
             '    <div data-role="header" data-position="" data-id="f2" data-theme="a" data-fullscreen="false">' +
             '        <div class="nav-panel-btn ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-shadow" style="position: absolute;top: -0.1em;" data-href="' + hrefId + '-nav-panel"></div>' +
             '        <a href="#' + encodeURIComponent(this.objectId2htmlId(parentId)) + '" data-role="button" data-icon="arrow-l" style="margin-left: 2.3em">' + _(parentName) + '</a>' +
