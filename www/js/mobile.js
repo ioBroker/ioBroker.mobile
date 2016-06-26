@@ -1555,7 +1555,9 @@ var mobile = {
         this.renderIndicatorSettings();
 
         $.mobile.initializePage();
-        $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.objectId2htmlId(this.root[0]) : url.hash);
+        setTimeout(function () {
+            $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.objectId2htmlId(this.root[0]) : url.hash);
+        }, 500);
         $('#nav-panel').panel();
 
         // manage enumerations

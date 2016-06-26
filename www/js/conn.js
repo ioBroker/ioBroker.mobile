@@ -223,7 +223,13 @@ var servConn = {
                 that._socket.emit('name', connOptions.name);
                 console.log((new Date()).toISOString() + ' Connected => authenticate');
                 setTimeout(function () {
+                    var wait = setTimeout(function() {
+                        console.error('No answer from server')
+                        window.location.reload();
+                    }, 3000);
+
                     that._socket.emit('authenticate', function (isOk, isSecure) {
+                        clearTimeout(wait);
                         console.log((new Date()).toISOString() + ' Authenticated: ' + isOk);
                         if (isOk) {
                             that._onAuth(objectsRequired, isSecure);

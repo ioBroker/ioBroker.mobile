@@ -1,7 +1,7 @@
 {
   "name": "iobroker.mobile",
   "description": "jQuery Mobile based ioBroker user interface",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "author": {
     "name": "bluefox",
     "email": "dogafox@gmail.com"

@@ -18,6 +18,9 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.4.4 (2016-06-24)
+* (bluefox) reload if problems occur
+
 #### 0.4.3 (2016-06-24)
 * (bluefox) just check invalid objects
 
