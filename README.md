@@ -18,6 +18,9 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.4.5 (2016-07-01)
+* (bluefox) fix open first page
+
 #### 0.4.4 (2016-06-24)
 * (bluefox) reload if problems occur
 

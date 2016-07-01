@@ -1555,8 +1555,9 @@ var mobile = {
         this.renderIndicatorSettings();
 
         $.mobile.initializePage();
+        var that = this;
         setTimeout(function () {
-            $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + this.objectId2htmlId(this.root[0]) : url.hash);
+            $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + that.objectId2htmlId(that.root[0]) : url.hash);
         }, 500);
         $('#nav-panel').panel();
 
@@ -1564,7 +1565,6 @@ var mobile = {
         this.renderEditButtons();
 
         // init all indicator settings
-        var that = this;
         $('.mobile-indicator-settings').change(function () {
             var ind = $(this).data('name');
             that.config.indicators[ind] = $(this).prop('checked');

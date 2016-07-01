@@ -1,19 +1,24 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.4",
+        "version": "0.4.5",
         "news": {
+            "0.4.5": {
+                "en": "fix open first page",
+                "de": "fix open first page",
+                "ru": "fix open first page"
+            },
 			"0.4.4": {
                 "en": "reload if problems occur",
                 "de": "reload if problems occur",
                 "ru": "reload if problems occur"
             },
-            "0.4.3": {
+			"0.4.3": {
                 "en": "check invalid objects",
                 "de": "check invalid objects",
                 "ru": "check invalid objects"
             },
-			"0.4.2": {
+            "0.4.2": {
                 "en": "update version number",
                 "de": "update version number",
                 "ru": "update version number"
