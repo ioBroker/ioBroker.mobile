@@ -855,7 +855,7 @@ var mobile = {
                 select: true,
                 control: text
             });
-        }else {
+        } else {
             // non controllable value
             struct.controls.push({
                 value: '<div ' +
@@ -926,7 +926,11 @@ var mobile = {
 
         if (obj.common.icon) {
             var adapter = obj._id.split('.').shift();
-            struct.icon = '/adapter/' + adapter + '/' + obj.common.icon;
+            if (obj.common.icon[0] !== '/') {
+                struct.icon = '/adapter/' + adapter + '/' + obj.common.icon;
+            } else {
+                struct.icon = obj.common.icon;
+            }
         }
 
         if (obj.children && obj.children.length) {

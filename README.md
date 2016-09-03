@@ -11,6 +11,45 @@ jQuery Mobile based user interface.
 
 ![Screen](img/screen.png)
 
+## Usage
+To use mobile UI you need to create the logical structure in admin.
+
+### Supported types
+
+- Sliders:
+![Slider](img/widget-slider.png)
+    - role = "level.dimmer"
+    - role = "level.blind" 
+    - role consists "level", common.type is "number", common.write is "true" and common.max is defined
+    - common.type = "number", common.write is "true" and common.max is defined
+
+- Buttons (must be explicit set to visible via edit mode):
+![Slider](img/widget-button.png)
+    - role consists "button"
+    - role consists "action"
+    
+    Buttons are invisible by default. They just writes "true" if pressed.
+
+- Switch: 
+![Slider](img/widget-switch.png)
+    - common.type = "boolean", common.write is "true"
+
+- Set with input field:
+    - common.type = "number", common.max is undefined, common.write is "true", common.states is undefined
+
+- Set with states:
+    - common.type = "number", common.max is undefined, common.write is "true", common.states is defined
+
+- Show boolean value:
+![Slider](img/widget-value-boolean.png)
+    - common.write is "false" and common.type is "boolean"
+
+- Show value:
+![Slider](img/widget-value-number.png)
+    - common.write is "false" and common.type is not "boolean"
+
+You can define the icon for state if writes into common.icon some path, e.g. "/vis.0/main/img/icon.png"
+
 ToDO:
 - edit of Icon
 - show some widgets with more icons
@@ -18,6 +57,9 @@ ToDO:
 - show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changlog
+#### 0.4.6 (2016-09-03)
+* (bluefox) support of custom images
+
 #### 0.4.5 (2016-07-01)
 * (bluefox) fix open first page
 
