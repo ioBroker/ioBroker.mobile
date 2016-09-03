@@ -186,7 +186,7 @@ systemDictionary = {
 };
 
 var mobile = {
-    version: "0.4.2",
+    version: "0.4.6",
     requiredServerVersion: '0.0.0',
     enums:        {},
     objects:      {},
@@ -206,6 +206,7 @@ var mobile = {
     lastTimes:    [],
     activePage:   null,
     erasePage:    {},
+    isMobile:     null,
 
     icons:        {
         temperature:  'temp_temperature.svg',
@@ -213,8 +214,29 @@ var mobile = {
         setpoint:     'temp_control.svg'
     },
 
+    detectMobile: function () {
+        if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            return true;
+        }
+        else {
+            if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+
     init: function (id) {
         var that = this;
+        //this.isMobile = this.detectMobile();
 
         this.conn.namespace   = 'mobile.0';
         this.conn._useStorage = true;
@@ -406,6 +428,7 @@ var mobile = {
 
         that.monitorSleep();
     },
+
     monitorSleep: function () {
         var that = this;
         that.lastTimerUpdate = new Date().getTime();
@@ -581,7 +604,9 @@ var mobile = {
                         $(this).val(val);
                         $(this).selectmenu().selectmenu('refresh');
                         $(this).prev().removeClass('ui-body-inherit');
-                    } else {
+                    } else if($(this).prop('tagName') === 'INPUT') {
+                        $(this).val(val);
+                    } else{
                         if (val === 'true'  || val === true) {
                             rawVal = true;
                             val = _('true');
@@ -831,7 +856,8 @@ var mobile = {
             });
         } else if (obj.common.write && !states) {
             struct.controls.push({
-                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" data-role="value" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' />' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                value:   (obj.common.unit ? '<span>' + obj.common.unit + '</span>': '') + '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: 50px" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>',
+                valueStyle: 'margin-top: 16px',
                 control: '<input ' +
                     'class="mobile-control" ' +
                     'type="button" '   +
@@ -1093,7 +1119,7 @@ var mobile = {
         } else {
 
             if (parent.title && control.control) {
-                html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ')   || '') + '</td>\n';
+                html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + ' mobile-value-with-units" style="' + (control.valueStyle || '') + '">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ') || '') + '</td>\n';
                 //html += '<td class="mobile-widget-table-control">';
                 html += '<td class="ui-body-b ui-body-inherit">';
                 html += '  <table class="mobile-widget-table">';
@@ -1786,7 +1812,15 @@ var mobile = {
         }
 
         // on change
-        $('.mobile-control').unbind('click').click(function (e) {
+        $('.mobile-control').unbind('change').change(function (e) {
+            if ($(this).prop('tagName') !== 'SELECT') return;
+            var id  = $(this).data('mobile-id');
+            var val = that.convertValue(id, $(this).val());
+            if (id && that.states[id].val !== val) {
+                that.conn.setState(id, val);
+            }
+        }).unbind('click').click(function (e) {
+            if ($(this).prop('tagName') === 'SELECT') return;
             var id  = $(this).data('mobile-id');
             if ($(this).attr('type') === 'button') {
                 if ($(this).data('type') === 'set') {
@@ -1796,7 +1830,7 @@ var mobile = {
                     if (id) that.conn.setState(id, true);
                 }
             } else {
-                var val = that.convertValue($(this).val());
+                var val = that.convertValue(id, $(this).val());
                 if (id && that.states[id].val !== val) {
                     that.conn.setState(id, val);
                 }

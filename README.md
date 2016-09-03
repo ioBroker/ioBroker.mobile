@@ -14,9 +14,28 @@ jQuery Mobile based user interface.
 ## Usage
 To use mobile UI you need to create the logical structure in admin.
 
-### Supported types
+E.g.:
+Go to the tab "Enums" and create new enum, e.g. "customs".
+![Slider](img/starting1.png)
 
-- Sliders:
+Create new enum group in "enum.customs", e.g. "controls"
+![Slider](img/starting2.png)
+
+Add some states to "enum.customs.controls"
+![Slider](img/starting3.png)
+
+![Slider](img/starting4.png)
+
+Go to mobile page, press on "Info" (top, right) and press "Refresh" to load objects from ioBroker
+![Slider](img/starting5.png)
+
+After reload you can go to "Customs => controls"
+![Slider](img/starting6.png)
+
+
+## Supported types
+
+### Sliders:
 
 ![Slider](img/widget-slider.png)
 
@@ -25,51 +44,168 @@ To use mobile UI you need to create the logical structure in admin.
     - role consists "level", common.type is "number", common.write is "true" and common.max is defined
     - common.type = "number", common.write is "true" and common.max is defined
 
-- Buttons (must be explicit set to visible via edit mode):
+Example:
 
-![Slider](img/widget-button.png)
+```
+{
+  "_id": "javascript.0.mobile.inputSlider",
+  "type": "state",
+  "common": {
+    "name": "Slider",
+    "type": "number",
+    "read": true,
+    "write": true,
+    "min": 0,
+    "max": 100
+  },
+  "native": {}
+}
+```
+
+### Buttons (must be explicit set to visible via edit mode):
+
+![Button](img/widget-button.png)
 
     - role consists "button"
     - role consists "action"
     
-    Buttons are invisible by default. They just writes "true" if pressed.
+Buttons are invisible by default. They just writes "true" if pressed.
 
-- Switch: 
+Example:
 
-![Slider](img/widget-switch.png)
+```
+{
+  "_id": "javascript.0.mobile.inputButton",
+  "type": "state",
+  "common": {
+    "name": "Button",
+    "role": "button",
+    "type": "boolean",
+    "write": true
+  },
+  "native": {}
+}
+```
+
+### Switch: 
+
+![Switch](img/widget-switch.png)
 
     - common.type = "boolean", common.write is "true"
 
-- Set with input field:
+Example:
+
+```
+{
+  "_id": "javascript.0.mobile.inputSwitch",
+  "type": "state",
+  "common": {
+    "name": "Switch",
+    "type": "boolean",
+    "write": true
+  },
+  "native": {}
+}
+```
+
+### Set with input field:
+
+![Input field](img/widget-input-number.png)
 
     - common.type = "number", common.max is undefined, common.write is "true", common.states is undefined
 
-- Set with states:
+Example:
+
+```
+{
+  "_id": "javascript.0.mobile.inputNumber",
+  "type": "state",
+  "common": {
+    "name": "Number",
+    "type": "number",
+    "write": true
+  },
+  "native": {}
+}
+```
+
+### Set with states:
+
+![States](img/widget-value-states.png)
 
     - common.type = "number", common.max is undefined, common.write is "true", common.states is defined
 
-- Show boolean value:
+Example:
 
-![Slider](img/widget-value-boolean.png)
+```
+{
+  "_id": "javascript.0.mobile.inputNumber",
+  "type": "state",
+  "common": {
+    "name": "Number",
+    "type": "number",
+    "write": true,
+    "states": {
+          "1": "Value 1",
+          "2": "Value 2"
+        }
+  },
+  "native": {}
+}
+```
+
+### Show boolean value:
+
+![Boolean value](img/widget-value-boolean.png)
 
     - common.write is "false" and common.type is "boolean"
 
-- Show value:
+Example:
 
-![Slider](img/widget-value-number.png)
+```
+{
+  "_id": "javascript.0.mobile.valueBoolean",
+  "type": "state",
+  "common": {
+    "name": "Boolean value",
+    "type": "bolean"
+  },
+  "native": {}
+}
+```
+
+### Show value:
+
+![Number value](img/widget-value-number.png)
+
     - common.write is "false" and common.type is not "boolean"
 
-You can define the icon for state if writes into common.icon some path, e.g. "/vis.0/main/img/icon.png"
+Example:
 
-ToDO:
+```
+{
+  "_id": "javascript.0.mobile.valueNumber",
+  "type": "state",
+  "common": {
+    "name": "Number value",
+    "type": "number",
+    "unit": "%"
+  },
+  "native": {}
+}
+```
+
+## ToDO:
 - edit of Icon
 - show some widgets with more icons
 - tablet view
 - show 0% - 100% or (closed window/opened window) by blinds
 
-## Changlog
+## Changelog
+
 #### 0.4.6 (2016-09-03)
 * (bluefox) support of custom images
+* (bluefox) fix input number and select value
 
 #### 0.4.5 (2016-07-01)
 * (bluefox) fix open first page
