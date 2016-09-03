@@ -17,34 +17,45 @@ To use mobile UI you need to create the logical structure in admin.
 ### Supported types
 
 - Sliders:
+
 ![Slider](img/widget-slider.png)
+
     - role = "level.dimmer"
     - role = "level.blind" 
     - role consists "level", common.type is "number", common.write is "true" and common.max is defined
     - common.type = "number", common.write is "true" and common.max is defined
 
 - Buttons (must be explicit set to visible via edit mode):
+
 ![Slider](img/widget-button.png)
+
     - role consists "button"
     - role consists "action"
     
     Buttons are invisible by default. They just writes "true" if pressed.
 
 - Switch: 
+
 ![Slider](img/widget-switch.png)
+
     - common.type = "boolean", common.write is "true"
 
 - Set with input field:
+
     - common.type = "number", common.max is undefined, common.write is "true", common.states is undefined
 
 - Set with states:
+
     - common.type = "number", common.max is undefined, common.write is "true", common.states is defined
 
 - Show boolean value:
+
 ![Slider](img/widget-value-boolean.png)
+
     - common.write is "false" and common.type is "boolean"
 
 - Show value:
+
 ![Slider](img/widget-value-number.png)
     - common.write is "false" and common.type is not "boolean"
 
