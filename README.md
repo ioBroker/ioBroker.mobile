@@ -203,6 +203,10 @@ Example:
 
 ## Changelog
 
+#### 0.4.7 (2016-09-10)
+* (bluefox) make narrow screen on wide displays
+* (bluefox) fix some widgets
+
 #### 0.4.6 (2016-09-03)
 * (bluefox) support of custom images
 * (bluefox) fix input number and select value

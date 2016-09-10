@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.6",
+        "version": "0.4.7",
         "news": {
+            "0.4.7": {
+                "en": "fix input number and select value",
+                "de": "Korrigieren Nummereingabe und Wertauswahl",
+                "ru": "исправить ввод номера и выбор значения"
+            },
             "0.4.6": {
                 "en": "fix input number and select value",
                 "de": "Korrigieren Nummereingabe und Wertauswahl",

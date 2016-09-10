@@ -89,6 +89,14 @@ button,
     font-family: "Open Sans", sans-serif;
 }
 
+@media only screen and (min-width: 800px){
+    .ui-content {
+        text-align:  center;
+    }
+    .ui-content {
+        max-width: 400px !important;
+    }
+}
 /* Eingabefeld neben Slider ausblenden */
 input.ui-slider-input {
     display : none !important;
@@ -646,11 +654,11 @@ ul.mobile-page-left h2 {
 }
 
 .mobile-indicator-working {
-     background-image: url('../img/gear.png');
+    background-image: url('../img/gear.png');
     -webkit-animation:  spin 4s linear infinite;
     -moz-animation:     spin 4s linear infinite;
     animation:          spin 4s linear infinite;
- }
+}
 
 .mobile-indicator {
     background-image: url('../img/error.png');
@@ -755,7 +763,7 @@ ul.mobile-page-left h2 {
 .mobile-value-alone, .mobile-value-with-units {
     float: left;
     width: 2.5em;
-    display: inline-block;
+    /*display: inline-block;*/
     word-wrap: break-word;
     background: #3388cc;
     text-align: center;
@@ -767,7 +775,9 @@ ul.mobile-page-left h2 {
     padding: 2px;
     color: white !important;
 }
-
+.mobile-theme-grey .mobile-value-alone, .mobile-theme-grey .mobile-value-with-units {
+    background: inherit;
+}
 .mobile-theme-light .mobile-value-alone,
 .mobile-theme-light .mobile-value-with-units {
     background: -moz-linear-gradient(left, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important;
@@ -775,7 +785,7 @@ ul.mobile-page-left h2 {
     background: -webkit-linear-gradient(left, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important;
     background: -o-linear-gradient(left, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important;
     background: -ms-linear-gradient(left, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important;
-    background: linear-gradient(to right, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important ;
+    background: linear-gradient(to right, #3388cc 0%, #3388cc 70%, rgba(255,255,255,0) 100%) !important;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3387cc', endColorstr='#ffffff', GradientType=1 ) !important;
 }
 
@@ -786,9 +796,22 @@ ul.mobile-page-left h2 {
     background: -webkit-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
     background: -o-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
     background: -ms-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
-    background: linear-gradient(to right, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important ;
+    background: linear-gradient(to right, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3387cc', endColorstr='#ffffff', GradientType=1 ) !important;
 }
+
+.mobile-theme-grey .mobile-value-alone,
+.mobile-theme-grey .mobile-value-with-units {
+    background: inherit !important;
+    border-radius: 0 0 0 0 !important;
+    /*    background: -moz-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
+        background: -webkit-gradient(left top, right top, color-stop(0%, #2ad), color-stop(70%, #2ad), color-stop(100%, rgba(255,255,255,0))) !important;
+        background: -webkit-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
+        background: -o-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
+        background: -ms-linear-gradient(left, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
+        background: linear-gradient(to right, #2ad 0%, #2ad 70%, rgba(255,255,255,0) 100%) !important;
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3387cc', endColorstr='#ffffff', GradientType=1 ) !important;
+    */}
 
 .mobile-value-alone {
     height: 1.8em;
@@ -843,6 +866,9 @@ ul.mobile-page-left h2 {
 
 .mobile-widget-table-begin {
     width: 2.5em;
+}
+.mobile-widget-table-end {
+    width: 100%;
 }
 .mobile-widget-icon-floating {
     position: absolute;

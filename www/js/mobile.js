@@ -31,7 +31,7 @@
 /* global $ */
 /* global document */
 /* jshint -W097 */// jshint strict:false
-"use strict";
+'use strict';
 
 systemDictionary = {
     'Views': {'en': 'Views', 'de': 'Views', 'ru': 'Страницы'},
@@ -241,10 +241,10 @@ var mobile = {
         this.conn.namespace   = 'mobile.0';
         this.conn._useStorage = true;
         var url = $.mobile.path.parseUrl(location.href);
-        this.editMode = (url.search == '?edit');
+        this.editMode = (url.search === '?edit');
         if (this.editMode) {
             this.conn.clearCache();
-        } else if (url.search == '?refresh') {
+        } else if (url.search === '?refresh') {
             this.conn.clearCache();
             location.href = './' + location.hash;
         }
@@ -372,7 +372,7 @@ var mobile = {
                                     that.enums = enums;
                                     for (var e in that.enums) {
                                         var parts = e.split('.');
-                                        if (parts.length == 2) that.root.push(e);
+                                        if (parts.length === 2) that.root.push(e);
                                     }
 
                                     that.renderRootPages();
@@ -563,7 +563,7 @@ var mobile = {
         $('[data-mobile-id="' + id + '"]').each(function () {
             var _id  = $(this).data('mobile-id'); // actually _id and id must be equal
             var role = $(this).data('role');
-            if (role == 'lastChange') {
+            if (role === 'lastChange') {
                 var lc = that.states[_id].lc;
                 var pos = that.lastTimes.indexOf(_id);
                 if (!lc) {
@@ -590,7 +590,7 @@ var mobile = {
                     that.states[_id].val = '';
                 }
 
-                if (force || val != that.states[_id].val.toString()) {
+                if (force || val !== that.states[_id].val.toString()) {
                     var val    = that.states[_id].val;
                     var rawVal = that.states[_id].val;
 
@@ -598,8 +598,18 @@ var mobile = {
                         $(this).val(val);
                         $(this).slider('refresh');
                     } else if (role === 'slider') {
-                        $(this).val(val.toString());
-                        $(this).slider().slider('refresh');
+                        var found = false;
+                        var sVal = val.toString();
+                        $(this).find('option').each(function () {
+                            if ($(this).val() === sVal) {
+                                found = true;
+                                return false;
+                            }
+                        });
+                        if (found) {
+                            $(this).val(sVal);
+                            $(this).slider().slider('refresh');
+                        }
                     } else if (role === 'select') {
                         $(this).val(val);
                         $(this).selectmenu().selectmenu('refresh');
@@ -615,7 +625,7 @@ var mobile = {
                             rawVal = false;
                             val = _('false');
                         } else
-                        if (val !== null && parseFloat(val).toString() == val.toString()) {
+                        if (val !== null && parseFloat(val).toString() === val.toString()) {
                             val = parseFloat(val);
                             rawVal = val;
                         }
@@ -646,14 +656,14 @@ var mobile = {
                             }
                         }
 
-                        if (role == 'indicator' || role == 'error') {
+                        if (role === 'indicator' || role === 'error') {
                             if (!rawVal) {
                                 $(this).hide();
                             } else {
                                 $(this).show().attr('data-value', rawVal);
                             }
 
-                            if (role == 'error') {
+                            if (role === 'error') {
                                 if (rawVal) {
                                     $(this).addClass('mobile-error');
                                 } else {
@@ -721,10 +731,10 @@ var mobile = {
         var stateName = obj._id.split('.').pop();
 
         if (states) {
-            if (typeof states == 'object') {
+            if (typeof states === 'object') {
                 vStates = states;
                 states = JSON.stringify(states);
-            } else if (typeof states == 'string' && states[0] != '{') {
+            } else if (typeof states === 'string' && states[0] !== '{') {
                 var values = states.split(';');
                 states = {};
                 for (var w = 0; w < values.length; w++) {
@@ -738,9 +748,9 @@ var mobile = {
 
         if (!this.states[obj._id]) {
             // read states
-            if (this.queueStates.indexOf(obj._id)  == -1) this.queueStates.push(obj._id);
+            if (this.queueStates.indexOf(obj._id)  === -1) this.queueStates.push(obj._id);
         } else {
-            if (this.updateStates.indexOf(obj._id) == -1) this.updateStates.push(obj._id);
+            if (this.updateStates.indexOf(obj._id) === -1) this.updateStates.push(obj._id);
         }
 
         struct.controls = [];
@@ -1006,11 +1016,11 @@ var mobile = {
         var parent = obj._id.split('.');
         parent.pop();
         parent = parent.join('.');
-        if (this.objects[parent] && this.objects[parent].type == 'device') {
+        if (this.objects[parent] && this.objects[parent].type === 'device') {
             this.renderIndicators(this.objects[parent], $elem, originId);
         } else {
             var checked = $elem.data('indicators') || [];
-            if (checked.indexOf(obj._id) == -1) {
+            if (checked.indexOf(obj._id) === -1) {
                 var $indicators = $elem.find('.mobile-indicators');
                 if (!$indicators.length) {
                     $elem.append('<div class="mobile-indicators"></div>');
@@ -1035,15 +1045,15 @@ var mobile = {
 
                                 if (!this.states[id]) {
                                     // read states
-                                    if (this.queueStates.indexOf(id) == -1) this.queueStates.push(id);
+                                    if (this.queueStates.indexOf(id) === -1) this.queueStates.push(id);
                                 } else {
-                                    if (this.updateStates.indexOf(id) == -1) this.updateStates.push(id);
+                                    if (this.updateStates.indexOf(id) === -1) this.updateStates.push(id);
                                 }
                                 var states = this.objects[id].common.states || '';
                                 if (states) {
-                                    if (typeof states == 'object') {
+                                    if (typeof states === 'object') {
                                         states = JSON.stringify(states);
-                                    } else if (typeof states == 'string' && states[0] != '{') {
+                                    } else if (typeof states === 'string' && states[0] !== '{') {
                                         var values = states.split(';');
                                         states = {};
                                         for (var v = 0; v < values.length; v++) {
@@ -1081,7 +1091,7 @@ var mobile = {
             }
         }
     },
-    
+
     formatLastChange: function (ms) {
         if (ms < 946684800000) ms *= 1000; // if less than 2000.01.01 may be it is seconds
         var now = new Date().getTime();
@@ -1113,15 +1123,15 @@ var mobile = {
 
         if (control.checkbox && !control.value) {
             html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
-            html += '  <td class="mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">'       + (parent.title    || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">'       + (parent.title    || '') + '</td>\n';
             // show title only one time
             parent.title = null;
         } else {
 
             if (parent.title && control.control) {
-                html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + ' mobile-value-with-units" style="' + (control.valueStyle || '') + '">' + (control.value.replace('mobile-value ', 'mobile-value mobile-value-big ') || '') + '</td>\n';
+                html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '" style="' + (control.valueStyle || '') + '">' + (control.value || '').replace('mobile-value', 'mobile-value mobile-value-big mobile-value-with-units') + '</td>\n';
                 //html += '<td class="mobile-widget-table-control">';
-                html += '<td class="ui-body-b ui-body-inherit">';
+                html += '<td class="mobile-widget-table-end ui-body-b ui-body-inherit">';
                 html += '  <table class="mobile-widget-table">';
                 html += '    <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
                 html += '    <tr><td><div>' + control.control + '</div></td></tr>\n';
@@ -1131,7 +1141,7 @@ var mobile = {
             } else if (parent.title && !control.control) {
                 html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value   || '') + '</td>\n';
                 //html += '<td class="mobile-widget-table-control">';
-                html += '<td class="ui-body-b ui-body-inherit">';
+                html += '<td class="mobile-widget-table-end ui-body-b ui-body-inherit">';
                 if (control.lastChange) {
                     html += '      <table class="mobile-widget-table">';
                     html += '        <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
@@ -1146,7 +1156,7 @@ var mobile = {
                 // just control or just value
                 html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">'   + (control.value   || '') + '</td>\n';
                 //html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
-                html += '  <td class="ui-body-b ui-body-inherit">' + (control.control || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-end ui-body-b ui-body-inherit">' + (control.control || '') + '</td>\n';
 
             } else {
 
@@ -1162,7 +1172,7 @@ var mobile = {
         var html = '';
         html += '<div><table class="mobile-widget-table mobile-widget-b"><tr>\n';
         html += '   <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value || '') + (control.control || '') + '</td>\n';
-        html += '   <td style="position: relative">';
+        html += '   <td class="mobile-widget-table-end" style="position: relative">';
         html += parent.title  ? '<div class="mobile-value-group-title">' + parent.title  + '</div>\n' : '';
         html += state && state.title ? '<div class="mobile-value-small-title">' + state.title + '</div>\n' : '';
         html += control.lastChange ? '<div class="mobile-widget-last-change">' + control.lastChange + '</div>' : '';
@@ -1213,11 +1223,11 @@ var mobile = {
         }
 
         // if only one child and not slider
-        if (!this.editMode && count == 1 && (struct.children[firstChild].controls[0].select || struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
+        if (!this.editMode && count === 1 && (struct.children[firstChild].controls[0].select || struct.children[firstChild].controls[0].checkbox || !struct.children[firstChild].controls[0].control)) {
             // Show all in one line
             // control | text | icon
             struct.children[firstChild].controls[0].id = firstChild; // enable visibility
-            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length == 1 ? struct.children[firstChild]: null, firstChild);
+            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length === 1 ? struct.children[firstChild]: null, firstChild);
 
             for (c = 1; c < struct.children[child].controls.length; c++) {
                 struct.children[child].controls[c].id = child; // enable visibility
@@ -1493,23 +1503,23 @@ var mobile = {
                     console.error('Invalid object "' + _id + '" ');
                     continue;
                 }
-                
+
                 // hide if invisible
                 if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || this.root[j] : common.name || this.root[j];
 
                 navbar += '<li style="position: relative"><a class="' + (i === j ? 'ui-btn-active ui-state-persist' : '') + ' mobile-visibility-root mobile-widget-title" data-edit-id="' + this.root[j] + '" data-icon="';
-                if (this.root[j] == 'enum.rooms') {
+                if (this.root[j] === 'enum.rooms') {
                     navbar += 'home';
-                } else if (this.root[j] == 'enum.functions') {
+                } else if (this.root[j] === 'enum.functions') {
                     navbar += 'gear';
                 } else {
                     navbar += 'star';
                 }
                 navbar += '" href="#' + this.objectId2htmlId(this.root[j]) + '">' + _(name) + '</a></li>\n';
             }
-    
+
             var menu = '';
             // build footer (root menu)
             var order = (rCommon.mobile && rCommon.mobile[this.user]) ? rCommon.mobile && rCommon.mobile[this.user].order || [] : [];
@@ -1524,7 +1534,7 @@ var mobile = {
             // fill all missing ids into order
             for (var id in this.enums) {
                 var _id = this.enums[id]._id;
-                if (_id.substring(0, this.root[i].length + 1) == this.root[i] + '.') {
+                if (_id.substring(0, this.root[i].length + 1) === this.root[i] + '.') {
                     if (order.indexOf(_id) === -1) order.push(_id);
                 }
             }
@@ -1569,10 +1579,10 @@ var mobile = {
                 '        </div>' +
                 '    </div>' +
                 '</div>';
-    
+
             $('body').append(page);
         }
-    
+
         var url = $.mobile.path.parseUrl(location.href);
 
         // this is a bug. If use all together something goes wrong and string will not be decoded
@@ -1587,7 +1597,7 @@ var mobile = {
         $.mobile.initializePage();
         var that = this;
         setTimeout(function () {
-            $.mobile.navigate((!url.hash || url.hash == '#') ? '#' + that.objectId2htmlId(that.root[0]) : url.hash);
+            $.mobile.navigate((!url.hash || url.hash === '#') ? '#' + that.objectId2htmlId(that.root[0]) : url.hash);
         }, 500);
         $('#nav-panel').panel();
 
@@ -1662,7 +1672,7 @@ var mobile = {
             console.log('no id given');
             return;
         }
-        if (id == 'info') {
+        if (id === 'info') {
             return this.renderInfoPage();
         } else {
             $('#info').hide();
@@ -1710,7 +1720,7 @@ var mobile = {
                 '    </div>';
             page += '</div>';
 
-        if (this.panelActive != parentId) {
+        if (this.panelActive !== parentId) {
             this.panelActive = parentId;
             // build sidebar
             var members = this.enums[parentId] && this.enums[parentId].children ? this.enums[parentId].children : null;
@@ -1855,7 +1865,7 @@ var mobile = {
                     $(this)
                         .prev()
                         .removeClass('ui-body-inherit ui-focus')
-                    .parent()
+                        .parent()
                         .removeClass('ui-body-inherit ui-focus');
                 });
             });
@@ -1977,7 +1987,12 @@ var mobile = {
         var ids = [];
         var indicators = {};
         for (var ob in objs) {
+            if (!objs.hasOwnProperty(ob)) continue;
             ids.push(ob);
+            if (!objs[ob]) {
+                console.log('Please sync project, because object "' + ob + '" does not exist anymore');
+                continue;
+            }
             if (objs[ob].common && objs[ob].common.role && this.ignoreIndicators.indexOf(objs[ob].common.role) === -1 && objs[ob].common.role.match(/^indicator\./)) {
                 var name = ob.split('.').pop();
                 if (!indicators[name]) indicators[name] = this.config.indicators[name] === undefined ? true : this.config.indicators[name];
@@ -1987,13 +2002,14 @@ var mobile = {
 
         ids.sort();
         for (var i = 0; i < ids.length; i++) {
-            if (objs[ids[i]].type == 'device' || objs[ids[i]].type == 'channel') {
+            if (!objs[ids[i]]) continue;
+            if (objs[ids[i]].type === 'device' || objs[ids[i]].type === 'channel') {
                 var parts = ids[i].split('.');
                 var j = i + 1;
                 var len = ids[i].length;
                 while (j < ids.length && ids[j].substring(0, len) === ids[i]) {
                     var ps = ids[j].split('.');
-                    if (ps.length == parts.length + 1) {
+                    if (ps.length === parts.length + 1) {
                         objs[ids[i]].children =  objs[ids[i]].children || [];
                         if (objs[ids[i]].children.indexOf(ids[j]) === -1) {
                             objs[ids[i]].children.push(ids[j]);
