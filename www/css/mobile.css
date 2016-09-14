@@ -690,6 +690,11 @@ ul.mobile-page-left h2 {
     position: relative !important;
 }
 
+.mobile-edit-field {
+    float: right !important;
+    padding-right: 0.5em  !important;
+}
+
 .mobile-edit-element {
     border-radius: .3125em;
     position: absolute;
@@ -757,7 +762,8 @@ ul.mobile-page-left h2 {
     position: fixed;
     right: 40px;
     background-color: orange;
-    z-index:10000;
+    z-index: 10000;
+    cursor: pointer;
 }
 
 .mobile-value-alone, .mobile-value-with-units {

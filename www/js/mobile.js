@@ -91,6 +91,10 @@ systemDictionary = {
     "%s days and %s h. ago": {"en": "%s days and %s h. ago",  "de": "vor %s Tagen und %s Stunden", "ru": "%s дней и %s час(ов) назад"},
     "%s days ago":      {"en": "%s days ago",       "de": "vor %s days",    "ru": "%s дней назад"},
     "Theme":            {"en": "Theme",             "de": "Thema",          "ru": "Тема"},
+    "none":             {"en": "no type",           "de": "kein Typ",       "ru": "нет типа"},
+    "Light":            {"en": "light",             "de": "Licht",          "ru": "свет"},
+    "Socket":           {"en": "socket",            "de": "Steckdose",      "ru": "розетка"},
+    "Blinds":           {"en": "blinds",            "de": "Rolladen",       "ru": "жалюзи"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -590,13 +594,53 @@ var mobile = {
                     that.states[_id].val = '';
                 }
 
-                if (force || val !== that.states[_id].val.toString()) {
-                    var val    = that.states[_id].val;
+                var type   = $(this).data('type');
+                if (type !== 'set' && (force || val !== that.states[_id].val.toString())) {
                     var rawVal = that.states[_id].val;
+                    val        = that.states[_id].val;
 
-                    if ($(this).data('type') === 'range') {
+                    if (type === 'range') {
                         $(this).val(val);
                         $(this).slider('refresh');
+                    } else if (type === 'set') {
+                        //ignore
+                    } else if (type === 'icon') {
+                        var img;
+                        switch ($(this).data('icon-type')) {
+                            case 'light':
+                                if (val === 'true'  || val === true) {
+                                    rawVal = true;
+                                } else
+                                if (val === 'false' || val === false) {
+                                    rawVal = false;
+                                } else
+                                if (val !== null && parseFloat(val).toString() === val.toString()) {
+                                    rawVal = parseFloat(val);
+                                }
+                                img = rawVal ? 'img/bulbOn.png' : 'img/bulbOff.png';
+                                break;
+
+                            case 'socket':
+                                if (val === 'true'  || val === true) {
+                                    rawVal = true;
+                                } else
+                                if (val === 'false' || val === false) {
+                                    rawVal = false;
+                                } else
+                                if (val !== null && parseFloat(val).toString() === val.toString()) {
+                                    rawVal = parseFloat(val);
+                                }
+                                img = rawVal ? 'img/socketOn.png' : 'img/socketOff.png';
+                                break;
+
+                            default:
+                                console.warn('Unknown icon type "' + $(this).data('icon-type') + '"');
+                                break;
+                        }
+                        $(this).val(val);
+                        if (img) {
+                            $(this).attr('src', img);
+                        }
                     } else if (role === 'slider') {
                         var found = false;
                         var sVal = val.toString();
@@ -616,7 +660,7 @@ var mobile = {
                         $(this).prev().removeClass('ui-body-inherit');
                     } else if($(this).prop('tagName') === 'INPUT') {
                         $(this).val(val);
-                    } else{
+                    } else {
                         if (val === 'true'  || val === true) {
                             rawVal = true;
                             val = _('true');
@@ -866,7 +910,8 @@ var mobile = {
             });
         } else if (obj.common.write && !states) {
             struct.controls.push({
-                value:   (obj.common.unit ? '<span>' + obj.common.unit + '</span>': '') + '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: 50px" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>',
+                set:     true,
+                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: 100%" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
                 valueStyle: 'margin-top: 16px',
                 control: '<input ' +
                     'class="mobile-control" ' +
@@ -960,12 +1005,20 @@ var mobile = {
 
         struct.title = name;
 
+        var mobile = obj.common.mobile && obj.common.mobile[this.user];
+        var type;
+        if (mobile && (type = obj.common.mobile[this.user].type)) {
+            struct.icon = {type: type};
+        } else
+        if (mobile && obj.common.mobile[this.user].icon) {
+            struct.icon = obj.common.mobile[this.user].icon;
+        } else
         if (obj.common.icon) {
             var adapter = obj._id.split('.').shift();
-            if (obj.common.icon[0] !== '/') {
-                struct.icon = '/adapter/' + adapter + '/' + obj.common.icon;
+            if (obj.common.icon[0] === '/' && obj.common.icon[1] === '/') {
+                struct.icon = obj.common.icon.substring(1);
             } else {
-                struct.icon = obj.common.icon;
+                struct.icon = '/adapter/' + adapter + '/' + obj.common.icon;
             }
         }
 
@@ -1121,6 +1174,10 @@ var mobile = {
         html += '<' + (this.editMode && !control.oneState ? 'li' : 'div') + ' style="width: 100%" class="' + (control.id ? 'mobile-visibility' : '') + '" ' + (control.id ? ' data-edit-id="' + control.id + '"' : '') + '><table class="mobile-widget-table">';
         html += '<tr>\n';
 
+        if (control.set) {
+            html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + (control.value    || '') + '</td>\n';
+        } else
         if (control.checkbox && !control.value) {
             html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
             html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">'       + (parent.title    || '') + '</td>\n';
@@ -1162,6 +1219,12 @@ var mobile = {
 
             }
         }
+        /*if (parent.icon) {
+            html += '<td class="mobile-widget-table-icon">';
+            html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
+            html += '</td>';
+        }*/
+
         html += '</tr>\n';
         html += '</table></' + (this.editMode && !control.oneState ? 'li' : 'div') + '>\n';
         return html;
@@ -1177,7 +1240,13 @@ var mobile = {
         html += state && state.title ? '<div class="mobile-value-small-title">' + state.title + '</div>\n' : '';
         html += control.lastChange ? '<div class="mobile-widget-last-change">' + control.lastChange + '</div>' : '';
         html += '</td><td class="mobile-widget-table-icon">';
-        html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
+        if (parent.icon) {
+            if (typeof parent.icon === 'object') {
+                html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" />';
+            } else {
+                html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon  + '" />';
+            }
+        }
         html += '</td></tr></table></div>\n';
         return html;
     },
@@ -1235,7 +1304,13 @@ var mobile = {
             }
         } else {
             // place title
-            html += struct.icon  ? '<img class="mobile-widget-icon" src="' + struct.icon + '"/>' : '';
+            if (struct.icon) {
+                if (typeof struct.icon === 'object') {
+                    html += '<img class="mobile-widget-icon"  data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '"/>';
+                } else {
+                    html += '<img class="mobile-widget-icon" src="' + struct.icon + '"/>';
+                }
+            }
             html += struct.title ? '<div class="mobile-widget-title mobile-value-group-title" data-edit-id="' + obj._id + '">' + struct.title + '</div>\n' : '';
 
             html += '<' + (this.editMode ? 'ul' : 'div') + ' class="mobile-widget-b" title="' + (obj.common.role || '') +'" style="padding: 0" data-edit-id="' + obj._id + '">\n';
@@ -1287,7 +1362,13 @@ var mobile = {
             }
         } else {
             // place title
-            html += struct.icon  ? '<img class="mobile-widget-icon" src="'   + struct.icon  + '"/>'       : '';
+            if (struct.icon) {
+                if (typeof struct.icon === 'object') {
+                    html += '<img class="mobile-widget-icon" data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '"/>';
+                } else {
+                    html += '<img class="mobile-widget-icon" src="' + struct.icon + '"/>';
+                }
+            }
             html += struct.title ? '<div class="mobile-value-group-title">' + struct.title + '</div>\n' : '';
 
             html += '<div class="mobile-widget-b">\n';
@@ -1350,7 +1431,7 @@ var mobile = {
                     if (!$(this).is(':visible')) return;
                     if ($(this).parent().find('.mobile-edit-subenum').length) return;
 
-                    var id = $(this).data('edit-id');
+                    var id   = $(this).data('edit-id');
                     var href = $(this).attr('href');
                     that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
@@ -1379,6 +1460,12 @@ var mobile = {
                     $name.click(onEditName);
                 });
 
+                var typeSelect =
+                    '<option value="none">' + _('none') + '</option>' +
+                    '<option value="light">' + _('Light') + '</option>' +
+                    '<option value="socket">' + _('Socket') + '</option>' +
+                    '<option value="blinds">' + _('Blinds') + '</option>';
+
                 // render elements
                 $('.mobile-visibility').each(function () {
                     if (!$(this).is(':visible')) return;
@@ -1399,12 +1486,17 @@ var mobile = {
 
                     var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
                     var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: 1.6em; margin-top: 0"' : '') + '></a>');
+                    var margin = that.objects[id].type === 'state' ? '1.6em' : '2.3em';
+                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: ' + margin + '; margin-top: 0"' : '') + '></a>');
+                    var $type     = $('<fieldset class="mobile-edit-field" data-role="controlgroup" data-type="horizontal" data-mini="true"><select class="mobile-edit-type" data-edit-id="' + (id || '') + '">' +
+                        typeSelect + '</select></fieldset>');
                     var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;' + (that.objects[id].type !== 'state' ? ' margin-right: 1.6em; margin-top: 0' : '') + '"></a>');
 
                     $overlay.append($checkbox);
                     $overlay.append($name);
+                    $overlay.append($type);
                     $overlay.append($sort);
+                    $type.find('select').change(onTypeChanged)
                     $(this).prepend($overlay);
 
                     $checkbox.click(onStateVisibility);
@@ -2106,6 +2198,23 @@ function onStateVisibility(e) {
         parent.pop();
         parent = parent.join('.');
         if (that.objects[parent]) that.detectHiddenStates(parent);
+    }
+}
+
+function onTypeChanged(e) {
+    e.stopPropagation();
+    var that = mobile;
+    var id = $(this).data('edit-id');
+    var val = $(this).val();
+
+    if (!id || !that.objects[id]) {
+        console.error('Cannot find object ' + id);
+        return;
+    }
+
+    if (that.objects[id].common && that.objects[id].common.mobile && that.objects[id].common.mobile[that.user] && that.objects[id].common.mobile[that.user].type !== val) {
+        that.objects[id].common.mobile[that.user].type = val;
+        that.saveSettings(id);
     }
 }
 
