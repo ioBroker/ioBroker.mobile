@@ -190,7 +190,7 @@ systemDictionary = {
 };
 
 var mobile = {
-    version: "0.4.6",
+    version: "0.4.8",
     requiredServerVersion: '0.0.0',
     enums:        {},
     objects:      {},
@@ -633,6 +633,37 @@ var mobile = {
                                 img = rawVal ? 'img/socketOn.png' : 'img/socketOff.png';
                                 break;
 
+                            case 'blinds':
+                                if (val === 'true'  || val === true) {
+                                    rawVal = 100;
+                                } else
+                                if (val === 'false' || val === false) {
+                                    rawVal = 0;
+                                } else
+                                if (val !== null && parseFloat(val).toString() === val.toString()) {
+                                    rawVal = parseFloat(val);
+                                }
+                                var min = $(this).data('min');
+                                var max = $(this).data('max');
+                                if (min === undefined || min === null || min === '') {
+                                    min = 0;
+                                } else {
+                                    min = parseFloat(min);
+                                }
+                                if (max === undefined || max === null || max === '') {
+                                    max = 100;
+                                } else {
+                                    max = parseFloat(max);
+                                }
+                                if (rawVal > max) rawVal = max;
+                                if (rawVal < min) rawVal = min;
+
+                                rawVal = Math.round((rawVal - min) * 100 / (max - min));
+                                rawVal = Math.round(rawVal / 10) * 10;
+
+                                img = 'img/blind' + rawVal + '.png';
+                                break;
+
                             default:
                                 console.warn('Unknown icon type "' + $(this).data('icon-type') + '"');
                                 break;
@@ -1008,7 +1039,11 @@ var mobile = {
         var mobile = obj.common.mobile && obj.common.mobile[this.user];
         var type;
         if (mobile && (type = obj.common.mobile[this.user].type)) {
-            struct.icon = {type: type};
+            struct.icon = {
+                type: type,
+                min:  (obj.common.min === undefined) ? 0   : parseFloat(obj.common.min) || 0,
+                max:  (obj.common.max === undefined) ? 100 : parseFloat(obj.common.max) || 0
+            };
         } else
         if (mobile && obj.common.mobile[this.user].icon) {
             struct.icon = obj.common.mobile[this.user].icon;
@@ -1242,7 +1277,7 @@ var mobile = {
         html += '</td><td class="mobile-widget-table-icon">';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-                html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" />';
+                html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
             } else {
                 html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon  + '" />';
             }
@@ -1306,7 +1341,7 @@ var mobile = {
             // place title
             if (struct.icon) {
                 if (typeof struct.icon === 'object') {
-                    html += '<img class="mobile-widget-icon"  data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '"/>';
+                    html += '<img class="mobile-widget-icon"  data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '" data-min="' + struct.icon.min + '" data-max="' + struct.icon.max + '"/>';
                 } else {
                     html += '<img class="mobile-widget-icon" src="' + struct.icon + '"/>';
                 }
@@ -1364,7 +1399,7 @@ var mobile = {
             // place title
             if (struct.icon) {
                 if (typeof struct.icon === 'object') {
-                    html += '<img class="mobile-widget-icon" data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '"/>';
+                    html += '<img class="mobile-widget-icon" data-mobile-id="' + obj._id + '" data-type="icon" data-icon-type="' + struct.icon.type + '"  data-min="' + struct.icon.min + '" data-max="' + struct.icon.max + '"/>';
                 } else {
                     html += '<img class="mobile-widget-icon" src="' + struct.icon + '"/>';
                 }

@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.7",
+        "version": "0.4.8",
         "news": {
+            "0.4.8": {
+                "en": "implement type blind",
+                "de": "Typ Rolladen ist fertig",
+                "ru": "Добавлен тип жалюзи"
+            },
             "0.4.7": {
                 "en": "fix input number and select value",
                 "de": "Korrigieren Nummereingabe und Wertauswahl",

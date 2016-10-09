@@ -68,7 +68,7 @@ var servConn = {
         return this._user;
     },
     setReloadTimeout: function (timeout){
-        this._reloadInterval = parseInt(timeout, 10);    
+        this._reloadInterval = parseInt(timeout, 10);
     },
     setReconnectInterval: function (interval){
         this._reconnectInterval = parseInt(interval, 10);
@@ -236,7 +236,7 @@ var servConn = {
 
                     // reload whole page if no connection longer than some period
                     if (that._reloadInterval && offlineTime > that._reloadInterval * 1000) window.location.reload();
-                    
+
                     that._disconnectedSince = null;
                 }
 
@@ -255,7 +255,7 @@ var servConn = {
                 console.log((new Date()).toISOString() + ' Connected => authenticate');
                 setTimeout(function () {
                     var wait = setTimeout(function() {
-                        console.error('No answer from server')
+                        console.error('No answer from server');
                         window.location.reload();
                     }, 3000);
 
@@ -653,6 +653,7 @@ var servConn = {
         var items = [];
 
         for (var id in objects) {
+            if (!objects.hasOwnProperty(id)) continue;
             items.push(id);
         }
         items.sort();
@@ -690,15 +691,13 @@ var servConn = {
         if (!this._checkConnection('getObjects', arguments)) return;
         var that = this;
         this._socket.emit('getObjects', function (err, data) {
-
             // Read all enums
             that._socket.emit('getObjectView', 'system', 'enum', {startkey: 'enum.', endkey: 'enum.\u9999'}, function (err, res) {
                 if (err) {
                     callback(err);
                     return;
                 }
-                var result = {};
-                var enums  = {};
+                var enums = {};
                 for (var i = 0; i < res.rows.length; i++) {
                     data[res.rows[i].id] = res.rows[i].value;
                     enums[res.rows[i].id] = res.rows[i].value;
@@ -710,7 +709,6 @@ var servConn = {
                         callback(err);
                         return;
                     }
-                    var result = {};
                     for (var i = 0; i < res.rows.length; i++) {
                         data[res.rows[i].id] = res.rows[i].value;
                     }
@@ -727,7 +725,6 @@ var servConn = {
                             callback(err);
                             return;
                         }
-                        var result = {};
                         for (var i = 0; i < res.rows.length; i++) {
                             data[res.rows[i].id] = res.rows[i].value;
                         }
@@ -738,7 +735,6 @@ var servConn = {
                                 callback(err);
                                 return;
                             }
-                            var result = {};
                             for (var i = 0; i < res.rows.length; i++) {
                                 data[res.rows[i].id] = res.rows[i].value;
                             }
@@ -802,7 +798,6 @@ var servConn = {
                 callback(err);
                 return;
             }
-            var result = {};
             for (var i = 0; i < res.rows.length; i++) {
                 data[res.rows[i].id] = res.rows[i].value;
             }
@@ -812,7 +807,6 @@ var servConn = {
                     callback(err);
                     return;
                 }
-                var result = {};
                 for (var i = 0; i < res.rows.length; i++) {
                     data[res.rows[i].id] = res.rows[i].value;
                 }
@@ -823,7 +817,6 @@ var servConn = {
                         callback(err);
                         return;
                     }
-                    var result = {};
                     for (var i = 0; i < res.rows.length; i++) {
                         data[res.rows[i].id] = res.rows[i].value;
                     }
@@ -840,7 +833,7 @@ var servConn = {
                     }
                     list.sort();
 
-                    if (this._useStorage && typeof storage !== 'undefined') {
+                    if (that._useStorage && typeof storage !== 'undefined') {
                         var objects = storage.get('objects') || {};
 
                         for (var id_ in data) {
@@ -874,9 +867,9 @@ var servConn = {
                     }
 
                     if (callback) callback(err, list);
-                }.bind(this));
-            }.bind(this));
-        }.bind(this));
+                });
+            });
+        });
     },
     getObject:        function (id, useCache, callback) {
         if (typeof id === 'function') {
@@ -905,18 +898,73 @@ var servConn = {
             }
         }
 
+        var that = this;
+
         this._socket.emit('getObject', id, function (err, obj) {
             if (err) {
                 callback(err);
                 return;
             }
-            if (this._useStorage && typeof storage !== 'undefined') {
+            if (that._useStorage && typeof storage !== 'undefined') {
                 var objects = storage.get('objects') || {};
                 objects[id] = obj;
                 storage.set('objects', objects);
             }
             return callback(null, obj);
-        }.bind(this));
+        });
+    },
+    getGroups:        function (groupName, useCache, callback) {
+        if (typeof groupName === 'function') {
+            callback = groupName;
+            groupName = null;
+            useCache = false;
+        }
+        if (typeof groupName === 'boolean') {
+            callback = useCache;
+            useCache = groupName;
+            groupName = null;
+        }
+        if (typeof useCache === 'function') {
+            callback = useCache;
+            useCache = false;
+        }
+        groupName = groupName || '';
+
+        // If cache used
+        if (this._useStorage && useCache) {
+            if (typeof storage !== 'undefined') {
+                var groups = this._groups || storage.get('groups');
+                if (groups) return callback(null, groups);
+            } else if (this._groups) {
+                return callback(null, this._groups);
+            }
+        }
+        if (this._type === 'local') {
+            return callback(null, []);
+        } else {
+            var that = this;
+            // Read all enums
+            this._socket.emit('getObjectView', 'system', 'group', {startkey: 'system.group.' + groupName, endkey: 'system.group.' + groupName + '\u9999'}, function (err, res) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                var groups = {};
+                for (var i = 0; i < res.rows.length; i++) {
+                    var obj = res.rows[i].value;
+                    groups[obj._id] = obj;
+                }
+                if (that._useStorage) {
+                    that._groups  = groups;
+
+                    if (typeof storage !== 'undefined') {
+                        storage.set('groups', groups);
+                    }
+                }
+
+                callback(null, groups);
+            });
+        }
     },
     getEnums:         function (enumName, useCache, callback) {
         if (typeof enumName === 'function') {
@@ -949,7 +997,7 @@ var servConn = {
         } else {
 
             enumName = enumName ? enumName + '.' : '';
-
+            var that = this;
             // Read all enums
             this._socket.emit('getObjectView', 'system', 'enum', {startkey: 'enum.' + enumName, endkey: 'enum.' + enumName + '\u9999'}, function (err, res) {
                 if (err) {
@@ -961,11 +1009,11 @@ var servConn = {
                     var obj = res.rows[i].value;
                     enums[obj._id] = obj;
                 }
-                if (this._useStorage && typeof storage !== 'undefined') {
+                if (that._useStorage && typeof storage !== 'undefined') {
                     storage.set('enums', enums);
                 }
                 callback(null, enums);
-            }.bind(this));
+            });
         }
     },
     // return time when the objects were synchronized
@@ -979,12 +1027,10 @@ var servConn = {
     addObject:        function (objId, obj, callback) {
         if (!this._isConnected) {
             console.log('No connection!');
-            return;
-        }
+        } else
         //socket.io
         if (this._socket === null) {
             console.log('socket.io not initialized');
-            return;
         }
     },
     delObject:        function (objId) {
@@ -1187,7 +1233,7 @@ var servConn = {
             }
             that.getStates(_hosts, function (err, states) {
                 for (var h in states) {
-                    if (states[h].val) {
+                    if (states.hasOwnProperty(h) && (states[h].val === 'true' || states[h].val === true)) {
                         cb(h.substring(0, h.length - '.alive'.length));
                         return;
                     }

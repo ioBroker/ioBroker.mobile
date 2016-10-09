@@ -199,9 +199,11 @@ Example:
 - edit of Icon
 - show some widgets with more icons
 - tablet view
-- show 0% - 100% or (closed window/opened window) by blinds
 
 ## Changelog
+
+#### 0.4.8 (2016-10-09)
+* (bluefox) implement type blind
 
 #### 0.4.7 (2016-09-10)
 * (bluefox) make narrow screen on wide displays
