@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.8",
+        "version": "0.4.9",
         "news": {
+            "0.4.9": {
+                "en": "Fix rooms rendering\nadd green, red, blue, white types",
+                "de": "Korrigiere Räumeaufbau\nHinzugefügt: rot, blau, grün- Typen",
+                "ru": "Исправлено построение комнат\nДобавлены новые типы: красный, синий..."
+            },
             "0.4.8": {
                 "en": "implement type blind",
                 "de": "Typ Rolladen ist fertig",

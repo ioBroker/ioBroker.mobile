@@ -202,6 +202,10 @@ Example:
 
 ## Changelog
 
+#### 0.4.9 (2016-10-29)
+* (bluefox) Fix rooms rendering
+* (bluefox) add green, red, blue, white types
+
 #### 0.4.8 (2016-10-09)
 * (bluefox) implement type blind
 
@@ -257,7 +261,7 @@ Example:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2016 bluefox<dogafox@gmail.com>
+Copyright (c) 2015-2016 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

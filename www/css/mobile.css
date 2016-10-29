@@ -737,6 +737,7 @@ ul.mobile-page-left h2 {
     text-align: center;
     float:      right;
     margin:     0.7em;
+    cursor:     pointer;
 }
 .mobile-edit-subenum {
     background-color: rgba(0, 255, 0, 0.5);

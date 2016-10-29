@@ -662,8 +662,8 @@ var servConn = {
             if (objects[items[i]].common) {
                 var j = i + 1;
                 var children = [];
-                var len      = items[i].length + 1;
                 var name     = items[i] + '.';
+                var len      = name.length;
                 while (j < items.length && items[j].substring(0, len) === name) {
                     children.push(items[j++]);
                 }

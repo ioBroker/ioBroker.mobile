@@ -95,6 +95,10 @@ systemDictionary = {
     "Light":            {"en": "light",             "de": "Licht",          "ru": "свет"},
     "Socket":           {"en": "socket",            "de": "Steckdose",      "ru": "розетка"},
     "Blinds":           {"en": "blinds",            "de": "Rolladen",       "ru": "жалюзи"},
+    "Red":              {"en": "red",               "de": "rot",            "ru": "красный"},
+    "Green":            {"en": "green",             "de": "grün",           "ru": "зелёный"},
+    "Blue":             {"en": "blue",              "de": "blau",           "ru": "синий"},
+    "White":            {"en": "white",             "de": "weiß",           "ru": "белый"},
 
     "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
     "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
@@ -190,7 +194,7 @@ systemDictionary = {
 };
 
 var mobile = {
-    version: "0.4.8",
+    version: "0.4.9",
     requiredServerVersion: '0.0.0',
     enums:        {},
     objects:      {},
@@ -606,7 +610,8 @@ var mobile = {
                         //ignore
                     } else if (type === 'icon') {
                         var img;
-                        switch ($(this).data('icon-type')) {
+                        var _type = $(this).data('icon-type');
+                        switch (_type) {
                             case 'light':
                                 if (val === 'true'  || val === true) {
                                     rawVal = true;
@@ -618,6 +623,32 @@ var mobile = {
                                     rawVal = parseFloat(val);
                                 }
                                 img = rawVal ? 'img/bulbOn.png' : 'img/bulbOff.png';
+                                break;
+
+                            case 'red':
+                            case 'green':
+                            case 'blue':
+                            case 'white':
+                                rawVal = parseFloat(val) || 0;
+                                var min = $(this).data('min');
+                                var max = $(this).data('max');
+                                if (min === undefined || min === null || min === '') {
+                                    min = 0;
+                                } else {
+                                    min = parseFloat(min);
+                                }
+                                if (max === undefined || max === null || max === '') {
+                                    max = 100;
+                                } else {
+                                    max = parseFloat(max);
+                                }
+                                if (rawVal > max) rawVal = max;
+                                if (rawVal < min) rawVal = min;
+
+                                rawVal = (rawVal - min) / (max - min);
+                                if (rawVal < 0.1) rawVal = 0.1;
+                                img = 'img/rgb-' + _type + '.png';
+                                $(this).css('opacity', rawVal);
                                 break;
 
                             case 'socket':
@@ -1209,6 +1240,15 @@ var mobile = {
         html += '<' + (this.editMode && !control.oneState ? 'li' : 'div') + ' style="width: 100%" class="' + (control.id ? 'mobile-visibility' : '') + '" ' + (control.id ? ' data-edit-id="' + control.id + '"' : '') + '><table class="mobile-widget-table">';
         html += '<tr>\n';
 
+        var icon = '';
+        if (parent.icon) {
+            if (typeof parent.icon === 'object') {
+                icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+            } else {
+                icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" src="' + parent.icon + '"/>';
+            }
+        }
+
         if (control.set) {
             html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
             html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + (control.value    || '') + '</td>\n';
@@ -1219,13 +1259,12 @@ var mobile = {
             // show title only one time
             parent.title = null;
         } else {
-
             if (parent.title && control.control) {
                 html += '<td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '" style="' + (control.valueStyle || '') + '">' + (control.value || '').replace('mobile-value', 'mobile-value mobile-value-big mobile-value-with-units') + '</td>\n';
                 //html += '<td class="mobile-widget-table-control">';
                 html += '<td class="mobile-widget-table-end ui-body-b ui-body-inherit">';
                 html += '  <table class="mobile-widget-table">';
-                html += '    <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + '</div></td></tr>\n';
+                html += '    <tr><td><div class="mobile-widget-title mobile-widget-title-small" data-edit-id="' + id + '">' + parent.title + icon + '</div></td></tr>\n';
                 html += '    <tr><td><div>' + control.control + '</div></td></tr>\n';
                 html += '  </table>';
                 html += '</td>';
@@ -1249,7 +1288,6 @@ var mobile = {
                 html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">'   + (control.value   || '') + '</td>\n';
                 //html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
                 html += '  <td class="mobile-widget-table-end ui-body-b ui-body-inherit">' + (control.control || '') + '</td>\n';
-
             } else {
 
             }
@@ -1319,7 +1357,6 @@ var mobile = {
         } else {
             order = [];
         }
-
 
         // do not show title if only one child
         if (count < 2 && !this.editMode) {
@@ -1496,10 +1533,14 @@ var mobile = {
                 });
 
                 var typeSelect =
-                    '<option value="none">' + _('none') + '</option>' +
-                    '<option value="light">' + _('Light') + '</option>' +
+                    '<option value="none">'   + _('none')   + '</option>' +
+                    '<option value="light">'  + _('Light')  + '</option>' +
                     '<option value="socket">' + _('Socket') + '</option>' +
-                    '<option value="blinds">' + _('Blinds') + '</option>';
+                    '<option value="blinds">' + _('Blinds') + '</option>' +
+                    '<option value="red">'    + _('Red')    + '</option>' +
+                    '<option value="blue">'   + _('Green')  + '</option>' +
+                    '<option value="green">'  + _('Blue')   + '</option>' +
+                    '<option value="white">'  + _('White')  + '</option>';
 
                 // render elements
                 $('.mobile-visibility').each(function () {
@@ -2131,13 +2172,14 @@ var mobile = {
         for (var i = 0; i < ids.length; i++) {
             if (!objs[ids[i]]) continue;
             if (objs[ids[i]].type === 'device' || objs[ids[i]].type === 'channel') {
+                var _id = ids[i] + '.';
                 var parts = ids[i].split('.');
                 var j = i + 1;
-                var len = ids[i].length;
-                while (j < ids.length && ids[j].substring(0, len) === ids[i]) {
+                var len = _id.length;
+                while (j < ids.length && ids[j].substring(0, len) === _id) {
                     var ps = ids[j].split('.');
                     if (ps.length === parts.length + 1) {
-                        objs[ids[i]].children =  objs[ids[i]].children || [];
+                        objs[ids[i]].children = objs[ids[i]].children || [];
                         if (objs[ids[i]].children.indexOf(ids[j]) === -1) {
                             objs[ids[i]].children.push(ids[j]);
                         }
