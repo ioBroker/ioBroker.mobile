@@ -745,9 +745,28 @@ var servConn = {
                                 that._enums   = enums;
 
                                 if (typeof storage !== 'undefined') {
-                                    storage.set('objects',  data);
-                                    storage.set('enums',    enums);
-                                    storage.set('timeSync', (new Date()).getTime());
+                                    try {
+                                        storage.set('enums',    enums);
+                                        storage.set('timeSync', (new Date()).getTime());
+                                        storage.set('objects',  data);
+                                    } catch (e) {
+                                        console.error(e);
+
+                                        // delete unused objects
+                                        for (var id in data) {
+                                            if (data[id].type !== 'state' && data[id].type !== 'channel' && data[id].type !== 'device' && data[id].type !== 'enum') {
+                                                delete data[id];
+                                            }
+                                        }
+
+                                        try {
+                                            storage.set('enums',    enums);
+                                            storage.set('timeSync', (new Date()).getTime());
+                                            storage.set('objects',  data);
+                                        } catch (e) {
+                                            console.error(e);
+                                        }
+                                    }
                                 }
                             }
 

@@ -1572,7 +1572,7 @@ var mobile = {
                     $overlay.append($name);
                     $overlay.append($type);
                     $overlay.append($sort);
-                    $type.find('select').change(onTypeChanged)
+                    $type.find('select').change(onTypeChanged);
                     $(this).prepend($overlay);
 
                     $checkbox.click(onStateVisibility);
