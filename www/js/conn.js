@@ -68,7 +68,7 @@ var servConn = {
         return this._user;
     },
     setReloadTimeout: function (timeout){
-        this._reloadInterval = parseInt(timeout, 10);
+        this._reloadInterval = parseInt(timeout, 10);    
     },
     setReconnectInterval: function (interval){
         this._reconnectInterval = parseInt(interval, 10);
@@ -93,7 +93,7 @@ var servConn = {
         var ts = (new Date()).getTime();
         if (this._reloadInterval && ts - this._lastTimer > this._reloadInterval * 1000) {
             // It seems, that PC was in a sleep => Reload page to request authentication anew
-            window.location.reload();
+            this.reload();
         } else {
             this._lastTimer = ts;
         }
@@ -156,6 +156,14 @@ var servConn = {
                     $('.splash-screen-text').html(that._countDown + '...');
                 }
             }, 1000);
+        }
+    },
+    reload: function () {
+        if (window.location.host === 'iobroker.net' ||
+            window.location.host === 'iobroker.biz') {
+            window.location = '/';
+        } else {
+            window.location.reload();
         }
     },
     init:             function (connOptions, connCallbacks, objectsRequired) {
@@ -235,8 +243,8 @@ var servConn = {
                     console.log('was offline for ' + (offlineTime / 1000) + 's');
 
                     // reload whole page if no connection longer than some period
-                    if (that._reloadInterval && offlineTime > that._reloadInterval * 1000) window.location.reload();
-
+                    if (that._reloadInterval && offlineTime > that._reloadInterval * 1000 && !that.authError) that.reload();
+                    
                     that._disconnectedSince = null;
                 }
 
@@ -254,13 +262,19 @@ var servConn = {
                 that._socket.emit('name', connOptions.name);
                 console.log((new Date()).toISOString() + ' Connected => authenticate');
                 setTimeout(function () {
-                    var wait = setTimeout(function() {
+                    that.waitConnect = setTimeout(function() {
                         console.error('No answer from server');
-                        window.location.reload();
+                        if (!that.authError) {
+                            that.reload();
+                        }
                     }, 3000);
 
                     that._socket.emit('authenticate', function (isOk, isSecure) {
-                        clearTimeout(wait);
+                        if (that.waitConnect) {
+                            clearTimeout(that.waitConnect);
+                            that.waitConnect = null;
+                        }
+
                         console.log((new Date()).toISOString() + ' Authenticated: ' + isOk);
                         if (isOk) {
                             that._onAuth(objectsRequired, isSecure);
@@ -271,13 +285,25 @@ var servConn = {
                 }, 50);
             });
 
-            this._socket.on('reauthenticate', function () {
+            this._socket.on('reauthenticate', function (err) {
                 if (that._connCallbacks.onConnChange) {
                     that._connCallbacks.onConnChange(false);
-                    if (typeof app !== 'undefined') app.onConnChange(false);
+                    if (typeof app !== 'undefined' && !that.authError) app.onConnChange(false);
                 }
                 console.warn('reauthenticate');
-                window.location.reload();
+                if (that.waitConnect) {
+                    clearTimeout(that.waitConnect);
+                    that.waitConnect = null;
+                }
+
+                if (connCallbacks.onAuthError) {
+                    if (!that.authError) {
+                        that.authError = true;
+                        connCallbacks.onAuthError(err);
+                    }
+                } else {
+                    that.reload();
+                }
             });
 
             this._socket.on('connect_error', function () {
@@ -314,7 +340,7 @@ var servConn = {
 
                 // reload whole page if no connection longer than one minute
                 if (that._reloadInterval && offlineTime > that._reloadInterval * 1000) {
-                    window.location.reload();
+                    that.reload();
                 }
                 // anyway "on connect" is called
             });
@@ -385,6 +411,27 @@ var servConn = {
                     that._connCallbacks.onError(err);
                 } else {
                     console.log('permissionError');
+                }
+            });
+
+            this._socket.on('error', function (err) {
+                if (err === 'Invalid password or user name') {
+                    console.warn('reauthenticate');
+                    if (that.waitConnect) {
+                        clearTimeout(that.waitConnect);
+                        that.waitConnect = null;
+                    }
+
+                    if (connCallbacks.onAuthError) {
+                        if (!that.authError) {
+                            that.authError = true;
+                            connCallbacks.onAuthError(err);
+                        }
+                    } else {
+                        that.reload();
+                    }
+                } else {
+                    alert(err);
                 }
             });
         }
@@ -662,8 +709,8 @@ var servConn = {
             if (objects[items[i]].common) {
                 var j = i + 1;
                 var children = [];
+                var len      = items[i].length + 1;
                 var name     = items[i] + '.';
-                var len      = name.length;
                 while (j < items.length && items[j].substring(0, len) === name) {
                     children.push(items[j++]);
                 }
@@ -745,28 +792,9 @@ var servConn = {
                                 that._enums   = enums;
 
                                 if (typeof storage !== 'undefined') {
-                                    try {
-                                        storage.set('enums',    enums);
-                                        storage.set('timeSync', (new Date()).getTime());
-                                        storage.set('objects',  data);
-                                    } catch (e) {
-                                        console.error(e);
-
-                                        // delete unused objects
-                                        for (var id in data) {
-                                            if (data[id].type !== 'state' && data[id].type !== 'channel' && data[id].type !== 'device' && data[id].type !== 'enum') {
-                                                delete data[id];
-                                            }
-                                        }
-
-                                        try {
-                                            storage.set('enums',    enums);
-                                            storage.set('timeSync', (new Date()).getTime());
-                                            storage.set('objects',  data);
-                                        } catch (e) {
-                                            console.error(e);
-                                        }
-                                    }
+                                    storage.set('objects',  data);
+                                    storage.set('enums',    enums);
+                                    storage.set('timeSync', (new Date()).getTime());
                                 }
                             }
 
@@ -980,7 +1008,7 @@ var servConn = {
                         storage.set('groups', groups);
                     }
                 }
-
+                
                 callback(null, groups);
             });
         }
