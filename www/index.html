@@ -1,7 +1,7 @@
 <!doctype html>
 <html manifest="cache.manifest" lang="de" xmlns="http://www.w3.org/1999/html">
 
-        <!-- version: "0.4.9" -->
+        <!-- version: "0.4.10" -->
 
 <html>
     <head>
@@ -43,6 +43,11 @@
         <script type="text/javascript" src="lib/js/loStorage.min.js"></script>
         <script type="text/javascript" src="../../lib/js/socket.io.js"></script>
         <script type="text/javascript">
+            if (typeof $ === 'undefined') {
+                if (location.host.toLowerCase().indexOf('iobroker.') !== -1) {
+                    window.location = '/';
+                }
+            }
             $(document).on('mobileinit', function () {
                 $.mobile.autoInitializePage = false;
                 $.mobile.loader.prototype.options.text = 'loading';

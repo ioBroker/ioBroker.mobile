@@ -202,6 +202,9 @@ Example:
 
 ## Changelog
 
+#### 0.4.10 (2016-11-08)
+* (bluefox) Better cloud support
+
 #### 0.4.9 (2016-10-29)
 * (bluefox) Fix rooms rendering
 * (bluefox) add green, red, blue, white types

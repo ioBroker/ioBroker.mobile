@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "mobile",
-        "version": "0.4.9",
+        "version": "0.4.10",
         "news": {
+            "0.4.10": {
+                "en": "Better support of cloud",
+                "de": "Bessere cloud Unterstützung",
+                "ru": "Поддержка облака"
+            },
             "0.4.9": {
                 "en": "Fix rooms rendering\nadd green, red, blue, white types",
                 "de": "Korrigiere Räumeaufbau\nHinzugefügt: rot, blau, grün- Typen",
