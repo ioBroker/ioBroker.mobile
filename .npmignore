@@ -6,3 +6,4 @@ nativeDroid2-master
 .git
 .travis.yml
 appveyor.yml
+test
