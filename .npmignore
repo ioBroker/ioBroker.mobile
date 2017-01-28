@@ -4,3 +4,6 @@ node_modules
 nativeDroid2-master
 .idea
 .git
+.travis.yml
+appveyor.yml
+test
