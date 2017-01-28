@@ -71,7 +71,8 @@
         "localLink":                "%web_protocol%://%ip%:%web_port%/mobile/index.html",
         "type":                     "visualisation",
         "license":                  "MIT",
-        "noConfig":                 true
+        "noConfig":                 true,
+		"welcomeScreen": 			{"link": "mobile/index.html", "name": "mobile", "img": "mobile.admin/mobile.png", "color": "black", "order": 2}
     },
     "native": {
         "root": [
