@@ -866,8 +866,8 @@ var mobile = {
         var roles = obj.common.role ? obj.common.role.split('.') : [];
 
         if (roles.indexOf('blind') !== -1 || stateName === 'OPEN' || stateName === 'CLOSE') {
-            on  = 'closed';
-            off = 'opened';
+            on  = 'opened';
+            off = 'closed';
         }
 
         // add for blinds and dimmer on/off switch
