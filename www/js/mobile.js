@@ -692,7 +692,8 @@ var mobile = {
                                 rawVal = Math.round((rawVal - min) * 100 / (max - min));
                                 rawVal = Math.round(rawVal / 10) * 10;
 
-                                img = 'img/blind' + rawVal + '.png';
+                                var imgVal = 100 - rawVal;  // invert values, in HM 100% means: completely open
+                                img = 'img/blind' + imgVal + '.png';
                                 break;
 
                             default:
