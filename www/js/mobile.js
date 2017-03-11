@@ -692,7 +692,8 @@ var mobile = {
                                 rawVal = Math.round((rawVal - min) * 100 / (max - min));
                                 rawVal = Math.round(rawVal / 10) * 10;
 
-                                img = 'img/blind' + rawVal + '.png';
+                                var imgVal = 100 - rawVal;  // invert values, in HM 100% means: completely open
+                                img = 'img/blind' + imgVal + '.png';
                                 break;
 
                             default:
@@ -865,8 +866,8 @@ var mobile = {
         var roles = obj.common.role ? obj.common.role.split('.') : [];
 
         if (roles.indexOf('blind') !== -1 || stateName === 'OPEN' || stateName === 'CLOSE') {
-            on  = 'closed';
-            off = 'opened';
+            on  = 'opened';
+            off = 'closed';
         }
 
         // add for blinds and dimmer on/off switch
