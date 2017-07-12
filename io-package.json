@@ -1,8 +1,13 @@
 {
     "common": {
-        "name":                     "mobile",
-        "version": "0.4.10",
+        "name": "mobile",
+        "version": "0.4.11",
         "news": {
+            "0.4.11": {
+                "en": "Fixed blind states",
+                "de": "Rolladenstatus korrigiert",
+                "ru": "Исправлены слепые состояния"
+            },
             "0.4.10": {
                 "en": "Better support of cloud",
                 "de": "Bessere cloud Unterstützung",
