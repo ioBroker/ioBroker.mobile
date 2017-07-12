@@ -7,7 +7,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.mobile.png?downloads=true)](https://nodei.co/npm/iobroker.mobile/)
 
-jQuery Mobile based user interface. 
+jQuery Mobile based user interface.
 
 ![Screen](img/screen.png)
 
@@ -40,7 +40,7 @@ After reload you can go to "Customs => controls"
 ![Slider](img/widget-slider.png)
 
     - role = "level.dimmer"
-    - role = "level.blind" 
+    - role = "level.blind"
     - role consists "level", common.type is "number", common.write is "true" and common.max is defined
     - common.type = "number", common.write is "true" and common.max is defined
 
@@ -68,7 +68,7 @@ Example:
 
     - role consists "button"
     - role consists "action"
-    
+
 Buttons are invisible by default. They just writes "true" if pressed.
 
 Example:
@@ -87,7 +87,7 @@ Example:
 }
 ```
 
-### Switch: 
+### Switch:
 
 ![Switch](img/widget-switch.png)
 
@@ -201,6 +201,9 @@ Example:
 - tablet view
 
 ## Changelog
+
+#### 0.4.11 (2017-07-12)
+* (BasGo) Fixed blind states
 
 #### 0.4.10 (2016-11-08)
 * (bluefox) Better cloud support
