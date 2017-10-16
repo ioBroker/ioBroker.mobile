@@ -38,12 +38,12 @@
                 "de": "fix open first page",
                 "ru": "fix open first page"
             },
-			"0.4.4": {
+            "0.4.4": {
                 "en": "reload if problems occur",
                 "de": "reload if problems occur",
                 "ru": "reload if problems occur"
             },
-			"0.4.3": {
+            "0.4.3": {
                 "en": "check invalid objects",
                 "de": "check invalid objects",
                 "ru": "check invalid objects"
@@ -54,30 +54,44 @@
                 "ru": "update version number"
             }
         },
-        "title":                    "Mobile UI",
-        "desc":                     {
+        "title": "Mobile UI",
+        "desc": {
             "en": "jQuery Mobile based ioBroker user interface",
             "de": "ioBroker GUI für mobile Geräte",
             "ru": "ioBroker визуализация для мобильных устройств"
         },
-        "platform":                 "javascript/Node.js",
-        "onlyWWW":                  "true",
-        "loglevel":                 "info",
-        "dependencies":             ["web"],
-        "icon":                     "mobile.png",
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.mobile/master/admin/mobile.png",
-        "keywords":                 ["user", "interface", "webapp", "jquerymobile", "ui"],
-        "readme":                   "https://github.com/ioBroker/ioBroker.mobile/blob/master/README.md",
-        "singleton":                true,
-        "preserveSettings":         "mobile",
+        "platform": "javascript/Node.js",
+        "onlyWWW": "true",
+        "loglevel": "info",
+        "dependencies": [
+            "web"
+        ],
+        "icon": "mobile.png",
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.mobile/master/admin/mobile.png",
+        "keywords": [
+            "user",
+            "interface",
+            "webapp",
+            "jquerymobile",
+            "ui"
+        ],
+        "readme": "https://github.com/ioBroker/ioBroker.mobile/blob/master/README.md",
+        "singleton": true,
+        "preserveSettings": "mobile",
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
-        "localLink":                "%web_protocol%://%ip%:%web_port%/mobile/index.html",
-        "type":                     "visualisation",
-        "license":                  "MIT",
-        "noConfig":                 true,
-		"welcomeScreen": 			{"link": "mobile/index.html", "name": "mobile", "img": "mobile.admin/mobile.png", "color": "black", "order": 2}
+        "localLink": "%web_protocol%://%ip%:%web_port%/mobile/index.html",
+        "type": "visualization",
+        "license": "MIT",
+        "noConfig": true,
+        "welcomeScreen": {
+            "link": "mobile/index.html",
+            "name": "mobile",
+            "img": "mobile.admin/mobile.png",
+            "color": "black",
+            "order": 2
+        }
     },
     "native": {
         "root": [
@@ -86,11 +100,10 @@
             "enum.functions"
         ],
         "swatches": {
-            "header":   "b",
-            "content":  "c",
-            "footer":   "a"
+            "header": "b",
+            "content": "c",
+            "footer": "a"
         }
     },
-    "objects": [
-    ]
+    "objects": []
 }
