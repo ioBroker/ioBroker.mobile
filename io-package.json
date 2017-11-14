@@ -3,6 +3,11 @@
         "name": "mobile",
         "version": "0.4.11",
         "news": {
+            "0.4.12": {
+                "en": "Update adapter type",
+                "de": "Update Adaptertyp",
+                "ru": "Обновить тип драйвера"
+            },
             "0.4.11": {
                 "en": "Fixed blind states",
                 "de": "Rolladenstatus korrigiert",

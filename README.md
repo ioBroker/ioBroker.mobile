@@ -202,6 +202,9 @@ Example:
 
 ## Changelog
 
+#### 0.4.12 (2017-11-14)
+* (Apollon77) update adapter type
+
 #### 0.4.11 (2017-07-12)
 * (BasGo) Fixed blind states
 
