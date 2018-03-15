@@ -262,7 +262,7 @@ var mobile = {
 
         $('#popupEditName').popup().popup('close');
         $('#name_edit').keyup(function (e) {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 $('#ok_edit').trigger('click');
             }
         });
