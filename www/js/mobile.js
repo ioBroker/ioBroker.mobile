@@ -641,12 +641,15 @@ var mobile = {
                                     max = 100;
                                 } else {
                                     max = parseFloat(max);
+                                    if (max == 0) {
+                                        max = 1;
+                                    }
                                 }
                                 if (rawVal > max) rawVal = max;
                                 if (rawVal < min) rawVal = min;
 
                                 rawVal = (rawVal - min) / (max - min);
-                                if (rawVal < 0.1) rawVal = 0.1;
+                                if (rawVal < 0.1 || isNaN(rawVal)) rawVal = 0.1;
                                 img = 'img/rgb-' + _type + '.png';
                                 $(this).css('opacity', rawVal);
                                 break;
