@@ -163,7 +163,7 @@ systemDictionary = {
     "HUMIDITY":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
     "TEMPERATURE":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
     "INHIBIT":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
-    "OPEN":             {"en": "Open",              "de": "Aufmachen",      "ru": "Открыть"},
+    "OPEN":             {"en": "Open",              "de": "auf",            "ru": "Открыть"},
     "RELOCK DELAY":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
     "STATE UNCERTAIN":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
     "BRIGHTNESS":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
