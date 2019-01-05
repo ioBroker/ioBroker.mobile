@@ -1539,8 +1539,8 @@ var mobile = {
                     '<option value="socket">' + _('Socket') + '</option>' +
                     '<option value="blinds">' + _('Blinds') + '</option>' +
                     '<option value="red">'    + _('Red')    + '</option>' +
-                    '<option value="blue">'   + _('Green')  + '</option>' +
-                    '<option value="green">'  + _('Blue')   + '</option>' +
+                    '<option value="green">'  + _('Green')  + '</option>' +
+                    '<option value="blue">'   + _('Blue')   + '</option>' +
                     '<option value="white">'  + _('White')  + '</option>';
 
                 // render elements
