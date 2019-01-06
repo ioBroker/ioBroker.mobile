@@ -630,6 +630,8 @@ var mobile = {
                             case 'blue':
                             case 'white':
                                 rawVal = parseFloat(val) || 0;
+								if(val === 'true' || val === true)
+									rawVal = 1;
                                 var min = $(this).data('min');
                                 var max = $(this).data('max');
                                 if (min === undefined || min === null || min === '') {
@@ -641,15 +643,12 @@ var mobile = {
                                     max = 100;
                                 } else {
                                     max = parseFloat(max);
-                                    if (max == 0) {
-                                        max = 1;
-                                    }
                                 }
                                 if (rawVal > max) rawVal = max;
                                 if (rawVal < min) rawVal = min;
 
                                 rawVal = (rawVal - min) / (max - min);
-                                if (rawVal < 0.1 || isNaN(rawVal)) rawVal = 0.1;
+                                if (rawVal < 0.1) rawVal = 0.1;
                                 img = 'img/rgb-' + _type + '.png';
                                 $(this).css('opacity', rawVal);
                                 break;
@@ -1073,12 +1072,31 @@ var mobile = {
 
         var mobile = obj.common.mobile && obj.common.mobile[this.user];
         var type;
-        if (mobile && (type = obj.common.mobile[this.user].type)) {
+        if (mobile && (type = obj.common.mobile[this.user].type) && type !== 'none') {
             struct.icon = {
                 type: type,
                 min:  (obj.common.min === undefined) ? 0   : parseFloat(obj.common.min) || 0,
                 max:  (obj.common.max === undefined) ? 100 : parseFloat(obj.common.max) || 0
             };
+			if(struct.icon.max === 0)
+			{
+				if(obj.common.states)
+				{
+					var Keys = Object.keys(obj.common.states);
+					for(var Key in Keys)
+					{
+						if(obj.common.states[Key] === obj.common.max)
+						{
+							struct.icon.max = parseInt(Key);
+						}
+					}
+				}
+			}
+			else
+			{
+				if(obj.common.type === 'boolean')
+					struct.icon.max = 1;
+			}
         } else
         if (mobile && obj.common.mobile[this.user].icon) {
             struct.icon = obj.common.mobile[this.user].icon;
@@ -1247,7 +1265,9 @@ var mobile = {
         var icon = '';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-                icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				if(parent.icon.type !== 'none')	{
+					icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				}
             } else {
                 icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" src="' + parent.icon + '"/>';
             }
@@ -1319,7 +1339,9 @@ var mobile = {
         html += '</td><td class="mobile-widget-table-icon">';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-                html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				if(parent.icon.type !== 'none')	{
+					html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				}
             } else {
                 html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon  + '" />';
             }
