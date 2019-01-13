@@ -163,7 +163,7 @@ systemDictionary = {
     "HUMIDITY":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
     "TEMPERATURE":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
     "INHIBIT":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
-    "OPEN":             {"en": "Open",              "de": "Aufmachen",      "ru": "Открыть"},
+    "OPEN":             {"en": "Open",              "de": "auf",            "ru": "Открыть"},
     "RELOCK DELAY":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
     "STATE UNCERTAIN":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
     "BRIGHTNESS":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
@@ -630,6 +630,8 @@ var mobile = {
                             case 'blue':
                             case 'white':
                                 rawVal = parseFloat(val) || 0;
+								if(val === 'true' || val === true)
+									rawVal = 1;
                                 var min = $(this).data('min');
                                 var max = $(this).data('max');
                                 if (min === undefined || min === null || min === '') {
@@ -974,7 +976,7 @@ var mobile = {
         } else if (obj.common.write && !states) {
             struct.controls.push({
                 set:     true,
-                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: 100%" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: ' + (obj.common.unit ? '90%' : '100%') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
                 valueStyle: 'margin-top: 16px',
                 control: '<input ' +
                     'class="mobile-control" ' +
@@ -1070,12 +1072,31 @@ var mobile = {
 
         var mobile = obj.common.mobile && obj.common.mobile[this.user];
         var type;
-        if (mobile && (type = obj.common.mobile[this.user].type)) {
+        if (mobile && (type = obj.common.mobile[this.user].type) && type !== 'none') {
             struct.icon = {
                 type: type,
                 min:  (obj.common.min === undefined) ? 0   : parseFloat(obj.common.min) || 0,
                 max:  (obj.common.max === undefined) ? 100 : parseFloat(obj.common.max) || 0
             };
+			if(struct.icon.max === 0)
+			{
+				if(obj.common.states)
+				{
+					var Keys = Object.keys(obj.common.states);
+					for(var Key in Keys)
+					{
+						if(obj.common.states[Key] === obj.common.max)
+						{
+							struct.icon.max = parseInt(Key);
+						}
+					}
+				}
+			}
+			else
+			{
+				if(obj.common.type === 'boolean')
+					struct.icon.max = 1;
+			}
         } else
         if (mobile && obj.common.mobile[this.user].icon) {
             struct.icon = obj.common.mobile[this.user].icon;
@@ -1244,7 +1265,9 @@ var mobile = {
         var icon = '';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-                icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				if(parent.icon.type !== 'none')	{
+					icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				}
             } else {
                 icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" src="' + parent.icon + '"/>';
             }
@@ -1316,7 +1339,9 @@ var mobile = {
         html += '</td><td class="mobile-widget-table-icon">';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-                html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				if(parent.icon.type !== 'none')	{
+					html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+				}
             } else {
                 html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon  + '" />';
             }
@@ -1539,8 +1564,8 @@ var mobile = {
                     '<option value="socket">' + _('Socket') + '</option>' +
                     '<option value="blinds">' + _('Blinds') + '</option>' +
                     '<option value="red">'    + _('Red')    + '</option>' +
-                    '<option value="blue">'   + _('Green')  + '</option>' +
-                    '<option value="green">'  + _('Blue')   + '</option>' +
+                    '<option value="green">'  + _('Green')  + '</option>' +
+                    '<option value="blue">'   + _('Blue')   + '</option>' +
                     '<option value="white">'  + _('White')  + '</option>';
 
                 // render elements
@@ -1722,6 +1747,9 @@ var mobile = {
                 if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
+                if (typeof name === 'object') {
+                    name = name[this.language] ? name[this.language] : name['en'] || '';
+                }
 
                 menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
             }
