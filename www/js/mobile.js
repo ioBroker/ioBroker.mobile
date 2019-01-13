@@ -976,7 +976,7 @@ var mobile = {
         } else if (obj.common.write && !states) {
             struct.controls.push({
                 set:     true,
-                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: 100%" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: ' + (obj.common.unit ? '90%' : '100%') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
                 valueStyle: 'margin-top: 16px',
                 control: '<input ' +
                     'class="mobile-control" ' +
@@ -1747,6 +1747,9 @@ var mobile = {
                 if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
+                if (typeof name === 'object') {
+                    name = name[this.language] ? name[this.language] : name['en'] || '';
+                }
 
                 menu += '<li data-edit-id="' + _id + '"><a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '" class="mobile-visibility-subroot mobile-widget-title"" data-edit-id="' + _id + '">' + _(name) + '</a></li>';
             }
