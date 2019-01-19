@@ -1898,6 +1898,10 @@ var mobile = {
             parentId   = '';
             name       = '';
         }
+        //Bei name mit de und en
+        if (typeof name === 'object') {
+            name = name[this.language] ? name[this.language] : name['en'] || 'unknown';
+        }
 
         var hrefId = this.objectId2htmlId(id);
         // header
@@ -1992,7 +1996,12 @@ var mobile = {
                     if (obj) {
                         obj.children = children;
                         that.objects[obj._id] = obj;
-                        that.renderWidget(obj, $ul, that.enums[id].common.name);
+                        //Bei name mit de und en
+                        if(typeof that.enums[id].common.name === 'object') {
+                          that.renderWidget(obj, $ul, that.enums[id].common.name[that.language]);
+						} else {
+                          that.renderWidget(obj, $ul, that.enums[id].common.name);
+						}
                     }
                 });
             }
