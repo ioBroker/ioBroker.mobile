@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "mobile",
-        "version": "0.4.11",
+        "version": "0.5.0",
         "news": {
+            "0.5.0": {
+                "en": "The multilingual names were fixed",
+                "de": "Die mehrsprachigen Namen wurden korrigiert",
+                "ru": "Многоязычные имена были исправлены",
+                "pt": "Os nomes multilíngües foram corrigidos",
+                "nl": "De meertalige namen werden vastgesteld",
+                "fr": "Les noms multilingues ont été corrigés",
+                "it": "I nomi multilingue sono stati corretti",
+                "es": "Los nombres multilingües fueron arreglados.",
+                "pl": "Wielojęzyczne nazwy zostały naprawione",
+                "zh-cn": "多语种名称是固定的"
+            },
             "0.4.12": {
                 "en": "Update adapter type",
                 "de": "Update Adaptertyp",
@@ -37,33 +49,20 @@
                 "en": "fix input number and select value",
                 "de": "Korrigieren Nummereingabe und Wertauswahl",
                 "ru": "исправить ввод номера и выбор значения"
-            },
-            "0.4.5": {
-                "en": "fix open first page",
-                "de": "fix open first page",
-                "ru": "fix open first page"
-            },
-            "0.4.4": {
-                "en": "reload if problems occur",
-                "de": "reload if problems occur",
-                "ru": "reload if problems occur"
-            },
-            "0.4.3": {
-                "en": "check invalid objects",
-                "de": "check invalid objects",
-                "ru": "check invalid objects"
-            },
-            "0.4.2": {
-                "en": "update version number",
-                "de": "update version number",
-                "ru": "update version number"
             }
         },
         "title": "Mobile UI",
         "desc": {
             "en": "jQuery Mobile based ioBroker user interface",
             "de": "ioBroker GUI für mobile Geräte",
-            "ru": "ioBroker визуализация для мобильных устройств"
+            "ru": "ioBroker визуализация для мобильных устройств",
+            "pt": "Interface de usuário do ioBroker baseada em jQuery Mobile",
+            "nl": "jQuery Mobiel gebaseerde ioBroker gebruikersinterface",
+            "fr": "Interface utilisateur ioBroker basée sur jQuery Mobile",
+            "it": "Interfaccia utente ioBroker basata su jQuery Mobile",
+            "es": "Interfaz de usuario ioBroker basada en jQuery Mobile",
+            "pl": "Interfejs użytkownika ioBroker oparty na jQuery Mobile",
+            "zh-cn": "基于jQuery Mobile的ioBroker用户界面"
         },
         "platform": "javascript/Node.js",
         "onlyWWW": "true",

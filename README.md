@@ -202,75 +202,78 @@ Example:
 
 ## Changelog
 
-#### 0.4.12 (2017-11-14)
+### 0.5.0 (2019-01-24)
+* (Hirsch-DE) The multilingual names were fixed
+
+### 0.4.12 (2017-11-14)
 * (Apollon77) update adapter type
 
-#### 0.4.11 (2017-07-12)
+### 0.4.11 (2017-07-12)
 * (BasGo) Fixed blind states
 
-#### 0.4.10 (2016-11-08)
+### 0.4.10 (2016-11-08)
 * (bluefox) Better cloud support
 
-#### 0.4.9 (2016-10-29)
+### 0.4.9 (2016-10-29)
 * (bluefox) Fix rooms rendering
 * (bluefox) add green, red, blue, white types
 
-#### 0.4.8 (2016-10-09)
+### 0.4.8 (2016-10-09)
 * (bluefox) implement type blind
 
-#### 0.4.7 (2016-09-10)
+### 0.4.7 (2016-09-10)
 * (bluefox) make narrow screen on wide displays
 * (bluefox) fix some widgets
 
-#### 0.4.6 (2016-09-03)
+### 0.4.6 (2016-09-03)
 * (bluefox) support of custom images
 * (bluefox) fix input number and select value
 
-#### 0.4.5 (2016-07-01)
+### 0.4.5 (2016-07-01)
 * (bluefox) fix open first page
 
-#### 0.4.4 (2016-06-24)
+### 0.4.4 (2016-06-24)
 * (bluefox) reload if problems occur
 
-#### 0.4.3 (2016-06-24)
+### 0.4.3 (2016-06-24)
 * (bluefox) just check invalid objects
 
-#### 0.4.2 (2016-06-14)
+### 0.4.2 (2016-06-14)
 * (bluefox) update version number
 
-#### 0.4.1 (2016-05-12)
+### 0.4.1 (2016-05-12)
 * (bluefox) fix control of logical states
 
-#### 0.4.0
+### 0.4.0
 * (bluefox) add theme switcher
 
-#### 0.3.0
+### 0.3.0
 * (bluefox) fix problem with room names with spaces
 * (bluefox) implement side panel
 
-#### 0.2.2
+### 0.2.2
 * (bluefox) fix locations in edit mode
 * (bluefox) enable visibility of indicators
 
-#### 0.2.1
+### 0.2.1
 * (bluefox) fix some errors
 
-#### 0.2.0
+### 0.2.0
 * (bluefox) sorting and edit name
 
-#### 0.1.1
+### 0.1.1
 * (bluefox) fix errors for some devices
 
-#### 0.1.0
+### 0.1.0
 * (bluefox) edit of visibility
 
-#### 0.0.4
+### 0.0.4
 * (bluefox) first version. No edit possible.
 
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2016 bluefox <dogafox@gmail.com>
+Copyright (c) 2015-2019 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
