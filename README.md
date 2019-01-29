@@ -202,6 +202,9 @@ Example:
 
 ## Changelog
 
+### 1.0.0 (next)
+* (ldittmar) Add translations
+
 ### 0.5.0 (2019-01-24)
 * (Hirsch-DE) The multilingual names were fixed
 

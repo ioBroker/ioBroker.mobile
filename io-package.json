@@ -18,40 +18,101 @@
             "0.4.12": {
                 "en": "Update adapter type",
                 "de": "Update Adaptertyp",
-                "ru": "Обновить тип драйвера"
+                "ru": "Обновить тип драйвера",
+                "pt": "Atualização tipo de adaptador",
+                "nl": "Update adapter type",
+                "fr": "Mise à jour du type de carte",
+                "it": "Aggiornamento scheda tipo",
+                "es": "Actualización el tipo de adaptador",
+                "pl": "Aktualizacja typ adapter ",
+                "zh-cn": "更新型适配器"
             },
             "0.4.11": {
                 "en": "Fixed blind states",
                 "de": "Rolladenstatus korrigiert",
-                "ru": "Исправлены слепые состояния"
+                "ru": "Исправлены слепые состояния",
+                "pt": "Fixo cego estados",
+                "nl": "Vaste blind staten",
+                "fr": "Fixe aveugle unis",
+                "it": "Fisso cieco stati",
+                "es": "Fijo ciego estados",
+                "pl": "Stałe ślepy państw",
+                "zh-cn": "固定的盲的国家"
             },
             "0.4.10": {
                 "en": "Better support of cloud",
                 "de": "Bessere cloud Unterstützung",
-                "ru": "Поддержка облака"
+                "ru": "Поддержка облака",
+                "pt": "Melhor suporte para nuvem",
+                "nl": "Betere ondersteuning van de cloud",
+                "fr": "Meilleur support du cloud",
+                "it": "Migliore supporto del cloud",
+                "es": "Mejor soporte de la nube",
+                "pl": "Ulepszone wsparcie dla chmury",
+                "zh-cn": "更好地支持云"
             },
             "0.4.9": {
                 "en": "Fix rooms rendering\nadd green, red, blue, white types",
                 "de": "Korrigiere Räumeaufbau\nHinzugefügt: rot, blau, grün- Typen",
-                "ru": "Исправлено построение комнат\nДобавлены новые типы: красный, синий..."
+                "ru": "Исправлено построение комнат\nДобавлены новые типы: красный, синий...",
+                "pt": "Correcção quartos de renderização\nadicionar verde, vermelho, azul, branco tipos de",
+                "nl": "Fix kamers rendering\nhet toevoegen van groen, rood, blauw, wit soorten",
+                "fr": "Fixer les chambres de rendu\najouter le vert, le rouge, le bleu, le blanc types",
+                "it": "Fix camere di rendering\naggiungere verde, rosso, blu, bianco, tipi di",
+                "es": "Arreglar las habitaciones de representación\nañadir verde, rojo, azul, blanco tipos de",
+                "pl": "Naprawić pokoje tłumaczenia\ndodać zielony, czerwony, niebieski, biały rodzajach",
+                "zh-cn": "修复房间呈现\n添加绿色的、红色的，蓝色的,白色的类型"
             },
             "0.4.8": {
                 "en": "implement type blind",
                 "de": "Typ Rolladen ist fertig",
-                "ru": "Добавлен тип жалюзи"
+                "ru": "Добавлен тип жалюзи",
+                "pt": "implementar tipo de cego",
+                "nl": "implementeren type blind",
+                "fr": "mettre en œuvre le type aveugle",
+                "it": "tipo di attrezzo cieco",
+                "es": "implementar tipo ciego",
+                "pl": "typ ślepy",
+                "zh-cn": "实施类型盲"
             },
             "0.4.7": {
                 "en": "fix input number and select value",
                 "de": "Korrigieren Nummereingabe und Wertauswahl",
-                "ru": "исправить ввод номера и выбор значения"
+                "ru": "исправить ввод номера и выбор значения",
+                "pt": "corrigir número de entrada e seleccionar o valor",
+                "nl": "fix ingang nummer in en selecteer waarde",
+                "fr": "fix nombre d'entrée et sélectionnez la valeur",
+                "it": "fix numero di input e selezionare il valore",
+                "es": "fijar el número de entrada y seleccionar el valor",
+                "pl": "naprawić ilość wejść i wybierz wartość",
+                "zh-cn": "修复输入数量和选择值"
             },
             "0.4.6": {
                 "en": "fix input number and select value",
                 "de": "Korrigieren Nummereingabe und Wertauswahl",
-                "ru": "исправить ввод номера и выбор значения"
+                "ru": "исправить ввод номера и выбор значения",
+                "pt": "corrigir número de entrada e seleccionar o valor",
+                "nl": "fix ingang nummer in en selecteer waarde",
+                "fr": "fix nombre d'entrée et sélectionnez la valeur",
+                "it": "fix numero di input e selezionare il valore",
+                "es": "fijar el número de entrada y seleccionar el valor",
+                "pl": "naprawić ilość wejść i wybierz wartość",
+                "zh-cn": "修复输入数量和选择值"
             }
         },
         "title": "Mobile UI",
+        "titleLang": {
+            "en": "Mobile UI",
+            "de": "Mobile UI",
+            "ru": "Мобильный пользовательский интерфейс",
+            "pt": "Móveis de INTERFACE do usuário",
+            "nl": "Mobiele UI",
+            "fr": "INTERFACE Mobile",
+            "it": "Mobile UI",
+            "es": "Móvil de interfaz de usuario",
+            "pl": "Mobilny interfejs użytkownika",
+            "zh-cn": "移动用户界面"
+        },
         "desc": {
             "en": "jQuery Mobile based ioBroker user interface",
             "de": "ioBroker GUI für mobile Geräte",
