@@ -3,6 +3,18 @@
         "name": "mobile",
         "version": "1.0.0",
         "news": {
+            "1.0.0": {
+                "en": "Translations added and done some fixes",
+                "de": "Übersetzungen hinzugefügt und einige Korrekturen vorgenommen",
+                "ru": "Добавлены переводы и внесены некоторые исправления",
+                "pt": "Traduções adicionadas e feitas algumas correções",
+                "nl": "Vertalingen hebben enkele fixes toegevoegd en gedaan",
+                "fr": "Traductions ajoutées et corrigées",
+                "it": "Le traduzioni hanno aggiunto e apportato alcune correzioni",
+                "es": "Traducciones añadidas y hechas algunas correcciones.",
+                "pl": "Tłumaczenia dodane i wykonane pewne poprawki",
+                "zh-cn": "翻译添加并完成了一些修复"
+            },
             "0.5.0": {
                 "en": "The multilingual names were fixed",
                 "de": "Die mehrsprachigen Namen wurden korrigiert",
