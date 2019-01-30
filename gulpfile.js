@@ -138,7 +138,7 @@ function words2languages(src) {
             fs.writeFileSync(src + 'i18n/' + l + '/translations.json', lang2data(obj));
         }
     } else {
-        console.error('Cannot read or parse ' + fileName);
+        console.error('Cannot read or parse ' + src + fileName);
     }
 }
 
@@ -353,23 +353,23 @@ async function translateNotExisting(obj, baseText, yandex) {
 
 //TASKS
 
-gulp.task('adminWords2languages', function (done) {
-    words2languages('./admin/');
+gulp.task('wwwWords2languages', function (done) {
+    words2languages('./www/js/');
     done();
 });
 
-gulp.task('adminWords2languagesFlat', function (done) {
-    words2languagesFlat('./admin/');
+gulp.task('wwwWords2languagesFlat', function (done) {
+    words2languagesFlat('./www/js/');
     done();
 });
 
-gulp.task('adminLanguagesFlat2words', function (done) {
-    languagesFlat2words('./admin/');
+gulp.task('wwwLanguagesFlat2words', function (done) {
+    languagesFlat2words('./www/js/');
     done();
 });
 
-gulp.task('adminLanguages2words', function (done) {
-    languages2words('./admin/');
+gulp.task('wwwLanguages2words', function (done) {
+    languages2words('./www/js/');
     done();
 });
 
@@ -448,23 +448,23 @@ gulp.task('translate', async function (done) {
             await translateNotExisting(iopackage.common.desc, null, yandex);
         }
 
-        if (fs.existsSync('./admin/i18n/en/translations.json')) {
-            let enTranslations = require('./admin/i18n/en/translations.json');
+        if (fs.existsSync('./www/js/i18n/en/translations.json')) {
+            let enTranslations = require('./www/js/i18n/en/translations.json');
             for (let l in languages) {
                 console.log("Translate Text: " + l);
                 let existing = {};
-                if (fs.existsSync('./admin/i18n/' + l + '/translations.json')) {
-                    existing = require('./admin/i18n/' + l + '/translations.json');
+                if (fs.existsSync('./www/js/i18n/' + l + '/translations.json')) {
+                    existing = require('./www/js/i18n/' + l + '/translations.json');
                 }
                 for (let t in enTranslations) {
                     if (!existing[t]) {
                         existing[t] = await translate(enTranslations[t], l, yandex);
                     }
                 }
-                if (!fs.existsSync('./admin/i18n/' + l + '/')) {
-                    fs.mkdirSync('./admin/i18n/' + l + '/');
+                if (!fs.existsSync('./www/js/i18n/' + l + '/')) {
+                    fs.mkdirSync('./www/js/i18n/' + l + '/');
                 }
-                fs.writeFileSync('./admin/i18n/' + l + '/translations.json', JSON.stringify(existing, null, 4));
+                fs.writeFileSync('./www/js/i18n/' + l + '/translations.json', JSON.stringify(existing, null, 4));
             }
         }
 
@@ -472,6 +472,6 @@ gulp.task('translate', async function (done) {
     fs.writeFileSync('io-package.json', JSON.stringify(iopackage, null, 4));
 });
 
-gulp.task("translateAndUpdateWordsJS", gulp.series("translate", "adminLanguages2words", "adminWords2languages"));
+gulp.task("translateAndUpdateWordsJS", gulp.series("translate", "wwwLanguages2words", "wwwWords2languages"));
 
 gulp.task('default', gulp.series('updatePackages', 'updateReadme'));

@@ -1,9 +1,6 @@
 <!doctype html>
 <html manifest="cache.manifest" lang="de" xmlns="http://www.w3.org/1999/html">
 
-        <!-- version: "0.4.10" -->
-
-<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -63,7 +60,7 @@
         <script type="text/javascript" src="../../lib/js/translate.js"></script>
         <script type="text/javascript" src="_socket/info.js"></script>
         <script type="text/javascript" src="js/conn.js"></script>
-        <script type="text/javascript" src="../admin/words.js"></script>
+        <script type="text/javascript" src="js/words.js"></script>
         <script type="text/javascript" src="js/mobile.js"></script>        
         <!--<script type="text/javascript" src="js/add2home-2.0.8.js"></script>-->
     </head>
@@ -85,7 +82,8 @@
             </div>
             <div data-role="content" data-theme="a">
                 <h3>ioBroker.mobile</h3>
-                Copyright &copy; 2015-2016 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a><br/>
+                Copyright &copy; 2015-2019 <a data-ajax="false" href="https://github.com/ioBroker/ioBroker.mobile" target="_blank">Bluefox</a>
+                <br/>
                 <span class="translate">License: </span><b>MIT</b>
                 <p style="font-size: 16px" class="translate">Used icons</p>
                 <p>
@@ -93,7 +91,8 @@
                     <div><span class="translate">Last synchronized: </span><span class="last-synchronised"></span></div>
                     <a class="mobile-editswitch mobile-noedit  translate" data-ajax="false" data-role="button" data-icon="gear">Edit-Mode</a>
                     <a class="mobile-editswitch mobile-edit    translate" data-ajax="false" data-role="button" data-icon="gear">Finish Edit-Mode</a>
-                    <span class="translate">edit description</span><br>
+                    <span class="translate">edit description</span>
+                    <br>
                     <h3 class="translate">Theme</h3>
                     <input type="button" data-inline="true" value="Light" class="mobile-theme-selector" data-theme="light" />
                     <input type="button" data-inline="true" value="Dark"  class="mobile-theme-selector" data-theme="default" />
@@ -110,12 +109,12 @@
             </div>
         </div>
         <div data-role="popup" id="popupEditName" data-theme="a" class="ui-corner-all" data-history="false">
-                <div style="text-align: center">
-                    <h3 class="translate">Edit name</h3>
-                    <!--label for="name_edit" class="ui-hidden-accessible" class="translate">Name:</label-->
-                    <input type="text" id="name_edit" placeholder="name" data-theme="a" class="translateP" style="width: 90%; border: 1px solid gray; height: 2em; padding-left: 1em">
-                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-check ui-btn-icon-left" data-rel="back" data-transition="flow" class="translate" id="ok_edit">Ok</a>
-                </div>
+            <div style="text-align: center">
+                 <h3 class="translate">Edit name</h3>
+                 <!--label for="name_edit" class="ui-hidden-accessible" class="translate">Name:</label-->
+                 <input type="text" id="name_edit" placeholder="name" data-theme="a" class="translateP" style="width: 90%; border: 1px solid gray; height: 2em; padding-left: 1em">
+                 <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-check ui-btn-icon-left" data-rel="back" data-transition="flow" class="translate" id="ok_edit">Ok</a>
+            </div>
         </div>
         <div data-role="panel" data-position="left" data-position-fixed="false" data-display="overlay" id="nav-panel" data-theme="a" style="z-index: 1000; display: none">
             <ul data-role="listview" data-theme="a" data-divider-theme="b" style="margin-top:-16px;" class="nav-search" id="nav-panel-ul"></ul>
