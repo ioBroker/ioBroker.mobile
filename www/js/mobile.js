@@ -23,8 +23,6 @@
 /* global can */
 /* global storage */
 /* global servConn */
-/* global systemDictionary:true */
-/* global systemDictionary */
 /* global $ */
 /* global translateAll */
 /* global jQuery */
@@ -33,208 +31,47 @@
 /* jshint -W097 */// jshint strict:false
 'use strict';
 
-systemDictionary = {
-    'Views': {'en': 'Views', 'de': 'Views', 'ru': 'Страницы'},
-    'edit description': {
-        'en': 'In edit mode you can add, delete or modify the extensions. Additionally the elements can be sorted or styled.',
-        'de': 'Im Edit-Modus können Erweiterungen hinzugefügt, bearbeitet und gelöscht werden, außerdem können per Drag&Drop Elemente umsortiert und Bilder hochgeladen werden.',
-        'ru': 'В режиме изменений можно добавить, изменить или удалить объекты, кроме того можно перетаскивая изменить порядок элементов, а также загрузить иконки.'
-    },
-    "Loading data values...": {
-        "en": "Loading data values...",
-        "de": "Lade Zustände...",
-        "ru": "Загрузка значений..."
-    },
-    "Rooms":            {"en": "Rooms",             "de": "Räume",          "ru": "Комнаты"},
-    "Favorites":        {"en": "Favorites",         "de": "Favorites",      "ru": "Favorites"},
-    "Functions":        {"en": "Functions",         "de": "Funktionen",     "ru": "Функции"},
-    "off":              {"en": "off",               "de": "aus",            "ru": "выкл"},
-    "on":               {"en": "on",                "de": "an",             "ru": "вкл"},
-    "CLOSED":           {"en": "closed",            "de": "zu",             "ru": "закрыто"},
-    "closed":           {"en": "closed",            "de": "zu",             "ru": "закр"},
-    "opened":           {"en": "opened",            "de": "auf",            "ru": "откр"},
-/*    "OPEN":             {"en": "open",              "de": "auf",            "ru": "открыто"},*/
-    "open":             {"en": "open",              "de": "auf",            "ru": "открыто"},
-    "TILTED":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
-    "tilted":           {"en": "tilted",            "de": "gekippt",        "ru": "приоткрыто"},
-    "false":            {"en": "false",             "de": "nein",           "ru": "нет"},
-    "true":             {"en": "true",              "de": "ja",             "ru": "да"},
-    "No connection to server": {
-        "en": "No connection to server",
-        "de": "No connection to server",
-        "ru": "Нет соединения с сервером"
-    },
-    "Edit mode":        {"en": "Edit mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
-    "Info":             {"en": "Info",              "de": "Info",           "ru": "Инфо"},
-    "License: ":        {"en": "License: ",         "de": "Lizenz: ",       "ru": "Лицензия: "},
-    "Refresh":          {"en": "Refresh",           "de": "Aktualisieren",  "ru": "Обновить"},
-    "Used icons": {
-        "en": 'Used icons from <a href="https://icons8.com/" target="_blank">icons8.com/</a>.',
-        "de": 'Hier werden die Bilder von <a href="https://icons8.com/" target="_blank">icons8.com/</a> benutzt.',
-        "ru": 'Используются иконки с ресурса <a href="https://icons8.com/" target="_blank">icons8.com/</a>.'
-    },
-    "Edit name": {      "en": "Edit name",          "de": "Name ändern",    "ru": "Изменить имя"},
-    "Last synchronized: ": {
-        "en": "Last synchronized: ",
-        "de": "Letze Synchronisierung: ",
-        "ru": "Последняя синхронизация: "},
-    "Edit-Mode":        {"en": "Edit-Mode",         "de": "Edit-Modus",     "ru": "Реж. изменений"},
-    "Finish Edit-Mode": {"en": "Finish Edit-Mode",  "de": "Edit-Modus beenden", "ru": "Завершить изменения"},
-    "Documentation":    {"en": "Documentation",     "de": "Dokumentation",  "ru": "Документация"},
-    "Reset layout":     {"en": "Reset layout",      "de": "Einstellungen löschen",  "ru": "Сбросить настройки"},
-
-    "%s seconds ago":   {"en": "%s days ago",       "de": "vor %s Sekunden", "ru": "%s секунд(у) назад"},
-    "ca. %s minutes ago": {"en": "ca. %s minutes ago", "de": "vor ca. %s Minuten", "ru": "примеро %s минут(у) назад"},
-    "%s minutes ago":   {"en": "%s minutes ago",    "de": "vor %s Minuten", "ru": "%s минут(у) назад"},
-    "%s h. and %s m. ago": {"en": "%s h. and %s m. ago", "de": "vor %s Stunden und %s Minuten", "ru": "%s час(ов) и %s минут(у) назад"},
-    "%s hours ago":     {"en": "%s hours ago",      "de": "vor %s Stunden", "ru": "%s час(ов) назад"},
-    "%s days and %s h. ago": {"en": "%s days and %s h. ago",  "de": "vor %s Tagen und %s Stunden", "ru": "%s дней и %s час(ов) назад"},
-    "%s days ago":      {"en": "%s days ago",       "de": "vor %s days",    "ru": "%s дней назад"},
-    "Theme":            {"en": "Theme",             "de": "Thema",          "ru": "Тема"},
-    "none":             {"en": "no type",           "de": "kein Typ",       "ru": "нет типа"},
-    "Light":            {"en": "light",             "de": "Licht",          "ru": "свет"},
-    "Socket":           {"en": "socket",            "de": "Steckdose",      "ru": "розетка"},
-    "Blinds":           {"en": "blinds",            "de": "Rolladen",       "ru": "жалюзи"},
-    "Red":              {"en": "red",               "de": "rot",            "ru": "красный"},
-    "Green":            {"en": "green",             "de": "grün",           "ru": "зелёный"},
-    "Blue":             {"en": "blue",              "de": "blau",           "ru": "синий"},
-    "White":            {"en": "white",             "de": "weiß",           "ru": "белый"},
-
-    "Wohnzimmer":       {"en": "Living room",       "de": "Wohnzimmer",     "ru": "Гостинная"},
-    "Küche":            {"en": "Kitchen",           "de": "Küche",          "ru": "Кухня"},
-    "Schlafzimmer":     {"en": "Sleeping room",     "de": "Schlafzimmer",   "ru": "Спальня"},
-    "Kinderzimmer":     {"en": "Kids room",         "de": "Kinderzimmer",   "ru": "Детская"},
-    "Kabinet":          {"en": "Cabinet",           "de": "Kabinet",        "ru": "Кабинет"},
-    "Bad":              {"en": "Bath",              "de": "Bad",            "ru": "Ванная"},
-    "Balkon":           {"en": "Balcony",           "de": "Balkon",         "ru": "Балкон"},
-    "Gäste WC":         {"en": "Guest WC",          "de": "Gäste WC",       "ru": "Гостевой туалет"},
-    "Flur":             {"en": "Hall",              "de": "Flur",           "ru": "Коридор"},
-    "Admin Favorites":  {"en": "Admin Favorites",   "de": "Admin Favorites", "ru": "Admin Favorites"},
-    "Licht":            {"en": "Light",             "de": "Licht",          "ru": "Свет"},
-    "Heizung":          {"en": "Heting",            "de": "Heizung",        "ru": "Отопление"},
-    "Rolladen":         {"en": "Shutter",           "de": "Rolladen",       "ru": "Жалюзи"},
-    "Wetter":           {"en": "Weather",           "de": "Wetter",         "ru": "Погода"},
-    "Umwelt":           {"en": "Environment",       "de": "Umwelt",         "ru": "Окружающая среда"},
-    "Taster":           {"en": "Button",            "de": "Taster",         "ru": "Кнопка"},
-    "Zentrale":         {"en": "Central unit",      "de": "Zentrale",       "ru": "Центральное устройство"},
-    "Fenster":          {"en": "Window",            "de": "Fenster",        "ru": "Окно"},
-    "Aktor":            {"en": "Actor",             "de": "Aktor",          "ru": "Выключатель"},
-    "Beleuchtung":      {"en": "Lighting",          "de": "Beleuchtung",    "ru": "Подсветка"},
-
-    "Technikraum":      {"en": "Technical room",    "de": "Technikraum",    "ru": "Комната оборудования"},
-    "Büro":             {"en": "Office",            "de": "Büro",           "ru": "Бюро"},
-    "Kellerraum":       {"en": "Basement",          "de": "Kellerraum",     "ru": "Подвал"},
-    "Vorraum":          {"en": "Vestibule",          "de": "Vorraum",       "ru": "Сени"},
-    "Gang EG":          {"en": "Corridor 1st floor", "de": "Gang EG",       "ru": "Коридор 1й этаж"},
-    "Aussen EG":        {"en": "Outside 1st floor", "de": "Aussen EG",      "ru": "Снаружи 1й этаж"},
-    "Carport":          {"en": "Carport",           "de": "Carport",        "ru": "Навес над машиной"},
-    "WC EG":            {"en": "WC 1st floor",      "de": "WC EG",          "ru": "Туалет 1й этаж"},
-    "Bad EG":           {"en": "Bath 1st floor",    "de": "Bad EG",         "ru": "Bad 1й этаж"},
-    "Schrankraum":      {"en": "Wardrobe",          "de": "Schrankraum",    "ru": "Шкаф"},
-    "Bad OG":           {"en": "Bath 2nd floor",    "de": "Bad OG",         "ru": "Ванная 2й этаж"},
-    "Kinderzimmer 1":   {"en": "Kid's room 1",      "de": "Kinderzimmer 1", "ru": "Детская 1"},
-    "Kinderzimmer 2":   {"en": "Kid's room 2",      "de": "Kinderzimmer 2", "ru": "Детская 2"},
-    "Gang OG":          {"en": "Corridor 2nd floor", "de": "Gang OG",       "ru": "Коридор 2й этаж"},
-    "WC OG":            {"en": "WC 2nd floor",      "de": "WC OG",          "ru": "Туалет 2й этаж"},
-    "Speis":            {"en": "Speis", "de": "Speis", "ru": "Speis"},
-    "Terrasse":         {"en": "Terrace",           "de": "Terrasse",       "ru": "Терасса"},
-    "Garten":           {"en": "Garden",            "de": "Garten",         "ru": "Сад"},
-    "Aussen OG":        {"en": "Outside 2nd floor", "de": "Aussen OG",      "ru": "Снаружи 2й этаж"},
-    "Treppe":           {"en": "Stair",             "de": "Treppe",         "ru": "Лестница"},
-    "Esszimmer":        {"en": "Eating room",       "de": "Esszimmer",      "ru": "Столовая"},
-    "Helligkeitswerte": {"en": "Brightness",        "de": "Helligkeitswerte", "ru": "Яркость"},
-    "IPCams":           {"en": "IP Cams",           "de": "IPCams",         "ru": "Веб камеры"},
-    "Raffstore":        {"en": "Raffstore", "de": "Raffstore", "ru": "Raffstore"},
-    "Klima":            {"en": "Air condition",     "de": "Klima",          "ru": "Кондиционер"},
-    "Sicherheit":       {"en": "Alarm",             "de": "Sicherheit",     "ru": "Сигнализация"},
-    "Verschluss":       {"en": "Gate",              "de": "Verschluss",     "ru": "Двери"},
-    "Energiemanagement": {"en": "Energy management", "de": "Energiemanagement", "ru": "Потребление энергии"},
-
-    "VALVE STATE":      {"en": "Valve State",       "de": "Ventilposition", "ru": "Позиция вентиля"},
-    "LEVEL":            {"en": "Level",             "de": "Wert",           "ru": "Положение"},
-    "PRESS LONG":       {"en": "Press long",        "de": "Lang drucken",   "ru": "Длинное нажатие"},
-    "PRESS SHORT":      {"en": "Press short",       "de": "Kurz drucken",   "ru": "Короткое нажатие"},
-    "PRESS CONT":       {"en": "Press continuous",  "de": "Kontinuerlich",  "ru": "Продолжительное нажатие"},
-    "PRESS LONG RELEASE": {"en": "Press long release", "de": "Press Long Release", "ru": "Прекратить длинное нажатие"},
-    "STATE":            {"en": "State",             "de": "Zustand",        "ru": "Состояние"},
-    "ADJUSTING COMMAND": {"en": "Adjusting Command", "de": "Justier-Kommando", "ru": "Команда настойки"},
-    "ADJUSTING DATA":   {"en": "Adjusting Data",    "de": "Justierungsdaten", "ru": "Данные для настойки"},
-    "SETPOINT":         {"en": "Setpoint",          "de": "Sollwert",       "ru": "Заданное значение"},
-    "HUMIDITY":         {"en": "Humidity",          "de": "Luftfeuchtigkeit", "ru": "Влажность"},
-    "TEMPERATURE":      {"en": "Temperature",       "de": "Temperatur",     "ru": "Температура"},
-    "INHIBIT":          {"en": "Inhibit",           "de": "Sperrung",       "ru": "Заперто"},
-    "OPEN":             {"en": "Open",              "de": "auf",            "ru": "Открыть"},
-    "RELOCK DELAY":     {"en": "Relock Delay",      "de": "Relock Verzögerung", "ru": "Задержка закрытия"},
-    "STATE UNCERTAIN":  {"en": "State Uncertain",   "de": "Unbekannter Zustand", "ru": "Неизвестное состояние"},
-    "BRIGHTNESS":       {"en": "Brightness",        "de": "Helligkeit",     "ru": "Яркость"},
-    "ON TIME":          {"en": "On Time",           "de": "Auf-Zeit",       "ru": "Время вкл."},
-    "SUBMIT":           {"en": "Submit",            "de": "Bestätigen",     "ru": "Подтвердить"},
-    "FILLING LEVEL":    {"en": "Filling Level",     "de": "Füllniveau ",    "ru": "Уровень заполнения"},
-    "DEFEKT STATE":     {"en": "Defect",            "de": "Defekt State",   "ru": "Поломка"},
-    "UP":               {"en": "up",                "de": "Nach oben",      "ru": "наверх"},
-    "DOWN":             {"en": "down",              "de": "nach unten",     "ru": "вниз"},
-    "STOP":             {"en": "Stop",              "de": "Stop",           "ru": "Стоп"},
-    "VOLTAGE":          {"en": "Voltage",           "de": "Spannung",       "ru": "Напряжение"},
-    "POWER":            {"en": "Power",             "de": "Power",          "ru": "Мощность"},
-    "FREQUENCY":        {"en": "Frequency",         "de": "Frequenz",       "ru": "Частота"},
-    "ENERGY COUNTER":   {"en": "Energy Counter",    "de": "Energiezähler",  "ru": "Счётчик расхода"},
-    "CURRENT":          {"en": "Current",           "de": "Strom",          "ru": "Ток"},
-    "BOOT":             {"en": "Boot",              "de": "Boot",           "ru": "Boot"},
-    "DECISION VALUE":   {"en": "Decision Value",    "de": "Entscheidungswert", "ru": "Порог принятия решения"},
-    "UNDEFINED":        {"en": "--",                "de": "--",             "ru": "--"},
-    "AIR PRESSURE":     {"en": "Air Pressure",      "de": "Luftdruck",      "ru": "Атмосферное давление"},
-    "RAINING":          {"en": "Raining",           "de": "Regen",          "ru": "Дождь"},
-    "RAIN COUNTER":     {"en": "Rain counter",      "de": "Luftdruck",      "ru": "Атмосферное давление"},
-    "SUNSHINEDURATION": {"en": "Sunshine duration", "de": "Sonnenscheindauer", "ru": "Длительность солнечного сияния"},
-    "WIND DIRECTION":   {"en": "Wind direction",    "de": "Windrichtung",   "ru": "Направление ветра"},
-    "WIND DIRECTION RANGE": {"en": "Wind direction range", "de": "Windrichtungumfang", "ru": "Разброс направления ветра"},
-    "WIND SPEED":       {"en": "Wind speed",        "de": "Windgeschwindigkeit", "ru": "Скорость ветра"},
-    "INSTALL TEST":     {"en": "Install test",      "de": "Installtest",    "ru": "INSTALL TEST"},
-    "VENT_CLOSED":      {"en": "Closed",            "de": "Ventil Zu",      "ru": "Закрыто"}
-};
-
 var mobile = {
-    version: "0.4.10",
+    version: "1.0.0",
     requiredServerVersion: '0.0.0',
-    enums:        {},
-    objects:      {},
-    states:       {},
-    root:         [],
-    refresh:      false,
-    isFirstTime:  true,
-    conn:         servConn,
-    editMode:     false,
-    queueStates:  [],
+    enums: {},
+    objects: {},
+    states: {},
+    root: [],
+    refresh: false,
+    isFirstTime: true,
+    conn: servConn,
+    editMode: false,
+    queueStates: [],
     updateStates: [],
-    ids:          [],
-    user:         'admin',
+    ids: [],
+    user: 'admin',
     defaultInvisibleRoles: ['inhibit', 'button', 'action', 'timer'],
-    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA' , 'ADJUSTING_COMMAND', 'INSTALL_TEST'],
+    defaultInvisibleNames: ['TIMER_ON', 'RELOCK_DELAY', 'OLD_VALUE', 'STATE_UNCERTAIN', 'DECISION_VALUE', 'ADJUSTING_DATA', 'ADJUSTING_COMMAND', 'INSTALL_TEST'],
     ignoreIndicators: ['indicator.updates', 'indicator.state'],
-    lastTimes:    [],
-    activePage:   null,
-    erasePage:    {},
-    isMobile:     null,
+    lastTimes: [],
+    activePage: null,
+    erasePage: {},
+    isMobile: null,
 
-    icons:        {
-        temperature:  'temp_temperature.svg',
-        humidity:     'weather_humidity.svg',
-        setpoint:     'temp_control.svg'
+    icons: {
+        temperature: 'temp_temperature.svg',
+        humidity: 'weather_humidity.svg',
+        setpoint: 'temp_control.svg'
     },
 
     detectMobile: function () {
-        if( navigator.userAgent.match(/Android/i)
-            || navigator.userAgent.match(/webOS/i)
-            || navigator.userAgent.match(/iPhone/i)
-            || navigator.userAgent.match(/iPad/i)
-            || navigator.userAgent.match(/iPod/i)
-            || navigator.userAgent.match(/BlackBerry/i)
-            || navigator.userAgent.match(/Windows Phone/i)
-        ){
+        if (navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ) {
             return true;
-        }
-        else {
-            if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+        } else {
+            if (window.innerWidth <= 800 && window.innerHeight <= 600) {
                 return true;
             } else {
                 return false;
@@ -246,7 +83,7 @@ var mobile = {
         var that = this;
         //this.isMobile = this.detectMobile();
 
-        this.conn.namespace   = 'mobile.0';
+        this.conn.namespace = 'mobile.0';
         this.conn._useStorage = true;
         var url = $.mobile.path.parseUrl(location.href);
         this.editMode = (url.search === '?edit');
@@ -258,7 +95,8 @@ var mobile = {
         }
 
         // show edit indicator
-        if (this.editMode) $('#edit_indicator').show();
+        if (this.editMode)
+            $('#edit_indicator').show();
 
         $('#popupEditName').popup().popup('close');
         $('#name_edit').keyup(function (e) {
@@ -270,7 +108,7 @@ var mobile = {
         $('#ok_edit').click(function (e) {
             e.stopPropagation();
             var $nameEdit = $('#name_edit');
-            var id  = $nameEdit.data('id');
+            var id = $nameEdit.data('id');
             var val = $nameEdit.val();
 
             if (that.objects[id].common) {
@@ -302,7 +140,8 @@ var mobile = {
                     clearTimeout(that.erasePage[id]);
                     delete that.erasePage[id];
                 }
-                if (id !== 'info') that.activePage = id;
+                if (id !== 'info')
+                    that.activePage = id;
             }
         });
 
@@ -345,13 +184,16 @@ var mobile = {
 
                     // Get Server language
                     that.conn.getObjects(!that.refresh, function (err, objects) {
-                        if (err) console.error(err);
+                        if (err)
+                            console.error(err);
                         that.conn.getConfig(!that.refresh, function (err, config) {
-                            if (err) console.error(err);
+                            if (err)
+                                console.error(err);
                             that.conn.getObject('system.adapter.' + that.conn.namespace, !that.refresh, function (err, mobileConfig) {
-                                if (err) console.error(err);
-                                systemLang      = config.language || systemLang;
-                                that.language   = systemLang;
+                                if (err)
+                                    console.error(err);
+                                systemLang = config.language || systemLang;
+                                that.language = systemLang;
                                 that.dateFormat = config.dateFormat;
                                 translateAll();
                                 if (that.isFirstTime) {
@@ -359,9 +201,9 @@ var mobile = {
                                     that.isFirstTime = false;
                                 }
 
-                                that.config  = mobileConfig && mobileConfig.native ? mobileConfig.native : {indicators: {}, theme: 'light'};
+                                that.config = mobileConfig && mobileConfig.native ? mobileConfig.native : {indicators: {}, theme: 'light'};
                                 that.config.indicators = that.config.indicators || {};
-                                that.config.theme      = that.config.theme      || 'light';
+                                that.config.theme = that.config.theme || 'light';
                                 that.loadStyle();
                                 that.objects = that.calcChildren(objects);
 
@@ -369,7 +211,7 @@ var mobile = {
 
                                 // show last sync time
                                 var syncTime = that.conn.getSyncTime();
-                                if (typeof(Storage) === 'undefined') {
+                                if (typeof (Storage) === 'undefined') {
                                     $('.mobile-refresh').hide();
                                     $('.last-synchronised').html(_('not supported'));
                                 } else {
@@ -380,7 +222,8 @@ var mobile = {
                                     that.enums = enums;
                                     for (var e in that.enums) {
                                         var parts = e.split('.');
-                                        if (parts.length === 2) that.root.push(e);
+                                        if (parts.length === 2)
+                                            that.root.push(e);
                                     }
 
                                     that.renderRootPages();
@@ -403,12 +246,14 @@ var mobile = {
                 }, 0);
             },
             onObjectChange: function (id, obj) {
-                if (!that.objects || !that.editMode) return;
+                if (!that.objects || !that.editMode)
+                    return;
                 if (obj) {
                     obj.children = that.objects[id].children;
                     that.objects[id] = obj;
                 } else {
-                    if (that.objects[id]) delete that.objects[id];
+                    if (that.objects[id])
+                        delete that.objects[id];
                 }
             },
             onError: function (err) {
@@ -444,7 +289,7 @@ var mobile = {
             var now = new Date().getTime();
             if (now - that.lastTimerUpdate > 31000) {
                 window.location.reload();
-            } else{
+            } else {
                 that.monitorSleep();
             }
         }, 10000);
@@ -452,7 +297,7 @@ var mobile = {
 
     saveObjects: function (cb) {
         if (this.idsToSave && this.idsToSave.length) {
-            var id  = this.idsToSave.pop();
+            var id = this.idsToSave.pop();
             var that = this;
             this.conn._socket.emit('getObject', id, function (err, obj) {
                 obj.common.mobile = that.objects[id].common.mobile;
@@ -479,8 +324,10 @@ var mobile = {
 
     saveSettings: function (id) {
         this.idsToSave = this.idsToSave || [];
-        if (this.saveTimeout) clearTimeout(this.saveTimeout);
-        if (this.idsToSave.indexOf(id) === -1) this.idsToSave.push(id);
+        if (this.saveTimeout)
+            clearTimeout(this.saveTimeout);
+        if (this.idsToSave.indexOf(id) === -1)
+            this.idsToSave.push(id);
         var that = this;
         this.saveTimeout = setTimeout(function () {
             that.saveObjects();
@@ -502,7 +349,7 @@ var mobile = {
             cb && cb();
             return;
         }
-        var id   = list.pop();
+        var id = list.pop();
         var that = this;
         this.conn._socket.emit('setObject', id, this.objects[id], function (err) {
             if (!err) {
@@ -520,10 +367,10 @@ var mobile = {
         var modified = [];
         for (var id in this.objects) {
             if (this.objects[id] &&
-                this.objects[id].common &&
-                this.objects[id].common.mobile &&
-                this.objects[id].common.mobile[this.user] &&
-                this.objects[id].common.mobile[this.user].visible !== undefined) {
+                    this.objects[id].common &&
+                    this.objects[id].common.mobile &&
+                    this.objects[id].common.mobile[this.user] &&
+                    this.objects[id].common.mobile[this.user].visible !== undefined) {
                 delete this.objects[id].common.mobile[this.user].visible;
 
                 modified.push(id);
@@ -548,7 +395,8 @@ var mobile = {
 
             $('.mobile-last-change').each(function () {
                 var lc = $(this).data('time');
-                if (!lc) return;
+                if (!lc)
+                    return;
                 var pos = actual.indexOf($(this).data('edit-id'));
                 if (!pos) {
                     that.lastTimes.push($(this).data('edit-id'));
@@ -561,7 +409,8 @@ var mobile = {
             // remove all ids from  that.lastTimes, that are no more exists
             for (var a = 0; a < actual.length; a++) {
                 var pos = that.lastTimes.indexOf(actual[a]);
-                if (pos) that.lastTimes.splice(pos, 1);
+                if (pos)
+                    that.lastTimes.splice(pos, 1);
             }
         }
     },
@@ -569,7 +418,7 @@ var mobile = {
     updateState: function (id, force) {
         var that = this;
         $('[data-mobile-id="' + id + '"]').each(function () {
-            var _id  = $(this).data('mobile-id'); // actually _id and id must be equal
+            var _id = $(this).data('mobile-id'); // actually _id and id must be equal
             var role = $(this).data('role');
             if (role === 'lastChange') {
                 var lc = that.states[_id].lc;
@@ -583,9 +432,9 @@ var mobile = {
                     return;
                 }
                 $(this)
-                    .data('time', lc)
-                    .show()
-                    .html(that.formatLastChange(lc));
+                        .data('time', lc)
+                        .show()
+                        .html(that.formatLastChange(lc));
                 if (pos === -1) {
                     that.lastTimes.push(_id);
                     that.updateLastStates(true);
@@ -598,10 +447,10 @@ var mobile = {
                     that.states[_id].val = '';
                 }
 
-                var type   = $(this).data('type');
+                var type = $(this).data('type');
                 if (type !== 'set' && (force || val !== that.states[_id].val.toString())) {
                     var rawVal = that.states[_id].val;
-                    val        = that.states[_id].val;
+                    val = that.states[_id].val;
 
                     if (type === 'range') {
                         $(this).val(val);
@@ -613,7 +462,7 @@ var mobile = {
                         var _type = $(this).data('icon-type');
                         switch (_type) {
                             case 'light':
-                                if (val === 'true'  || val === true) {
+                                if (val === 'true' || val === true) {
                                     rawVal = true;
                                 } else
                                 if (val === 'false' || val === false) {
@@ -630,8 +479,8 @@ var mobile = {
                             case 'blue':
                             case 'white':
                                 rawVal = parseFloat(val) || 0;
-								if(val === 'true' || val === true)
-									rawVal = 1;
+                                if (val === 'true' || val === true)
+                                    rawVal = 1;
                                 var min = $(this).data('min');
                                 var max = $(this).data('max');
                                 if (min === undefined || min === null || min === '') {
@@ -644,17 +493,20 @@ var mobile = {
                                 } else {
                                     max = parseFloat(max);
                                 }
-                                if (rawVal > max) rawVal = max;
-                                if (rawVal < min) rawVal = min;
+                                if (rawVal > max)
+                                    rawVal = max;
+                                if (rawVal < min)
+                                    rawVal = min;
 
                                 rawVal = (rawVal - min) / (max - min);
-                                if (rawVal < 0.1) rawVal = 0.1;
+                                if (rawVal < 0.1)
+                                    rawVal = 0.1;
                                 img = 'img/rgb-' + _type + '.png';
                                 $(this).css('opacity', rawVal);
                                 break;
 
                             case 'socket':
-                                if (val === 'true'  || val === true) {
+                                if (val === 'true' || val === true) {
                                     rawVal = true;
                                 } else
                                 if (val === 'false' || val === false) {
@@ -667,7 +519,7 @@ var mobile = {
                                 break;
 
                             case 'blinds':
-                                if (val === 'true'  || val === true) {
+                                if (val === 'true' || val === true) {
                                     rawVal = 100;
                                 } else
                                 if (val === 'false' || val === false) {
@@ -688,8 +540,10 @@ var mobile = {
                                 } else {
                                     max = parseFloat(max);
                                 }
-                                if (rawVal > max) rawVal = max;
-                                if (rawVal < min) rawVal = min;
+                                if (rawVal > max)
+                                    rawVal = max;
+                                if (rawVal < min)
+                                    rawVal = min;
 
                                 rawVal = Math.round((rawVal - min) * 100 / (max - min));
                                 rawVal = Math.round(rawVal / 10) * 10;
@@ -723,10 +577,10 @@ var mobile = {
                         $(this).val(val);
                         $(this).selectmenu().selectmenu('refresh');
                         $(this).prev().removeClass('ui-body-inherit');
-                    } else if($(this).prop('tagName') === 'INPUT') {
+                    } else if ($(this).prop('tagName') === 'INPUT') {
                         $(this).val(val);
                     } else {
-                        if (val === 'true'  || val === true) {
+                        if (val === 'true' || val === true) {
                             rawVal = true;
                             val = _('true');
                         } else
@@ -750,7 +604,7 @@ var mobile = {
                                         rawVal = val;
                                     } else {
                                         rawVal = values[val];
-                                        val    = _(values[val]);
+                                        val = _(values[val]);
                                     }
                                 } catch (ex) {
                                     console.error('Cannot parse states for ' + _id);
@@ -760,7 +614,7 @@ var mobile = {
                                     rawVal = val;
                                 } else {
                                     rawVal = states[val];
-                                    val    = _(states[val]);
+                                    val = _(states[val]);
                                 }
                             }
                         }
@@ -781,7 +635,8 @@ var mobile = {
                             }
                         }
                         var unit = $(this).data('unit') || '';
-                        if (unit) unit = '<span class="mobile-value-units">' + unit + '</span>';
+                        if (unit)
+                            unit = '<span class="mobile-value-units">' + unit + '</span>';
                         if ($(this).data('title')) {
                             $(this).attr('title', $(this).attr('name') + ' - ' + val + unit);
                         } else {
@@ -822,12 +677,14 @@ var mobile = {
     isDefaultInvisible: function (role, id) {
         if (id) {
             var name = id.split('.').pop();
-            if (this.defaultInvisibleNames.indexOf(name) !== -1) return true;
+            if (this.defaultInvisibleNames.indexOf(name) !== -1)
+                return true;
         }
 
         if (role) {
             for (var w = 0; w < this.defaultInvisibleRoles.length; w++) {
-                if (role.indexOf(this.defaultInvisibleRoles[w]) !== -1) return true;
+                if (role.indexOf(this.defaultInvisibleRoles[w]) !== -1)
+                    return true;
             }
         }
 
@@ -835,7 +692,7 @@ var mobile = {
     },
 
     prepareGenericState: function (obj, struct) {
-        var states    = obj.common.states || '';
+        var states = obj.common.states || '';
         var vStates;
         var stateName = obj._id.split('.').pop();
 
@@ -857,18 +714,20 @@ var mobile = {
 
         if (!this.states[obj._id]) {
             // read states
-            if (this.queueStates.indexOf(obj._id)  === -1) this.queueStates.push(obj._id);
+            if (this.queueStates.indexOf(obj._id) === -1)
+                this.queueStates.push(obj._id);
         } else {
-            if (this.updateStates.indexOf(obj._id) === -1) this.updateStates.push(obj._id);
+            if (this.updateStates.indexOf(obj._id) === -1)
+                this.updateStates.push(obj._id);
         }
 
         struct.controls = [];
-        var on  = 'on';
+        var on = 'on';
         var off = 'off';
         var roles = obj.common.role ? obj.common.role.split('.') : [];
 
         if (roles.indexOf('blind') !== -1 || stateName === 'OPEN' || stateName === 'CLOSE') {
-            on  = 'opened';
+            on = 'opened';
             off = 'closed';
         }
 
@@ -878,17 +737,17 @@ var mobile = {
                 checkbox: true,
                 value: '',
                 control:
-                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" >\n' +
-                    '        <option value="' + (obj.common.min !== undefined ? obj.common.min : 0)   + '">' + _(off) + '</option>\n' +
-                    '        <option value="' + (obj.common.max !== undefined ? obj.common.max : 100) + '">' + _(on)  + '</option>\n' +
-                    '    </select>\n'
+                        '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" data-max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" >\n' +
+                        '        <option value="' + (obj.common.min !== undefined ? obj.common.min : 0) + '">' + _(off) + '</option>\n' +
+                        '        <option value="' + (obj.common.max !== undefined ? obj.common.max : 100) + '">' + _(on) + '</option>\n' +
+                        '    </select>\n'
             });
         }
 
         // add slider
         if (roles.indexOf('level') !== -1 || (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined)) {
             struct.controls.push({
-                value:   '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-role="value" data-mobile-id="' + obj._id + '" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
+                value: '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-role="value" data-mobile-id="' + obj._id + '" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
                 control: '<input class="mobile-control" type="range"    data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '" />'
             });
         } else
@@ -897,15 +756,15 @@ var mobile = {
             struct.controls.push({
                 value: '',
                 control:
-                    '<input ' +
-                    'class="mobile-control" ' +
-                    'type="button" ' +
-                    'data-mobile-id="' + obj._id + '" ' +
-                    'data-role="value" ' +
-                    'data-unit="'  + (obj.common.unit || '') + '" ' +
-                    'data-states=' + "'" + states + "'" + ' ' +
-                    'data-type="'  + obj.common.type + '" ' +
-                    'value="'      + struct.title + '"/>'
+                        '<input ' +
+                        'class="mobile-control" ' +
+                        'type="button" ' +
+                        'data-mobile-id="' + obj._id + '" ' +
+                        'data-role="value" ' +
+                        'data-unit="' + (obj.common.unit || '') + '" ' +
+                        'data-states=' + "'" + states + "'" + ' ' +
+                        'data-type="' + obj.common.type + '" ' +
+                        'value="' + struct.title + '"/>'
             });
             // title is on the button
             struct.title = null;
@@ -953,44 +812,46 @@ var mobile = {
                 max = (obj.common.max !== undefined ? obj.common.max : true);
             }
             var length = off.length;
-            if (on.length > length) length = on.length;
+            if (on.length > length)
+                length = on.length;
             length = 70 + length * 7;
-            if (length < 112) length = 112;
+            if (length < 112)
+                length = 112;
 
             struct.controls.push({
                 checkbox: true,
                 value: '',
                 control:
-                    '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + min + '" data-max="' + max + '" data-width="' + length + 'px">\n' +
-                    '        <option value="' + min + '">' + _(off) + '</option>\n' +
-                    '        <option value="' + max + '">' + _(on)  + '</option>\n' +
-                    '    </select>'
+                        '    <select class="mobile-control" data-mobile-id="' + obj._id + '" data-role="slider" data-min="' + min + '" data-max="' + max + '" data-width="' + length + 'px">\n' +
+                        '        <option value="' + min + '">' + _(off) + '</option>\n' +
+                        '        <option value="' + max + '">' + _(on) + '</option>\n' +
+                        '    </select>'
             });
         } else
         // controllable number, but as text
         if (obj.common.write && obj.common.type === 'number' && obj.common.max !== undefined && !states) {
             struct.controls.push({
-                value:   '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
-                control: '<input class="mobile-control" type="range" data-type="' +  obj.common.type + '" data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '"/>'
+                value: '<div   class="mobile-value ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" data-mobile-id="' + obj._id + '" data-role="value" data-unit="' + (obj.common.unit || '') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + '></div>',
+                control: '<input class="mobile-control" type="range" data-type="' + obj.common.type + '" data-mobile-id="' + obj._id + '" min="' + (obj.common.min !== undefined ? obj.common.min : 0) + '" max="' + (obj.common.max !== undefined ? obj.common.max : 100) + '"/>'
             });
         } else if (obj.common.write && !states) {
             struct.controls.push({
-                set:     true,
-                value:   '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: ' + (obj.common.unit ? '90%' : '100%') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>': ''),
+                set: true,
+                value: '<input class="mobile-value" data-mobile-id="' + obj._id + '" style="width: ' + (obj.common.unit ? '90%' : '100%') + '" data-type="' + obj.common.type + '" data-states=' + "'" + states + "'" + ' data-role="none"/>' + (obj.common.unit ? '<span>' + obj.common.unit + '</span>' : ''),
                 valueStyle: 'margin-top: 16px',
                 control: '<input ' +
-                    'class="mobile-control" ' +
-                    'type="button" '   +
-                    'data-mobile-id="' + obj._id + '" ' +
-                    'data-type="set" ' +
-                    'value="' + _('set') + '"/>'
+                        'class="mobile-control" ' +
+                        'type="button" ' +
+                        'data-mobile-id="' + obj._id + '" ' +
+                        'data-type="set" ' +
+                        'value="' + _('set') + '"/>'
             });
-        } else if (obj.common.write  && states) {
+        } else if (obj.common.write && states) {
             var text = '<select ' +
-                'class="mobile-control" ' +
-                'data-mobile-id="' + obj._id + '" ' +
-                'data-role="select" ' +
-                'data-type="'  + obj.common.type + '">\n';
+                    'class="mobile-control" ' +
+                    'data-mobile-id="' + obj._id + '" ' +
+                    'data-role="select" ' +
+                    'data-type="' + obj.common.type + '">\n';
             for (var v in vStates) {
                 text += '<option value="' + v + '">' + _(vStates[v]) + '</option>\n';
             }
@@ -1005,12 +866,12 @@ var mobile = {
             // non controllable value
             struct.controls.push({
                 value: '<div ' +
-                    'data-mobile-id="' + obj._id + '" ' +
-                    'class="mobile-value  ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" ' +
-                    'data-role="value" ' +
-                    'data-unit="'  + (obj.common.unit || '') + '" ' +
-                    'data-states=' + "'" + states + "'" + ' ' +
-                    'data-type="'  + obj.common.type + '"></div>',
+                        'data-mobile-id="' + obj._id + '" ' +
+                        'class="mobile-value  ' + (obj.common.unit ? 'mobile-value-with-units' : 'mobile-value-alone') + '" ' +
+                        'data-role="value" ' +
+                        'data-unit="' + (obj.common.unit || '') + '" ' +
+                        'data-states=' + "'" + states + "'" + ' ' +
+                        'data-type="' + obj.common.type + '"></div>',
                 lastChange: (obj.common.type === 'boolean') ? '<div class="mobile-last-change" data-role="lastChange" data-mobile-id="' + obj._id + '"></div>' : undefined
             });
         }
@@ -1025,14 +886,18 @@ var mobile = {
         struct = struct || {};
 
         // ignore indicators
-        if (obj.common.role && obj.common.role.match(/^indicator\./) && this.ignoreIndicators.indexOf(obj.common.role) === -1) return '';
+        if (obj.common.role && obj.common.role.match(/^indicator\./) && this.ignoreIndicators.indexOf(obj.common.role) === -1)
+            return '';
 
         var name;
 
         if (obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].name) {
-            name = obj.common.mobile[this.user].name
+            name = obj.common.mobile[this.user].name;
         } else {
             name = obj.common.name || obj._id;
+            if (typeof name === 'object') {
+                name = name[this.language] ? name[this.language] : name['en'] || 'unknown';
+            }
             name = decodeURIComponent(name);
             // remove room or function name from device name
             if (parentName) {
@@ -1048,7 +913,7 @@ var mobile = {
                 name = name.replace(/\./g, ' ');
                 try {
                     name = decodeURIComponent(name);
-                } catch(err) {
+                } catch (err) {
                     console.error('Cannot decode: ' + name + '(' + err + ')');
                 }
                 var words = name.split(/\s+/);
@@ -1066,7 +931,8 @@ var mobile = {
         }
 
         // try to translate the state anme
-        if (obj.type === 'state') name = _(name);
+        if (obj.type === 'state')
+            name = _(name);
 
         struct.title = name;
 
@@ -1075,28 +941,27 @@ var mobile = {
         if (mobile && (type = obj.common.mobile[this.user].type) && type !== 'none') {
             struct.icon = {
                 type: type,
-                min:  (obj.common.min === undefined) ? 0   : parseFloat(obj.common.min) || 0,
-                max:  (obj.common.max === undefined) ? 100 : parseFloat(obj.common.max) || 0
+                min: (obj.common.min === undefined) ? 0 : parseFloat(obj.common.min) || 0,
+                max: (obj.common.max === undefined) ? 100 : parseFloat(obj.common.max) || 0
             };
-			if(struct.icon.max === 0)
-			{
-				if(obj.common.states)
-				{
-					var Keys = Object.keys(obj.common.states);
-					for(var Key in Keys)
-					{
-						if(obj.common.states[Key] === obj.common.max)
-						{
-							struct.icon.max = parseInt(Key);
-						}
-					}
-				}
-			}
-			else
-			{
-				if(obj.common.type === 'boolean')
-					struct.icon.max = 1;
-			}
+            if (struct.icon.max === 0)
+            {
+                if (obj.common.states)
+                {
+                    var Keys = Object.keys(obj.common.states);
+                    for (var Key in Keys)
+                    {
+                        if (obj.common.states[Key] === obj.common.max)
+                        {
+                            struct.icon.max = parseInt(Key);
+                        }
+                    }
+                }
+            } else
+            {
+                if (obj.common.type === 'boolean')
+                    struct.icon.max = 1;
+            }
         } else
         if (mobile && obj.common.mobile[this.user].icon) {
             struct.icon = obj.common.mobile[this.user].icon;
@@ -1116,15 +981,17 @@ var mobile = {
             for (i = 0; i < obj.children.length; i++) {
                 id = obj.children[i];
                 if (!this.editMode && this.objects[id].common.mobile &&
-                    this.objects[id].common.mobile[this.user] &&
-                    this.objects[id].common.mobile[this.user].visible === false) continue;
+                        this.objects[id].common.mobile[this.user] &&
+                        this.objects[id].common.mobile[this.user].visible === false)
+                    continue;
 
                 if (this.objects[id] && this.objects[id].type === 'state') {
                     struct.children[id] = struct.children[id] || {};
                     struct.children[id].parent = obj._id;
                     this.prepareElement(this.objects[id], obj.common.name || obj._id, struct.children[id]);
 
-                    if (!struct.children[id].controls && !struct.children[id].children) delete struct.children[id];
+                    if (!struct.children[id].controls && !struct.children[id].children)
+                        delete struct.children[id];
                 }
             }
 
@@ -1136,12 +1003,13 @@ var mobile = {
                     break;
                 }
             }
-            if (!anyChild) delete struct.children;
+            if (!anyChild)
+                delete struct.children;
         } else if (this.editMode || !obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible !== false) {
             // do not show some buttons by default
             if (!this.editMode &&
-                (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
-                this.isDefaultInvisible(obj.common.role, obj._id)) {
+                    (!obj.common.mobile || !obj.common.mobile[this.user] || obj.common.mobile[this.user].visible === undefined) &&
+                    this.isDefaultInvisible(obj.common.role, obj._id)) {
                 // ignore it if not explicit enabled
             } else {
                 this.prepareGenericState(obj, struct);
@@ -1182,13 +1050,16 @@ var mobile = {
                                     continue;
                                 }
                                 var stateName = id.split('.').pop();
-                                if (this.config.indicators[stateName] !== undefined && !this.config.indicators[stateName]) continue;
+                                if (this.config.indicators[stateName] !== undefined && !this.config.indicators[stateName])
+                                    continue;
 
                                 if (!this.states[id]) {
                                     // read states
-                                    if (this.queueStates.indexOf(id) === -1) this.queueStates.push(id);
+                                    if (this.queueStates.indexOf(id) === -1)
+                                        this.queueStates.push(id);
                                 } else {
-                                    if (this.updateStates.indexOf(id) === -1) this.updateStates.push(id);
+                                    if (this.updateStates.indexOf(id) === -1)
+                                        this.updateStates.push(id);
                                 }
                                 var states = this.objects[id].common.states || '';
                                 if (states) {
@@ -1207,19 +1078,19 @@ var mobile = {
                                 var name = (this.objects[id].common.name || id).split('.').pop().replace(/_/g, ' ');
                                 var _id = id.replace(/\./g, '-');
                                 var text =
-                                    '<a href="#' + _id + '" ' +
-                                    'style="display: none" ' +
-                                    'data-mobile-id="' + id + '" ' +
-                                    'data-p="' + _id + '-p" ' +
-                                    'data-states=' + "'" + states + "'" + ' ' +
-                                    'name="' + name + '" ' +
-                                    'data-rel="popup" ' +
-                                    'data-type="' + this.objects[id].common.type + '" ' +
-                                    'data-role="indicator" ' +
-                                    'class="mobile-widget-a mobile-value mobile-' + this.objects[id].common.role.replace(/\./g, '-') + '" ' +
-                                    'data-transition="pop"></a>' +
-                                    '<div data-history="false" data-role="popup" id="' + _id +'" style="background: gray">' +
-                                    '<p id="' + _id + '-p"></p></div>';
+                                        '<a href="#' + _id + '" ' +
+                                        'style="display: none" ' +
+                                        'data-mobile-id="' + id + '" ' +
+                                        'data-p="' + _id + '-p" ' +
+                                        'data-states=' + "'" + states + "'" + ' ' +
+                                        'name="' + name + '" ' +
+                                        'data-rel="popup" ' +
+                                        'data-type="' + this.objects[id].common.type + '" ' +
+                                        'data-role="indicator" ' +
+                                        'class="mobile-widget-a mobile-value mobile-' + this.objects[id].common.role.replace(/\./g, '-') + '" ' +
+                                        'data-transition="pop"></a>' +
+                                        '<div data-history="false" data-role="popup" id="' + _id + '" style="background: gray">' +
+                                        '<p id="' + _id + '-p"></p></div>';
 
                                 $indicators.append(text);
                             }
@@ -1234,7 +1105,8 @@ var mobile = {
     },
 
     formatLastChange: function (ms) {
-        if (ms < 946684800000) ms *= 1000; // if less than 2000.01.01 may be it is seconds
+        if (ms < 946684800000)
+            ms *= 1000; // if less than 2000.01.01 may be it is seconds
         var now = new Date().getTime();
         var seconds = Math.round((now - ms) / 1000);
         var text = '<img class="mobile-icon-last-change" src="img/lastChange.png"/>';
@@ -1251,7 +1123,7 @@ var mobile = {
             text += _('%s hours ago', Math.floor(seconds / 3600), Math.round(seconds / 60) % 60);
         } else if (seconds < 86400) { // under 3 days
             text += _('%s days and %s h. ago', Math.floor(seconds / 86400), Math.round(seconds / 3600) % 24);
-        } else  {
+        } else {
             text += _('%s days ago', Math.round(seconds / 86400));
         }
         return text;
@@ -1265,9 +1137,9 @@ var mobile = {
         var icon = '';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-				if(parent.icon.type !== 'none')	{
-					icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
-				}
+                if (parent.icon.type !== 'none') {
+                    icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '"  data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+                }
             } else {
                 icon = '<img class="mobile-widget-icon mobile-widget-icon-floating" style="padding-right: 10px;" src="' + parent.icon + '"/>';
             }
@@ -1275,11 +1147,11 @@ var mobile = {
 
         if (control.set) {
             html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
-            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + (control.value    || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + (control.value || '') + '</td>\n';
         } else
         if (control.checkbox && !control.value) {
             html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.control || '') + '</td>\n';
-            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">'       + (parent.title    || '') + '</td>\n';
+            html += '  <td class="mobile-widget-table-end mobile-widget-title mobile-widget-title-normal" data-edit-id="' + id + '">' + (parent.title || '') + '</td>\n';
             // show title only one time
             parent.title = null;
         } else {
@@ -1294,7 +1166,7 @@ var mobile = {
                 html += '</td>';
                 parent.title = null;
             } else if (parent.title && !control.control) {
-                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value   || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value || '') + '</td>\n';
                 //html += '<td class="mobile-widget-table-control">';
                 html += '<td class="mobile-widget-table-end ui-body-b ui-body-inherit">';
                 if (control.lastChange) {
@@ -1309,7 +1181,7 @@ var mobile = {
                 parent.title = null;
             } else if (control.control) {
                 // just control or just value
-                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">'   + (control.value   || '') + '</td>\n';
+                html += '  <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value || '') + '</td>\n';
                 //html += '  <td class="mobile-widget-table-control">' + (control.control || '') + '</td>\n';
                 html += '  <td class="mobile-widget-table-end ui-body-b ui-body-inherit">' + (control.control || '') + '</td>\n';
             } else {
@@ -1317,33 +1189,33 @@ var mobile = {
             }
         }
         /*if (parent.icon) {
-            html += '<td class="mobile-widget-table-icon">';
-            html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
-            html += '</td>';
-        }*/
+         html += '<td class="mobile-widget-table-icon">';
+         html += parent.icon  ? '<img class="mobile-widget-icon mobile-widget-icon-floating" src="'   + parent.icon  + '" />' : '';
+         html += '</td>';
+         }*/
 
         html += '</tr>\n';
         html += '</table></' + (this.editMode && !control.oneState ? 'li' : 'div') + '>\n';
         return html;
     },
 
-    _renderCombinedSubState : function (control, parent, state, id) {
+    _renderCombinedSubState: function (control, parent, state, id) {
         // used only in non edit mode
         var html = '';
         html += '<div><table class="mobile-widget-table mobile-widget-b"><tr>\n';
         html += '   <td class="mobile-widget-table-begin mobile-theme-' + this.config.theme + '">' + (control.value || '') + (control.control || '') + '</td>\n';
         html += '   <td class="mobile-widget-table-end" style="position: relative">';
-        html += parent.title  ? '<div class="mobile-value-group-title">' + parent.title  + '</div>\n' : '';
+        html += parent.title ? '<div class="mobile-value-group-title">' + parent.title + '</div>\n' : '';
         html += state && state.title ? '<div class="mobile-value-small-title">' + state.title + '</div>\n' : '';
         html += control.lastChange ? '<div class="mobile-widget-last-change">' + control.lastChange + '</div>' : '';
         html += '</td><td class="mobile-widget-table-icon">';
         if (parent.icon) {
             if (typeof parent.icon === 'object') {
-				if(parent.icon.type !== 'none')	{
-					html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
-				}
+                if (parent.icon.type !== 'none') {
+                    html += '<img class="mobile-widget-icon mobile-widget-icon-floating"  data-mobile-id="' + id + '" data-type="icon" data-icon-type="' + parent.icon.type + '" data-min="' + parent.icon.min + '" data-max="' + parent.icon.max + '"/>';
+                }
             } else {
-                html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon  + '" />';
+                html += '<img class="mobile-widget-icon mobile-widget-icon-floating" src="' + parent.icon + '" />';
             }
         }
         html += '</td></tr></table></div>\n';
@@ -1352,22 +1224,25 @@ var mobile = {
 
     renderChannel: function (obj, $elem, parentName) {
         var _mobile = obj.common && obj.common.mobile ? obj.common.mobile[this.user] : null;
-        if (!this.editMode && _mobile && _mobile.visible === false) return;
+        if (!this.editMode && _mobile && _mobile.visible === false)
+            return;
 
         var struct = this.prepareElement(obj, parentName);
 
-        if (!struct.controls && !struct.children) return;
+        if (!struct.controls && !struct.children)
+            return;
 
         var html = '<li class="mobile-widget" data-edit-id="' + obj._id + '">\n';
 
         // show channel description
-        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-edit-id="' + obj._id + '">\n';
+        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') + '" data-edit-id="' + obj._id + '">\n';
 
         var count = 0;
         var order;
         var firstChild;
         for (var child in struct.children) {
-            if (!firstChild) firstChild = child;
+            if (!firstChild)
+                firstChild = child;
             count++;
         }
 
@@ -1375,10 +1250,12 @@ var mobile = {
         order = _mobile ? _mobile.order || [] : [];
         if (struct.children) {
             for (child in struct.children) {
-                if (order.indexOf(child) === -1) order.push(child);
+                if (order.indexOf(child) === -1)
+                    order.push(child);
             }
             for (c = order.length - 1; c >= 0; c--) {
-                if (!struct.children[order[c]]) order.splice(c, 1);
+                if (!struct.children[order[c]])
+                    order.splice(c, 1);
             }
         } else {
             order = [];
@@ -1394,7 +1271,7 @@ var mobile = {
             // Show all in one line
             // control | text | icon
             struct.children[firstChild].controls[0].id = firstChild; // enable visibility
-            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length === 1 ? struct.children[firstChild]: null, firstChild);
+            html += this._renderCombinedSubState(struct.children[firstChild].controls[0], struct, struct.children[child].controls.length === 1 ? struct.children[firstChild] : null, firstChild);
 
             for (c = 1; c < struct.children[child].controls.length; c++) {
                 struct.children[child].controls[c].id = child; // enable visibility
@@ -1411,12 +1288,13 @@ var mobile = {
             }
             html += struct.title ? '<div class="mobile-widget-title mobile-value-group-title" data-edit-id="' + obj._id + '">' + struct.title + '</div>\n' : '';
 
-            html += '<' + (this.editMode ? 'ul' : 'div') + ' class="mobile-widget-b" title="' + (obj.common.role || '') +'" style="padding: 0" data-edit-id="' + obj._id + '">\n';
+            html += '<' + (this.editMode ? 'ul' : 'div') + ' class="mobile-widget-b" title="' + (obj.common.role || '') + '" style="padding: 0" data-edit-id="' + obj._id + '">\n';
 
             // try to build states
             for (var or = 0; or < order.length; or++) {
                 child = order[or];
-                if (!struct.children[child].controls) continue;
+                if (!struct.children[child].controls)
+                    continue;
                 for (c = 0; c < struct.children[child].controls.length; c++) {
                     struct.children[child].controls[c].id = child; // enable visibility
                     html += this._renderSingleSubState(struct.children[child].controls[c], struct.children[child], child);
@@ -1436,18 +1314,21 @@ var mobile = {
             $elem.listview('refresh');
         }
 
-        if (!this.editMode) this.renderIndicators(obj, $channel, obj._id);
+        if (!this.editMode)
+            this.renderIndicators(obj, $channel, obj._id);
     },
 
     renderState: function (obj, $elem, parentName) {
-        if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false) return;
+        if (!this.editMode && obj.common && obj.common.mobile && obj.common.mobile[this.user] && obj.common.mobile[this.user].visible === false)
+            return;
         var struct = this.prepareElement(obj, parentName);
 
-        if (!struct.controls) return;
+        if (!struct.controls)
+            return;
 
         var html = '<li class="mobile-widget" data-edit-id="' + obj._id + '">\n';
         // show State description
-        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') +'" data-edit-id="' + obj._id + '">\n';
+        html += '<div class="mobile-widget-a mobile-visibility" title="' + (obj.common.role || '') + '" data-edit-id="' + obj._id + '">\n';
 
         var c;
         if (!this.editMode && (struct.controls[0].select || struct.controls[0].checkbox || !struct.controls[0].control)) {
@@ -1485,7 +1366,8 @@ var mobile = {
 
         $elem.append(html);
 
-        if ($elem.hasClass('ui-listview')) $elem.listview('refresh');
+        if ($elem.hasClass('ui-listview'))
+            $elem.listview('refresh');
     },
 
     renderEditButtons: function () {
@@ -1494,12 +1376,14 @@ var mobile = {
             $(document).on('pageshow', function (event) {
                 // render root pages
                 $('.mobile-visibility-root').each(function () {
-                    if (!$(this).is(':visible')) return;
-                    if ($(this).parent().find('.mobile-edit-enum').length) return;
+                    if (!$(this).is(':visible'))
+                        return;
+                    if ($(this).parent().find('.mobile-edit-enum').length)
+                        return;
 
                     var id = $(this).data('edit-id');
                     var href = $(this).attr('href');
-                    that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
+                    that.objects[id].common.mobile = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
                     var mobile = that.objects[id].common.mobile[that.user];
 
@@ -1509,9 +1393,9 @@ var mobile = {
                         that.saveSettings(id);
                     }
 
-                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>');
+                    var $overlay = $('<div data-href="' + href + '" class="mobile-edit-enum ' + (!mobile.visible ? 'mobile-invisible' : '') + '" ></div>');
                     var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>');
+                    var $name = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>');
                     //var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
 
                     $overlay.append($checkbox);
@@ -1526,12 +1410,14 @@ var mobile = {
 
                 // render second menu
                 $('.mobile-visibility-subroot').each(function () {
-                    if (!$(this).is(':visible')) return;
-                    if ($(this).parent().find('.mobile-edit-subenum').length) return;
+                    if (!$(this).is(':visible'))
+                        return;
+                    if ($(this).parent().find('.mobile-edit-subenum').length)
+                        return;
 
-                    var id   = $(this).data('edit-id');
+                    var id = $(this).data('edit-id');
                     var href = $(this).attr('href');
-                    that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
+                    that.objects[id].common.mobile = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
                     var mobile = that.objects[id].common.mobile[that.user];
 
@@ -1541,11 +1427,11 @@ var mobile = {
                         that.saveSettings(id);
                     }
 
-                    var $overlay  = $('<div data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
+                    var $overlay = $('<div data-href="' + href + '" class="mobile-edit-subenum ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
                     var $checkbox = $('<div style="margin-right: 3em;" data-edit-id="' + (id || '') + '" class="mobile-enum-visibility">' + (mobile.visible ? '&#10003;' : '') + '</div>');
-                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" ></a>');
-                    var $icon     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-icon ui-btn ui-shadow ui-corner-all ui-icon-video ui-btn-icon-notext ui-btn-inline"></a>');
-                    var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
+                    var $name = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" ></a>');
+                    var $icon = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-icon ui-btn ui-shadow ui-corner-all ui-icon-video ui-btn-icon-notext ui-btn-inline"></a>');
+                    var $sort = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;"></a>');
 
                     $overlay.append($checkbox);
                     $overlay.append($name);
@@ -1559,24 +1445,26 @@ var mobile = {
                 });
 
                 var typeSelect =
-                    '<option value="none">'   + _('none')   + '</option>' +
-                    '<option value="light">'  + _('Light')  + '</option>' +
-                    '<option value="socket">' + _('Socket') + '</option>' +
-                    '<option value="blinds">' + _('Blinds') + '</option>' +
-                    '<option value="red">'    + _('Red')    + '</option>' +
-                    '<option value="green">'  + _('Green')  + '</option>' +
-                    '<option value="blue">'   + _('Blue')   + '</option>' +
-                    '<option value="white">'  + _('White')  + '</option>';
+                        '<option value="none">' + _('none') + '</option>' +
+                        '<option value="light">' + _('Light') + '</option>' +
+                        '<option value="socket">' + _('Socket') + '</option>' +
+                        '<option value="blinds">' + _('Blinds') + '</option>' +
+                        '<option value="red">' + _('Red') + '</option>' +
+                        '<option value="green">' + _('Green') + '</option>' +
+                        '<option value="blue">' + _('Blue') + '</option>' +
+                        '<option value="white">' + _('White') + '</option>';
 
                 // render elements
                 $('.mobile-visibility').each(function () {
-                    if (!$(this).is(':visible')) return;
-                    var id  = $(this).data('edit-id');
+                    if (!$(this).is(':visible'))
+                        return;
+                    var id = $(this).data('edit-id');
 
-                    if ($(this).data('processed')) return;
+                    if ($(this).data('processed'))
+                        return;
                     $(this).data('processed', true);
 
-                    that.objects[id].common.mobile            = that.objects[id].common.mobile || {};
+                    that.objects[id].common.mobile = that.objects[id].common.mobile || {};
                     that.objects[id].common.mobile[that.user] = that.objects[id].common.mobile[that.user] || {};
                     var mobile = that.objects[id].common.mobile[that.user];
 
@@ -1586,13 +1474,13 @@ var mobile = {
                         that.saveSettings(id);
                     }
 
-                    var $overlay  = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
+                    var $overlay = $('<div class="mobile-edit-element mobile-edit-' + that.objects[id].type + ' ' + (!mobile.visible ? 'mobile-invisible' : '') + '"></div>');
                     var $checkbox = $('<div data-edit-id="' + (id || '') + '" class="mobile-enum-visibility" ' + (that.objects[id].type !== 'state' ? ' style="margin: 0"' : '') + '>' + (mobile.visible ? '&#10003;' : '') + '</div>');
                     var margin = that.objects[id].type === 'state' ? '1.6em' : '2.3em';
-                    var $name     = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: ' + margin + '; margin-top: 0"' : '') + '></a>');
-                    var $type     = $('<fieldset class="mobile-edit-field" data-role="controlgroup" data-type="horizontal" data-mini="true"><select class="mobile-edit-type" data-edit-id="' + (id || '') + '">' +
-                        typeSelect + '</select></fieldset>');
-                    var $sort     = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;' + (that.objects[id].type !== 'state' ? ' margin-right: 1.6em; margin-top: 0' : '') + '"></a>');
+                    var $name = $('<a   data-edit-id="' + (id || '') + '" class="mobile-edit-name ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"' + (that.objects[id].type !== 'state' ? ' style="margin-right: ' + margin + '; margin-top: 0"' : '') + '></a>');
+                    var $type = $('<fieldset class="mobile-edit-field" data-role="controlgroup" data-type="horizontal" data-mini="true"><select class="mobile-edit-type" data-edit-id="' + (id || '') + '">' +
+                            typeSelect + '</select></fieldset>');
+                    var $sort = $('<a class="mobile-edit-sort ui-btn ui-icon-bars ui-btn-icon-notext ui-btn-inline" style="opacity: 0.6;' + (that.objects[id].type !== 'state' ? ' margin-right: 1.6em; margin-top: 0' : '') + '"></a>');
 
                     $overlay.append($checkbox);
                     $overlay.append($name);
@@ -1618,7 +1506,7 @@ var mobile = {
 
                     if ($li.length > 1) {
                         $ul.sortable();
-                        $ul.disableSelection().bind('sortstop', function(event, ui) {
+                        $ul.disableSelection().bind('sortstop', function (event, ui) {
                             // get order
                             var $li = $(this).find('> li');
                             var order = [];
@@ -1659,7 +1547,8 @@ var mobile = {
             common = this.objects[this.root[i]] ? this.objects[this.root[i]].common : null;
 
             // hide if invisible
-            if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
+            if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false)
+                continue;
 
             count++;
         }
@@ -1686,7 +1575,8 @@ var mobile = {
         for (i = 0; i < this.root.length; i++) {
             var navbar = '';
             var rCommon = this.objects[this.root[i]] ? this.objects[this.root[i]].common : null;
-            if (!this.editMode && rCommon && rCommon.mobile && rCommon.mobile[this.user] && rCommon.mobile[this.user].visible === false) continue;
+            if (!this.editMode && rCommon && rCommon.mobile && rCommon.mobile[this.user] && rCommon.mobile[this.user].visible === false)
+                continue;
 
 
             // build footer (root menu)
@@ -1699,9 +1589,14 @@ var mobile = {
                 }
 
                 // hide if invisible
-                if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
-
+                if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false)
+                    continue;
+                
+               
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || this.root[j] : common.name || this.root[j];
+                if (typeof name === 'object') {
+                    name = name[this.language] ? name[this.language] : name['en'] || '';
+                }
 
                 navbar += '<li style="position: relative"><a class="' + (i === j ? 'ui-btn-active ui-state-persist' : '') + ' mobile-visibility-root mobile-widget-title" data-edit-id="' + this.root[j] + '" data-icon="';
                 if (this.root[j] === 'enum.rooms') {
@@ -1729,7 +1624,8 @@ var mobile = {
             for (var id in this.enums) {
                 var _id = this.enums[id]._id;
                 if (_id.substring(0, this.root[i].length + 1) === this.root[i] + '.') {
-                    if (order.indexOf(_id) === -1) order.push(_id);
+                    if (order.indexOf(_id) === -1)
+                        order.push(_id);
                 }
             }
 
@@ -1744,7 +1640,8 @@ var mobile = {
                 }
 
                 // hide if invisible
-                if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
+                if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false)
+                    continue;
 
                 name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
                 if (typeof name === 'object') {
@@ -1755,27 +1652,30 @@ var mobile = {
             }
 
             name = rCommon.mobile && rCommon.mobile[this.user] ? rCommon.mobile[this.user].name || rCommon.name || this.root[i] : rCommon.name || this.root[i];
+            if (typeof name === 'object') {
+                    name = name[this.language] ? name[this.language] : name['en'] || '';
+                }
 
             var page =
-                '<div id="' + this.objectId2htmlId(this.root[i]) + '" data-role="page" class="responsive-grid" data-theme="a">' +
-                // header
-                '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="a" data-fullscreen="false">' +
-                '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
-                '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
-                '    </div>' +
-                // content
-                '    <div data-role="content" data-theme="a">' +
-                '       <ul id="menu_' + this.objectId2htmlId(this.root[i]) + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
-                menu +
-                '      </ul>' +
-                '    </div>' +
-                // footer
-                '    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-id="f1" data-theme="a">' +
-                '        <div data-role="navbar" data-grid="' + grid + '">' +
-                '            <ul>' + navbar + '</ul>' +
-                '        </div>' +
-                '    </div>' +
-                '</div>';
+                    '<div id="' + this.objectId2htmlId(this.root[i]) + '" data-role="page" class="responsive-grid" data-theme="a">' +
+                    // header
+                    '    <div data-role="header" data-position="fixed" data-id="f2" data-theme="a" data-fullscreen="false">' +
+                    '         <h1><span class="mobile-prefix"></span><span>' + _(name) + '</span></h1>' +
+                    '         <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
+                    '    </div>' +
+                    // content
+                    '    <div data-role="content" data-theme="a">' +
+                    '       <ul id="menu_' + this.objectId2htmlId(this.root[i]) + '" data-role="listview" data-inset="true" class="mobile-sortable" data-edit-id="' + this.root[i] + '">' +
+                    menu +
+                    '      </ul>' +
+                    '    </div>' +
+                    // footer
+                    '    <div data-position="fixed" data-tap-toggle="false" data-role="footer" data-id="f1" data-theme="a">' +
+                    '        <div data-role="navbar" data-grid="' + grid + '">' +
+                    '            <ul>' + navbar + '</ul>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
 
             $('body').append(page);
         }
@@ -1840,11 +1740,11 @@ var mobile = {
         }, 500);
     },
 
-    htmlId2objectId: function(id) {
+    htmlId2objectId: function (id) {
         return id.replace(/\*/g, '.').replace(/§§/g, ' ');
     },
 
-    objectId2htmlId: function(id) {
+    objectId2htmlId: function (id) {
         return id.replace(/\./g, '*').replace(/\s/g, '§§');
     },
 
@@ -1857,7 +1757,8 @@ var mobile = {
                 val = false;
             } else {
                 var f = parseFloat(val);
-                if (f.toString() === val) val = f;
+                if (f.toString() === val)
+                    val = f;
             }
         }
 
@@ -1889,37 +1790,41 @@ var mobile = {
         var common = this.enums[id] ? this.enums[id].common : null;
 
         if (this.enums[parentName]) {
-            if (!common) debugger;
+            if (!common)
+                debugger;
 
-            parentId   = parentName;
+            parentId = parentName;
             parentName = (this.enums[parentId].common.mobile && this.enums[parentId].common.mobile[this.user]) ? this.enums[parentId].common.mobile[this.user].name || this.enums[parentId].common.name : this.enums[parentId].common.name;
-            name       = (common && common.mobile && common.mobile[this.user]) ? common.mobile[this.user].name || common.name || id : common.name || id;
+            name = (common && common.mobile && common.mobile[this.user]) ? common.mobile[this.user].name || common.name || id : common.name || id;
         } else {
-            parentId   = '';
-            name       = '';
+            parentId = '';
+            name = '';
         }
         // For multilangual names
         if (typeof name === 'object') {
             name = name[this.language] ? name[this.language] : name['en'] || 'unknown';
         }
+        if (typeof parentName === 'object') {
+                    parentName = parentName[this.language] ? parentName[this.language] : parentName['en'] || 'unknown';
+                }
 
         var hrefId = this.objectId2htmlId(id);
         // header
         var page =
-            '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages ui-body-a" data-theme="f">' + // responsive-grid
-            '    <div data-role="header" data-position="" data-id="f2" data-theme="a" data-fullscreen="false">' +
-            '        <div class="nav-panel-btn ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-shadow" style="position: absolute;top: -0.1em;" data-href="' + hrefId + '-nav-panel"></div>' +
-            '        <a href="#' + encodeURIComponent(this.objectId2htmlId(parentId)) + '" data-role="button" data-icon="arrow-l" style="margin-left: 2.3em">' + _(parentName) + '</a>' +
-            '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
-            '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
-            '    </div>';
-            // content
-            page +=
+                '<div id="' + hrefId + '" data-role="page" class="ui-responsive-panel pages ui-body-a" data-theme="f">' + // responsive-grid
+                '    <div data-role="header" data-position="" data-id="f2" data-theme="a" data-fullscreen="false">' +
+                '        <div class="nav-panel-btn ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-shadow" style="position: absolute;top: -0.1em;" data-href="' + hrefId + '-nav-panel"></div>' +
+                '        <a href="#' + encodeURIComponent(this.objectId2htmlId(parentId)) + '" data-role="button" data-icon="arrow-l" style="margin-left: 2.3em">' + _(parentName) + '</a>' +
+                '        <h1><span class="mobile-prefix"></span>' + _(name) + '</h1>' +
+                '        <a href="#info" data-rel="page" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext" class="mobile-info ui-btn-right mobile-info-button"></a>' +
+                '    </div>';
+        // content
+        page +=
                 '    <div data-role="content" data-theme="a">' +
                 '        <ul data-edit-id="' + id + '" data-role="listview" data-inset="true" class="mobile-sortable">' +
                 '        </ul>' +
                 '    </div>';
-            page += '</div>';
+        page += '</div>';
 
         if (this.panelActive !== parentId) {
             this.panelActive = parentId;
@@ -1931,7 +1836,8 @@ var mobile = {
                 var order = (this.enums[parentId].common.mobile && this.enums[parentId].common.mobile[this.user]) ? this.enums[parentId].common.mobile[this.user].order || [] : members;
                 // check if all members are still in order
                 for (var i = 0; i < members.length; i++) {
-                    if (order.indexOf(members[i]) === -1) order.push(members[i]);
+                    if (order.indexOf(members[i]) === -1)
+                        order.push(members[i]);
                 }
 
                 // build content
@@ -1940,13 +1846,17 @@ var mobile = {
                     var common = this.objects[_id] ? this.objects[_id].common : null;
 
                     // hide if invisible
-                    if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false) continue;
+                    if (!this.editMode && common && common.mobile && common.mobile[this.user] && common.mobile[this.user].visible === false)
+                        continue;
 
                     var name = common.mobile && common.mobile[this.user] ? common.mobile[this.user].name || common.name || _id : common.name || _id;
+                    if (typeof name === 'object') {
+            name = name[this.language] ? name[this.language] : name['en'] || 'unknown';
+        }
 
-                    panel +='        <li data-filtertext="wai-aria voiceover accessibility screen reader">';
-                    panel +='            <a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '">' + _(name) + '</a>';
-                    panel +='        </li>';
+                    panel += '        <li data-filtertext="wai-aria voiceover accessibility screen reader">';
+                    panel += '            <a href="#' + encodeURIComponent(this.objectId2htmlId(_id)) + '">' + _(name) + '</a>';
+                    panel += '        </li>';
                 }
             }
             $('#nav-panel-ul').html(panel);
@@ -1979,7 +1889,8 @@ var mobile = {
             var order = (this.enums[id].common.mobile && this.enums[id].common.mobile[this.user]) ? this.enums[id].common.mobile[this.user].order || [] : members;
             // check if all members are still in order
             for (var i = 0; i < members.length; i++) {
-                if (order.indexOf(members[i]) === -1) order.push(members[i]);
+                if (order.indexOf(members[i]) === -1)
+                    order.push(members[i]);
             }
             // check if all orders are still in members
             for (var i = order.length - 1; i >= 0; i--) {
@@ -1991,7 +1902,8 @@ var mobile = {
                 var children = this.objects[order[i]] ? this.objects[order[i]].children : undefined;
 
                 this.conn.getObject(order[i], !this.refresh, function (err, obj) {
-                    if (err) console.error(err);
+                    if (err)
+                        console.error(err);
 
                     if (obj) {
                         obj.children = children;
@@ -1999,9 +1911,9 @@ var mobile = {
                         // For multilingual names
                         if (typeof that.enums[id].common.name === 'object') {
                             that.renderWidget(obj, $ul, that.enums[id].common.name[that.language]);
-			} else {
+                        } else {
                             that.renderWidget(obj, $ul, that.enums[id].common.name);
-			}
+                        }
                     }
                 });
             }
@@ -2029,21 +1941,25 @@ var mobile = {
 
         // on change
         $('.mobile-control').unbind('change').change(function (e) {
-            if ($(this).prop('tagName') !== 'SELECT') return;
-            var id  = $(this).data('mobile-id');
+            if ($(this).prop('tagName') !== 'SELECT')
+                return;
+            var id = $(this).data('mobile-id');
             var val = that.convertValue(id, $(this).val());
             if (id && that.states[id].val !== val) {
                 that.conn.setState(id, val);
             }
         }).unbind('click').click(function (e) {
-            if ($(this).prop('tagName') === 'SELECT') return;
-            var id  = $(this).data('mobile-id');
+            if ($(this).prop('tagName') === 'SELECT')
+                return;
+            var id = $(this).data('mobile-id');
             if ($(this).attr('type') === 'button') {
                 if ($(this).data('type') === 'set') {
                     var val = that.convertValue(id, $('.mobile-value[data-mobile-id="' + id + '"]').val());
-                    if (id) that.conn.setState(id, val);
+                    if (id)
+                        that.conn.setState(id, val);
                 } else {
-                    if (id) that.conn.setState(id, true);
+                    if (id)
+                        that.conn.setState(id, true);
                 }
             } else {
                 var val = that.convertValue(id, $(this).val());
@@ -2054,9 +1970,9 @@ var mobile = {
         });
 
         setTimeout(function () {
-            $('.pages').unbind('swipeleft').on('swipeleft', function(){
+            $('.pages').unbind('swipeleft').on('swipeleft', function () {
                 $('#nav-panel').panel('close');
-            }).unbind('swiperight').on('swiperight', function(){
+            }).unbind('swiperight').on('swiperight', function () {
                 $('#nav-panel').panel('open');
             });
 
@@ -2069,23 +1985,23 @@ var mobile = {
                 $(this).prev().removeClass('ui-body-inherit');
                 $(this).on('change', function () {
                     $(this)
-                        .prev()
-                        .removeClass('ui-body-inherit ui-focus')
-                        .parent()
-                        .removeClass('ui-body-inherit ui-focus');
+                            .prev()
+                            .removeClass('ui-body-inherit ui-focus')
+                            .parent()
+                            .removeClass('ui-body-inherit ui-focus');
                 });
             });
 
             $('.mobile-control').on('slidestop stop', function () {
-                var id  = $(this).data('mobile-id');
+                var id = $(this).data('mobile-id');
                 if (id) {
                     var val = that.convertValue(id, $(this).val());
                     if (that.states[id].val != val) {
-                        that.states[id].lc  = (new Date()).getTime();
+                        that.states[id].lc = (new Date()).getTime();
                         that.states[id].val = val;
                     }
-                    that.states[id].ack  = false;
-                    that.states[id].ts   = (new Date()).getTime();
+                    that.states[id].ack = false;
+                    that.states[id].ts = (new Date()).getTime();
                     that.conn.setState(id, that.states[id].val);
                 }
             });
@@ -2116,10 +2032,10 @@ var mobile = {
         var $elem = $('.mobile-checkbox-visibility[data-edit-id="' + id + '"]');
 
         if (this.objects[id] &&
-            this.objects[id].common &&
-            this.objects[id].common.mobile &&
-            this.objects[id].common.mobile[this.user] &&
-            this.objects[id].common.mobile[this.user].visible) {
+                this.objects[id].common &&
+                this.objects[id].common.mobile &&
+                this.objects[id].common.mobile[this.user] &&
+                this.objects[id].common.mobile[this.user].visible) {
             var isAllInvisible = true;
 
             if (!this.objects[id].children) {
@@ -2130,10 +2046,10 @@ var mobile = {
             for (var i = 0; i < this.objects[id].children.length; i++) {
                 var cid = this.objects[id].children[i];
                 if (this.objects[cid] &&
-                    this.objects[cid].common &&
-                    this.objects[cid].common.mobile &&
-                    this.objects[cid].common.mobile[this.user] &&
-                    this.objects[cid].common.mobile[this.user].visible) {
+                        this.objects[cid].common &&
+                        this.objects[cid].common.mobile &&
+                        this.objects[cid].common.mobile[this.user] &&
+                        this.objects[cid].common.mobile[this.user].visible) {
                     isAllInvisible = false;
                     break;
                 }
@@ -2146,10 +2062,10 @@ var mobile = {
             }
         }
         if (this.objects[id] &&
-            this.objects[id].common &&
-            this.objects[id].common.mobile &&
-            this.objects[id].common.mobile[this.user] &&
-            !this.objects[id].common.mobile[this.user].visible) {
+                this.objects[id].common &&
+                this.objects[id].common.mobile &&
+                this.objects[id].common.mobile[this.user] &&
+                !this.objects[id].common.mobile[this.user].visible) {
             $elem.parent().parent().find('.mobile-edit-state').hide();
         }
     },
@@ -2170,9 +2086,11 @@ var mobile = {
 
         for (var k = 0; k < 3; k++) {
             instVersionArr[k] = parseInt(instVersionArr[k], 10);
-            if (isNaN(instVersionArr[k])) instVersionArr[k] = -1;
+            if (isNaN(instVersionArr[k]))
+                instVersionArr[k] = -1;
             availVersionArr[k] = parseInt(availVersionArr[k], 10);
-            if (isNaN(availVersionArr[k])) availVersionArr[k] = -1;
+            if (isNaN(availVersionArr[k]))
+                availVersionArr[k] = -1;
         }
 
         if (availVersionArr[0] > instVersionArr[0]) {
@@ -2193,7 +2111,8 @@ var mobile = {
         var ids = [];
         var indicators = {};
         for (var ob in objs) {
-            if (!objs.hasOwnProperty(ob)) continue;
+            if (!objs.hasOwnProperty(ob))
+                continue;
             ids.push(ob);
             if (!objs[ob]) {
                 console.log('Please sync project, because object "' + ob + '" does not exist anymore');
@@ -2201,14 +2120,16 @@ var mobile = {
             }
             if (objs[ob].common && objs[ob].common.role && this.ignoreIndicators.indexOf(objs[ob].common.role) === -1 && objs[ob].common.role.match(/^indicator\./)) {
                 var name = ob.split('.').pop();
-                if (!indicators[name]) indicators[name] = this.config.indicators[name] === undefined ? true : this.config.indicators[name];
+                if (!indicators[name])
+                    indicators[name] = this.config.indicators[name] === undefined ? true : this.config.indicators[name];
             }
         }
         this.config.indicators = indicators;
 
         ids.sort();
         for (var i = 0; i < ids.length; i++) {
-            if (!objs[ids[i]]) continue;
+            if (!objs[ids[i]])
+                continue;
             if (objs[ids[i]].type === 'device' || objs[ids[i]].type === 'channel') {
                 var _id = ids[i] + '.';
                 var parts = ids[i].split('.');
@@ -2247,6 +2168,9 @@ function onEditName(e) {
     } else {
         name = that.objects[id].common.name;
     }
+    if (typeof name === 'object') {
+            name = name[this.language] ? name[this.language] : name['en'] || 'unknown';
+        }
     $('#name_edit').val(name).data('id', id);
 
     $('#popupEditName').popup('open');
@@ -2312,7 +2236,8 @@ function onStateVisibility(e) {
         var parent = id.split('.');
         parent.pop();
         parent = parent.join('.');
-        if (that.objects[parent]) that.detectHiddenStates(parent);
+        if (that.objects[parent])
+            that.detectHiddenStates(parent);
     }
 }
 

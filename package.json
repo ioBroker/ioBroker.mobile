@@ -1,7 +1,7 @@
 {
   "name": "iobroker.mobile",
   "description": "jQuery Mobile based ioBroker user interface",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "author": {
     "name": "bluefox",
     "email": "dogafox@gmail.com"
@@ -28,13 +28,10 @@
     "SCADA"
   ],
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-replace": "^1.0.1",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-jscs": "^3.0.1",
-    "grunt-http": "^2.2.0",
-    "mocha": "^4.1.0",
-    "chai": "^4.1.2"
+    "gulp": "^4.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "axios": "^0.18.0"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.mobile/issues"
