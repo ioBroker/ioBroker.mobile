@@ -1,7 +1,7 @@
 {
   "name": "iobroker.mobile",
   "description": "jQuery Mobile based ioBroker user interface",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "bluefox",
     "email": "dogafox@gmail.com"
@@ -28,10 +28,10 @@
     "SCADA"
   ],
   "devDependencies": {
-    "gulp": "^4.0.0",
-    "chai": "^4.1.2",
-    "mocha": "^6.0.2",
-    "axios": "^0.18.0"
+    "gulp": "^4.0.2",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.1",
+    "axios": "^0.20.0"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.mobile/issues"
@@ -42,6 +42,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3"
+    "@iobroker/adapter-core": "^2.4.0"
   }
 }

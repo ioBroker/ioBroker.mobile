@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "mobile",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "The compatibility to socket.io 3.0.13 provided",
+                "de": "Die Kompatibilität zu socket.io 3.0.13 wird bereitgestellt",
+                "ru": "Обеспечена совместимость с socket.io 3.0.13",
+                "pt": "A compatibilidade com socket.io 3.0.13 fornecida",
+                "nl": "De compatibiliteit met socket.io 3.0.13 wordt geboden",
+                "fr": "La compatibilité avec socket.io 3.0.13 fournie",
+                "it": "La compatibilità con socket.io 3.0.13 fornita",
+                "es": "La compatibilidad con socket.io 3.0.13 proporcionada",
+                "pl": "Zapewniona kompatybilność z socket.io 3.0.13",
+                "zh-cn": "提供与socket.io 3.0.13的兼容性"
+            },
             "1.0.0": {
                 "en": "Translations added and done some fixes",
                 "de": "Übersetzungen hinzugefügt und einige Korrekturen vorgenommen",
@@ -98,18 +110,6 @@
                 "es": "fijar el número de entrada y seleccionar el valor",
                 "pl": "naprawić ilość wejść i wybierz wartość",
                 "zh-cn": "修复输入数量和选择值"
-            },
-            "0.4.6": {
-                "en": "fix input number and select value",
-                "de": "Korrigieren Nummereingabe und Wertauswahl",
-                "ru": "исправить ввод номера и выбор значения",
-                "pt": "corrigir número de entrada e seleccionar o valor",
-                "nl": "fix ingang nummer in en selecteer waarde",
-                "fr": "fix nombre d'entrée et sélectionnez la valeur",
-                "it": "fix numero di input e selezionare il valore",
-                "es": "fijar el número de entrada y seleccionar el valor",
-                "pl": "naprawić ilość wejść i wybierz wartość",
-                "zh-cn": "修复输入数量和选择值"
             }
         },
         "title": "Mobile UI",
@@ -141,7 +141,9 @@
         "onlyWWW": "true",
         "loglevel": "info",
         "dependencies": [
-            "web"
+            {
+                "web": ">=3.0.12"
+            }
         ],
         "icon": "mobile.png",
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.mobile/master/admin/mobile.png",
