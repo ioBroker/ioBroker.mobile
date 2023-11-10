@@ -31,7 +31,7 @@
     "gulp": "^4.0.2",
     "chai": "^4.2.0",
     "mocha": "^10.2.0",
-    "axios": "^0.21.1"
+    "axios": "^1.6.0"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.mobile/issues"
