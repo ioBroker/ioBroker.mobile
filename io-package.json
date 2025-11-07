@@ -140,6 +140,7 @@
         "platform": "javascript/Node.js",
         "onlyWWW": "true",
         "loglevel": "info",
+        "tier": 3,
         "dependencies": [
             {
                 "web": ">=3.0.12"
