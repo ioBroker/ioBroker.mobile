@@ -275,6 +275,8 @@ Example:
 ### 0.0.4
 * (bluefox) first version. No edit possible.
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 The MIT License (MIT)
 
