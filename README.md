@@ -200,6 +200,10 @@ Example:
 - tablet view
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 1.0.1 (2020-08-22)
 * (bluefox) The compatibility to socket.io 3.0.13 provided
 
