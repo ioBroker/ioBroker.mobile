@@ -163,7 +163,10 @@
         ],
         "localLink": "%web_protocol%://%ip%:%web_port%/mobile/index.html",
         "type": "visualization",
-        "license": "MIT",
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
         "noConfig": true,
         "welcomeScreen": {
             "link": "mobile/index.html",
