@@ -166,7 +166,9 @@
             "type": "free",
             "license": "MIT"
         },
-        "noConfig": true,
+        "adminUI": {
+            "config": "none"
+        },
         "welcomeScreen": {
             "link": "mobile/index.html",
             "name": "mobile",
