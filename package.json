@@ -28,7 +28,7 @@
     "SCADA"
   ],
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "chai": "^4.2.0",
     "mocha": "^10.2.0",
     "axios": "^0.21.1"
